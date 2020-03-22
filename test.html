@@ -1,0 +1,117 @@
+<html>
+<head> 
+<script src = 'jquery.js'> </script>
+<script src = 'jquery-ui.js'> </script>
+<style>  
+  #blankArea{
+  margin : 0;
+  width : 500px;
+  height : 500px;
+  border : solid 5px green;
+  position : relative;
+  left : 100px;
+  top : 100px;
+  }
+  
+  
+  </style>
+<script type='text/javascript'>
+
+var posx=0;
+var posy=0;
+
+function showCoords(event) {
+  var x = event.clientX;
+  var y = event.clientY;
+  //posx=x;
+  //posy=y;
+  var coords = "X coords: " + x + ", Y coords: " + y;
+ document.getElementById("demo").innerHTML = coords;
+  //alert(coords);
+}
+
+$(document).ready(function () {
+        
+//$( "body" ).droppable( "disable" );
+
+var posx=0;
+var posy=0;
+
+$('#divID').draggable();
+$('#divID').css('background-color','yellow');
+$('#divID').css('width','32px');
+$('#divID').css('height','32px');
+$('#divID').css('position','absolute');
+$('#divID').css('left','100px');
+$('#divID').css('top','100px');
+
+$('#droppableDiv').css('width','50px');
+$('#droppableDiv').css('height','50px');
+$('#droppableDiv').css('background-color','blue');
+//$("#droppableDiv").droppable( "disable" );
+
+$('#changeColor').click(function(){
+$('#divID').css('background-color','red');
+//alert("Button Clicked.........");
+});
+
+$('#divID').click(function(){
+alert("Div clicked....");
+});
+
+$('#divID').on('mousedown',function(event){
+//alert("Mouse down called.............");
+//showCoords(onmousedown);
+  //var x = event.clientX;
+  //var y = event.clientY;
+  var pos = $("#divID").position();
+  posx=pos.left;
+  posy=pos.top;
+  var coords = "X coords: " + posx + ", Y coords: " + posy;
+  //alert("On mouse down : "+coords);
+$('#droppableDiv').css('background-color','yellow');
+});
+
+$('#divID').on('mouseup',function(){
+$('#droppableDiv').css('background-color','green');
+var x = $("#divID").position();
+  //alert("Top: " + x.top + " Left: " + x.left);
+  var coords="Top: " + x.top + " Left: " + x.left;
+  $("#demo").html(coords);
+  if(x.left > 600){
+    //alert("Posx : "+posx+" : Posy : "+posy);
+    xpos=posx+'px';
+    ypos=posy+'px';
+    //alert(xpos+" : "+ypos);
+    $('#divID').css('left',xpos);
+$('#divID').css('top',ypos);
+  }
+
+});
+
+
+
+/*
+$('body').on('drop', function(event) {
+alert("div dropped...");
+    event.preventDefault();
+  });
+*/
+
+//$('#divIDDrop').droppable();
+
+});
+
+
+
+</script>
+</head>
+
+<body onclick="showCoords(event)"> 
+<div id="blankArea" onmouse="showCoords(event)"></div>
+<div id="divID"></div>
+<div id="droppableDiv"></div>
+<input type="button" value="changeColor" id="changeColor"> </input>
+<p id="demo"></p>
+</body>
+</html>
