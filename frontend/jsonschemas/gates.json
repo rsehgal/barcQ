@@ -1,0 +1,5 @@
+data = '[{"name" : "H"},\
+	{"name" : "X"},\
+	 {"name" : "S"},\
+	 {"name" : "Z"},\
+	 {"name" : "CNOT"} ]';

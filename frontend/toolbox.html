@@ -1,0 +1,148 @@
+<html>
+<head> 
+<script src = 'jquery.js'> </script>
+<script src = 'jquery-ui.js'> </script>
+<script type="text/javascript" src="jsonschemas/gates.json"></script>
+<style>  
+  #blankArea{
+  margin : 0;
+  width : 100px;
+  height : 500px;
+  border : solid 2px green;
+  position : relative;
+  left : 5px;
+  top : 5px;
+  }
+  
+  
+  </style>
+<script type='text/javascript'>
+
+$(document).ready(function () {
+
+var mydata = JSON.parse(data);
+var numOfRows=mydata.length/2;
+//alert("num of rows : "+numOfRows);
+//alert(mydata.length);
+
+  var $table = $('<table border=1px/>');
+  var index=0;
+for(var i=0; i<parseInt(numOfRows); i++){
+
+  $row=$('<row/>');
+  var gate1=mydata[index].name+".png";
+  var gate2=mydata[index+1].name+".png";
+  $row.append( '<td><div><img src="images/'+gate1+'"</div></td><td><div><img src="images/'+gate2+'"</div></td>' );
+  $table.append($row);
+  index+=2;
+}
+$row=$('<row/>');
+//alert(index);
+  var gate1=mydata[index].name+".png";
+//  alert(gate1);
+  //var gate2=mydata[index+1].name+".png";
+  $row.append( '<td><div><img src="images/'+gate1+'"</div></td>' );
+$table.append($row);
+
+$('#blankArea').append($table);
+
+$('div').click(function(){
+alert("Div clicked....");
+});
+
+
+});
+
+
+
+/*
+
+var posx=0;
+var posy=0;
+
+function showCoords(event) {
+  var x = event.clientX;
+  var y = event.clientY;
+  //posx=x;
+  //posy=y;
+  var coords = "X coords: " + x + ", Y coords: " + y;
+ document.getElementById("demo").innerHTML = coords;
+  //alert(coords);
+}
+
+$(document).ready(function () {
+        
+//$( "body" ).droppable( "disable" );
+
+var posx=0;
+var posy=0;
+
+$('#divID').draggable();
+$('#divID').css('background-color','yellow');
+$('#divID').css('width','32px');
+$('#divID').css('height','32px');
+$('#divID').css('position','absolute');
+$('#divID').css('left','100px');
+$('#divID').css('top','100px');
+
+$('#droppableDiv').css('width','50px');
+$('#droppableDiv').css('height','50px');
+$('#droppableDiv').css('background-color','blue');
+//$("#droppableDiv").droppable( "disable" );
+
+$('#changeColor').click(function(){
+$('#divID').css('background-color','red');
+//alert("Button Clicked.........");
+});
+
+$('#divID').click(function(){
+alert("Div clicked....");
+});
+
+$('#divID').on('mousedown',function(event){
+//alert("Mouse down called.............");
+//showCoords(onmousedown);
+  //var x = event.clientX;
+  //var y = event.clientY;
+  var pos = $("#divID").position();
+  posx=pos.left;
+  posy=pos.top;
+  var coords = "X coords: " + posx + ", Y coords: " + posy;
+  //alert("On mouse down : "+coords);
+$('#droppableDiv').css('background-color','yellow');
+});
+
+$('#divID').on('mouseup',function(){
+$('#droppableDiv').css('background-color','green');
+var x = $("#divID").position();
+  //alert("Top: " + x.top + " Left: " + x.left);
+  var coords="Top: " + x.top + " Left: " + x.left;
+  $("#demo").html(coords);
+  if(x.left > 600){
+    //alert("Posx : "+posx+" : Posy : "+posy);
+    xpos=posx+'px';
+    ypos=posy+'px';
+    //alert(xpos+" : "+ypos);
+    $('#divID').css('left',xpos);
+$('#divID').css('top',ypos);
+  }
+
+});
+
+
+
+//$('#divIDDrop').droppable();
+
+});
+*/
+
+
+</script>
+</head>
+
+<body onclick="showCoords(event)"> 
+<!-- <div id="blankArea" onmouse="showCoords(event)"></div> -->
+<div id="blankArea"></div>
+
+</body>
+</html>
