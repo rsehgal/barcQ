@@ -37,6 +37,9 @@ class CircuitCreator:
 	def DumpCircuitImage(self):
 		self.qutip_circuit.png
 		return True
+
+	def ValidTopology(self):
+		return True
 		
 class Gate:
 
@@ -49,6 +52,8 @@ class Gate:
 
 	def ConstructGate(self):
 		self.gate_name=self.gate_dict["name"]
+		if(self.gate_name=="CCNOT"):
+			self.gate_name="TOFFOLI"
 		self.num_bits=self.gate_dict["num_bits"]
 		self.ctl_bits=self.gate_dict["ctl_bits"]
 		self.tgt_bits=self.gate_dict["tgt_bits"]
@@ -69,6 +74,12 @@ class Gate:
 		qc.add_gate(self.gate)
 		return qc.propagators()
 		#return (circuit.QubitCircuit(self.num_bits).add_gate(self.gate)).propagators()
+
+	def ValidTopology(self):
+		return True
+
+	def GetAlternateGateSequence(self):
+		return True
 		
 
 def main():
@@ -78,7 +89,10 @@ def main():
 				 "config":{},\
 				 "instructions":[\
 				 {"name":"CNOT", "num_bits":2, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1]},\
-				 {"name":"SWAP", "num_bits":2, "ctl_enabled" : 0, "ctl_bits" : [0], "tgt_bits" : [0,1]}\
+				 {"name":"SWAP", "num_bits":2, "ctl_enabled" : 0, "ctl_bits" : [0], "tgt_bits" : [0,1]},\
+				 {"name":"TOFFOLI", "num_bits":3, "ctl_enabled" : 1, "ctl_bits" : [0,1], "tgt_bits" : [2]},\
+				 {"name":"CCNOT", "num_bits":3, "ctl_enabled" : 1, "ctl_bits" : [0,2], "tgt_bits" : [1]},\
+				 {"name":"CCNOT", "num_bits":3, "ctl_enabled" : 1, "ctl_bits" : [1,2], "tgt_bits" : [0]}\
 				 ]}'
 	'''
 	gateJson = '{\
