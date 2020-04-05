@@ -34,12 +34,22 @@ class CircuitCreator:
 	def OperatorMatrix(self):
 		return gate_sequence_product(self.qutip_circuit.propagators())
 
-	def DumpCircuitImage(self):
-		self.qutip_circuit.png
+	def DumpCircuitImage(self,targetCkt="Self"):
+		if(targetCkt=="Self"):
+			self.qutip_circuit.png
+		else:
+			targetCkt.png
+		return True
+
+	def DumpDecomposedCircuitImage(self):
+		self.DumpCircuitImage(self.Decompose())
 		return True
 
 	def ValidTopology(self):
 		return True
+
+	def Decompose(self):
+		return self.qutip_circuit.resolve_gates()
 		
 class Gate:
 
@@ -67,7 +77,10 @@ class Gate:
 			self.gate=circuit.Gate(self.gate_name,targets=self.tgt_bits)
 
 	def Decompose(self):
-		return True
+		qc = QubitCircuit(self.num_bits)
+		qc.add_gate(self.gate)
+		return qc.resolve_gates()
+		#return True
 
 	def OperatorMatrix(self):
 		qc = QubitCircuit(self.num_bits)
@@ -83,7 +96,17 @@ class Gate:
 		
 
 def main():
-	
+	'''
+	#Used to Test Decomposition of CCNOT gate
+	gateJson = '{\
+				"header":{},\
+				"config":{},\
+				"instructions":[\
+				 {"name":"CCNOT", "num_bits":3, "ctl_enabled" : 1, "ctl_bits" : [0,2], "tgt_bits" : [1]}\
+				]}'
+
+	'''
+	#Tested
 	gateJson = '{\
 				 "header":{},\
 				 "config":{},\
@@ -94,6 +117,8 @@ def main():
 				 {"name":"CCNOT", "num_bits":3, "ctl_enabled" : 1, "ctl_bits" : [0,2], "tgt_bits" : [1]},\
 				 {"name":"CCNOT", "num_bits":3, "ctl_enabled" : 1, "ctl_bits" : [1,2], "tgt_bits" : [0]}\
 				 ]}'
+	
+
 	'''
 	gateJson = '{\
 				 "header":{},\
@@ -107,9 +132,10 @@ def main():
 	#gate=
 	circCreator=CircuitCreator(gateJson,3)
 	print(circCreator.gate_list[0].OperatorMatrix())
-	print(circCreator.gate_list[1].OperatorMatrix())
+	#print(circCreator.gate_list[1].OperatorMatrix())
 	print(circCreator.OperatorMatrix())
-	circCreator.DumpCircuitImage()
+	#circCreator.DumpCircuitImage()
+	circCreator.DumpDecomposedCircuitImage()
 	#print(circCreator.gate_list[2].OperatorMatrix())
 	#print(CircuitCreator(gateJson).gate_list[0].OperatorMatrix())
 	#print(CircuitCreator(gateJson).gate_list[1].OperatorMatrix())
