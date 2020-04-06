@@ -26,6 +26,16 @@
                 position: absolute;
             }
 
+            #winston2 {
+                top: 1px;
+                left: 50px;
+                width: 30px;
+                height: 30px;
+                background: red;
+                border: solid 1px;
+                position: absolute;
+            }
+
             #dropzone {
                 left:10px;
                 top: 150px;
@@ -56,112 +66,15 @@
     </head>
     <body>
     <div>Drag Winston into the rectangle</div>
-    <!--<img id="winston" src="https://www.kasandbox.org/programming-images/creatures/Winston.png">-->
-        <!--<div id="winston"><img src="images/H.png"></img> </div>-->
-        <div id="winston"></img> </div>
-        <div id="dropzone" class="dropzone"></div>
-        <div id="nondropzone" ></div>
-        <div id="dropzone2" class="dropzone" ></div>
+    <div id="winston" class="draggableComp"></img> </div>
+    <div id="winston2" class="draggableComp"></img> </div>
+    <div id="dropzone" class="dropzone"></div>
+    <div id="nondropzone" class="nondropzone"></div>
+    <div id="dropzone2" class="dropzone" ></div>
     
     <div id="location">Location</div>
-
-    <script src = 'jquery.js'> </script>
-<script src = 'jquery-ui.js'> </script>
-
-    <script>
-
-        var posx=0;
-        var posy=0;
-        
-
-   $("#winston").draggable({ appendTo: "body"});
-
-
-  $('#winston').on('mousedown',function(event){
-    $(this).draggable( 'option', 'revert', false ); 
-  pos = $("#winston").position();
-  posx=pos.left;
-  posy=pos.top;
-  //var coords = "X coords: " + posx + ", Y coords: " + posy;
-  //alert("On mouse down : "+coords);
-
-});
-
-$("#winston").click(function(){
-    alert("Winston clicked.......");
-});
-
-$(".dropzone").click(function(){
-    alert("DropZone clicked.......");
-});
-
-$('#winston').on('mouseup',function(event){
-$("#winston").draggable({ appendTo: "body"});
-  pos = $("#winston").position();
-  posx=pos.left;
-  posy=pos.top;
-  var coords = "X coords: " + posx + ", Y coords: " + posy;
-  //alert("On mouse down : "+coords);
-  $("#location").html(coords);
-
-
-});
-        $( "#nondropzone" ).droppable( 
-        { 
-            //accept:"#winston", 
-            drop :function(event,ui) 
-        {   
-            ui.draggable.draggable( 'option', 'revert', true ); 
-        } 
-        } );
-
-        /*$( "#nondropzone" ).droppable( 
-        { 
-            //accept:"#winston", 
-            drop :function() 
-        {   
-            $('#winston').css('left',posx);
-            $('#winston').css('top',posy);
-        } 
-        } );*/ 
-
-        //$("#winston").draggable({ appendTo: "body"});
-        $(".dropzone").droppable({
-            drop: function(event, ui) {
-            ui.draggable.draggable( 'option', 'revert', false);
-            ui.draggable.css("position","absolute");
-            $(this).append(ui.draggable);
-              //  $("#winston").draggable();
-                //$('#winston').css('width','30px');
-            //$('#winston').css('height','30px');
-
-		    //event.preventDefault();
-                //$(this).css('background', 'rgb(0,200,0)');
-                var pos=$(this).position();
-                posx=pos.left;//+$(this).width()/2;
-                posy=pos.top;//-$(this).height()/2;
-
-                var width=$(this).width();
-                var height=$(this).height();
-                var winWidth=ui.draggable.width();
-                var winHeight=ui.draggable.height();
-                var coords = "X coords: " + posx + ", Y coords: " + posy + ", Width : "+width+" , Height : " + height+ ", WinstonWidth : "+winWidth+" , WinstonHeight : " + winHeight;
-                alert(coords);
-              posx=parseInt(width/2)-parseInt(winWidth/2);
-              posy=parseInt(height/2)-parseInt(winHeight/2);
-              ui.draggable.css('left',posx);
-              ui.draggable.css('top',posy);
-            },
-            over: function(event, ui) {
-		    event.preventDefault();
-                $(this).css('background', 'orange');
-            },
-            out: function(event, ui) {
-		    event.preventDefault();
-                $(this).css('background', 'cyan');
-            }
-        });
-    </script>
-    
+    <script src = 'js/jquery.js'> </script>
+    <script src = 'js/jquery-ui.js'> </script>
+    <script src='js/helper.js'></script>
     </body>
 </html>
