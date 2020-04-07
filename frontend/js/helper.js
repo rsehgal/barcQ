@@ -15,11 +15,11 @@ $("#cloneAble").click(function(){
 function Attach(){
 $(".cloneAble").click(function(){
   counter++;
-  alert("Cloneable called.....");
+  //alert("Cloneable called.....");
   var posx="150px";
   var posy="1px";
   var idOfDroppable=$(this).attr("id");
-  alert(idOfDroppable);
+  //alert(idOfDroppable);
   //$(idOfDroppable).clone().insertAfter(".draggableComp");
   var newid=idOfDroppable+counter;
   $(this).clone().attr("id",newid).addClass("draggableComp").appendTo("body");

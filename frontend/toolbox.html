@@ -10,16 +10,18 @@
   width : 100px;
   height : 500px;
   border : solid 2px green;
-  position : relative;
+  position : fixed;
   left : 5px;
   top : 5px;
   }
+
+  
   
   
   </style>
 
 <script type='text/javascript'>
-  
+
 
 $(document).ready(function () {
 
@@ -37,29 +39,36 @@ for(var i=0; i<parseInt(numOfRows); i++){
   var gate2JustName=mydata[index+1].name;
   var gate1=gate1JustName+".png";
   var gate2=gate2JustName+".png";
+  /*
   var rowStr='<td><div id='+gate1JustName+' class="cloneAble"><img src="images/'+gate1+'"</div></td><td><div id='+gate2JustName+' class="cloneAble"><img src="images/'+gate2+'"</div></td>';
+  */
+
+  var rowStr='<td><img src="images/'+gate1+'" id='+gate1JustName+ ' class="cloneAble"/></td> <td><img src="images/'+gate2+'" id='+gate2JustName+' class="cloneAble"/></td>';
   //alert(rowStr);
   $row.append(rowStr);
   $table.append($row);
   index+=2;
 }
+
 $row=$('<row/>');
 //alert(index);
 var gate1JustName=mydata[index].name;
   var gate1=gate1JustName+".png";
 //  alert(gate1);
   //var gate2=mydata[index+1].name+".png";
-  $row.append( '<td><div id='+gate1JustName+' class="cloneAble"><img src="images/'+gate1+'"</div></td>' );
+//  $row.append( '<td><div id='+gate1JustName+' class="cloneAble"><img src="images/'+gate1+'"</div></td>' );
+var rowStr='<td><img src="images/'+gate1+'" id='+gate1JustName+ ' class="cloneAble"/></td>';
+$row.append(rowStr);
 $table.append($row);
 
 $('#blankArea').append($table);
 
 $('div').click(function(){
-alert("Div clicked....");
+//alert("Div clicked....");
 });
 
 $(".cloneAble").click(function(){
-  alert($(this).attr("id"))
+  //alert($(this).attr("id"))
 });
 Attach();
 });
