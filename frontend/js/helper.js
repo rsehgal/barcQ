@@ -2,6 +2,7 @@
 var posx=0;
 var posy=0;
 var counter=0;
+var idForDelete="";
 /*        
 $("#cloneAble").click(function(){
   alert("Cloneable called.....");
@@ -14,6 +15,7 @@ $("#cloneAble").click(function(){
 */
 function Attach(){
 $(".cloneAble").click(function(){
+
   counter++;
   //alert("Cloneable called.....");
   var posx="150px";
@@ -30,6 +32,8 @@ $(".cloneAble").click(function(){
 });
 }
 
+
+
 function GetEvent(){
 $(".draggableComp").draggable({ appendTo: "body"});
     $('.draggableComp').on('mousedown',function(event){
@@ -42,7 +46,27 @@ $(".draggableComp").draggable({ appendTo: "body"});
 });
   
 
+$('.draggableComp').click(function(){
+  //alert("Focussed........");
+  idForDelete=$(this).attr("id");
+  $(this).focus();
+  //alert("Focussed element ID : "+$(":focus").id);
+});
 
+$('html').keyup(function(ev){
+  //alert("Key released..........");
+  if(ev.key==="Delete"){
+    //$(":focus").remove();
+    if(idForDelete!=""){
+    //alert("Delete key confirmed.....");
+    //alert("Going to delete element with ID : "+$(":focus"));
+    //alert("Going to delete element with ID : "+idForDelete);
+    var delet="#"+idForDelete;
+    $(delet).remove();
+    idForDelete="";
+  }
+  }
+});
 
 $('.draggableComp').on('mousedown',function(event){
     $(".dropzone").css('background', 'green');
