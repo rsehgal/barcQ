@@ -1,8 +1,36 @@
 
 var posx=0;
 var posy=0;
-        
+var counter=0;
+/*        
+$("#cloneAble").click(function(){
+  alert("Cloneable called.....");
+  var posx="150px";
+  var posy="1px";
+  $('#cloneAble').clone().insertAfter(".draggableComp");
+  $('#cloneAble').css("left",posx);
+  $('#cloneAble').css("top",posy);
+});
+*/
+function Attach(){
+$(".cloneAble").click(function(){
+  counter++;
+  alert("Cloneable called.....");
+  var posx="150px";
+  var posy="1px";
+  var idOfDroppable=$(this).attr("id");
+  alert(idOfDroppable);
+  //$(idOfDroppable).clone().insertAfter(".draggableComp");
+  var newid=idOfDroppable+counter;
+  $(this).clone().attr("id",newid).addClass("draggableComp").appendTo("body");
+  $("#"+newid).css("left",posx);
+  $("#"+newid).css("top",posy);
+  GetEvent();
+  
+});
+}
 
+function GetEvent(){
 $(".draggableComp").draggable({ appendTo: "body"});
     $('.draggableComp').on('mousedown',function(event){
     $(this).draggable( 'option', 'revert', false ); 
@@ -12,6 +40,8 @@ $(".draggableComp").draggable({ appendTo: "body"});
     //var coords = "X coords: " + posx + ", Y coords: " + posy;
     //alert("On mouse down : "+coords);
 });
+  
+
 
 
 $('.draggableComp').on('mousedown',function(event){
@@ -43,6 +73,7 @@ $(".draggableComp").on('mouseup',function(event){
         {   
             ui.draggable.draggable( 'option', 'revert', true ); 
             //$(".dropzone").css("background","white");
+            ui.draggable.css("position","fixed");
         } 
         } );
 
@@ -50,7 +81,8 @@ $(".draggableComp").on('mouseup',function(event){
             drop: function(event, ui) {
             //$(this).css("background","yellow");
             ui.draggable.draggable( 'option', 'revert', false);
-            ui.draggable.css("position","absolute");
+            //ui.draggable.css("position","absolute");
+            ui.draggable.css("position","fixed");
             $(this).append(ui.draggable);
              
                 var pos=$(this).position();
@@ -63,8 +95,8 @@ $(".draggableComp").on('mouseup',function(event){
                 var winHeight=ui.draggable.height();
                 var coords = "X coords: " + posx + ", Y coords: " + posy + ", Width : "+width+" , Height : " + height+ ", WinstonWidth : "+winWidth+" , WinstonHeight : " + winHeight;
                 //alert(coords);
-              posx=parseInt(width/2)-parseInt(winWidth/2);
-              posy=parseInt(height/2)-parseInt(winHeight/2);
+              posx=posx+parseInt(width/2)-parseInt(winWidth/2);
+              posy=posy+parseInt(height/2)-parseInt(winHeight/2);
               ui.draggable.css('left',posx);
               ui.draggable.css('top',posy);
               $(".dropzone").css('background', 'white');
@@ -85,4 +117,4 @@ $(".draggableComp").on('mouseup',function(event){
             }
         });
     
-    
+}    

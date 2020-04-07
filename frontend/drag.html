@@ -23,7 +23,7 @@
                 height: 30px;
                 background: blue;
                 border: solid 1px;
-                position: absolute;
+                position: fixed;
             }
 
             #winston2 {
@@ -33,7 +33,17 @@
                 height: 30px;
                 background: red;
                 border: solid 1px;
-                position: absolute;
+                position: fixed;
+            }
+
+            .cloneAble {
+                top: 1px;
+                left: 100px;
+                width: 30px;
+                height: 30px;
+                background: orange;
+                border: solid 1px;
+                position: fixed;
             }
 
             #dropzone {
@@ -42,7 +52,7 @@
                 width: 200px;
                 height: 200px;
                 border: solid 1px;
-                position: absolute;
+                position: fixed;
             }
 
             #nondropzone {
@@ -51,7 +61,7 @@
                 width: 200px;
                 height: 200px;
                 border: solid 1px;
-                position: absolute;
+                position: fixed;
             }
 
             #dropzone2{
@@ -60,21 +70,41 @@
                 width: 200px;
                 height: 200px;
                 border: solid 1px;
-                position: absolute;
+                position: fixed;
             }
         </style>
+
+        <script src = 'js/jquery.js'> </script>
+        <script src = 'js/jquery-ui.js'> </script>
+        <script src='js/helper.js'></script>
+
+        <script type='text/javascript'>
+            $(document).ready(function () {
+                alert("dlkfjdslkfjldsfl");
+                Attach();
+        });
+        </script>
+
     </head>
     <body>
     <div>Drag Winston into the rectangle</div>
-    <div id="winston" class="draggableComp"></img> </div>
-    <div id="winston2" class="draggableComp"></img> </div>
+    <div id="winston" class="draggableComp cloneable"></img> </div>
+    <div id="winston2" class="draggableComp cloneable"></img> </div>
     <div id="dropzone" class="dropzone"></div>
     <div id="nondropzone" class="nondropzone"></div>
     <div id="dropzone2" class="dropzone" ></div>
+    <div id="cloneAble" class="cloneAble"> </div>
     
     <div id="location">Location</div>
-    <script src = 'js/jquery.js'> </script>
-    <script src = 'js/jquery-ui.js'> </script>
-    <script src='js/helper.js'></script>
+    
+
+    <script type="text/javascript">
+
+        /*
+        $("#cloneAble").click(function(){
+            alert("Cloneable called.....");
+        });
+        */
+    </script>
     </body>
 </html>

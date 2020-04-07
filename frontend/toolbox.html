@@ -3,6 +3,7 @@
 <script src = 'jquery.js'> </script>
 <script src = 'jquery-ui.js'> </script>
 <script type="text/javascript" src="jsonschemas/gates.json"></script>
+<script src="js/helper.js"></script>
 <style>  
   #blankArea{
   margin : 0;
@@ -16,7 +17,9 @@
   
   
   </style>
+
 <script type='text/javascript'>
+  
 
 $(document).ready(function () {
 
@@ -30,18 +33,23 @@ var numOfRows=mydata.length/2;
 for(var i=0; i<parseInt(numOfRows); i++){
 
   $row=$('<row/>');
-  var gate1=mydata[index].name+".png";
-  var gate2=mydata[index+1].name+".png";
-  $row.append( '<td><div><img src="images/'+gate1+'"</div></td><td><div><img src="images/'+gate2+'"</div></td>' );
+  var gate1JustName=mydata[index].name;
+  var gate2JustName=mydata[index+1].name;
+  var gate1=gate1JustName+".png";
+  var gate2=gate2JustName+".png";
+  var rowStr='<td><div id='+gate1JustName+' class="cloneAble"><img src="images/'+gate1+'"</div></td><td><div id='+gate2JustName+' class="cloneAble"><img src="images/'+gate2+'"</div></td>';
+  //alert(rowStr);
+  $row.append(rowStr);
   $table.append($row);
   index+=2;
 }
 $row=$('<row/>');
 //alert(index);
-  var gate1=mydata[index].name+".png";
+var gate1JustName=mydata[index].name;
+  var gate1=gate1JustName+".png";
 //  alert(gate1);
   //var gate2=mydata[index+1].name+".png";
-  $row.append( '<td><div><img src="images/'+gate1+'"</div></td>' );
+  $row.append( '<td><div id='+gate1JustName+' class="cloneAble"><img src="images/'+gate1+'"</div></td>' );
 $table.append($row);
 
 $('#blankArea').append($table);
@@ -50,7 +58,10 @@ $('div').click(function(){
 alert("Div clicked....");
 });
 
-
+$(".cloneAble").click(function(){
+  alert($(this).attr("id"))
+});
+Attach();
 });
 
 
