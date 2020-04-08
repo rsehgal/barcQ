@@ -1,9 +1,6 @@
 <html>
 <head> 
-<script src = 'jquery.js'> </script>
-<script src = 'jquery-ui.js'> </script>
-<script type="text/javascript" src="jsonschemas/gates.json"></script>
-<script src="js/helper.js"></script>
+
 <style>  
   #blankArea{
   margin : 0;
@@ -15,10 +12,17 @@
   top : 5px;
   }
 
-  
-  
-  
+  .border{
+    border:solid 1px;
+  }
+
+   
   </style>
+
+<script src = 'jquery.js'> </script>
+<script src = 'jquery-ui.js'> </script>
+<script type="text/javascript" src="jsonschemas/gates.json"></script>
+<script src="js/helper.js"></script>
 
 <script type='text/javascript'>
 
@@ -43,7 +47,7 @@ for(var i=0; i<parseInt(numOfRows); i++){
   var rowStr='<td><div id='+gate1JustName+' class="cloneAble"><img src="images/'+gate1+'"</div></td><td><div id='+gate2JustName+' class="cloneAble"><img src="images/'+gate2+'"</div></td>';
   */
 
-  var rowStr='<td><img src="images/'+gate1+'" id='+gate1JustName+ ' class="cloneAble"/></td> <td><img src="images/'+gate2+'" id='+gate2JustName+' class="cloneAble"/></td>';
+  var rowStr='<td><img src="images/'+gate1+'" id='+gate1JustName+ ' class="cloneAble border"/></td> <td><img src="images/'+gate2+'" id='+gate2JustName+' class="cloneAble border"/></td>';
   //alert(rowStr);
   $row.append(rowStr);
   $table.append($row);
@@ -57,7 +61,7 @@ var gate1JustName=mydata[index].name;
 //  alert(gate1);
   //var gate2=mydata[index+1].name+".png";
 //  $row.append( '<td><div id='+gate1JustName+' class="cloneAble"><img src="images/'+gate1+'"</div></td>' );
-var rowStr='<td><img src="images/'+gate1+'" id='+gate1JustName+ ' class="cloneAble"/></td>';
+var rowStr='<td><img  src="images/'+gate1+'" id='+gate1JustName+ ' class="cloneAble border"/></td>';
 $row.append(rowStr);
 $table.append($row);
 
@@ -160,7 +164,8 @@ $('#divID').css('top',ypos);
 </script>
 </head>
 
-<body onclick="showCoords(event)"> 
+<!--<body onclick="showCoords(event)"> -->
+<body>
 <!-- <div id="blankArea" onmouse="showCoords(event)"></div> -->
 <div id="blankArea"></div>
 
