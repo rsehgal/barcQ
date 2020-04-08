@@ -16,8 +16,12 @@
     border:solid 1px;
   }
 
+  .circuit{
+    position: fixed;
+  }
    
   </style>
+  
 
 <script src = 'jquery.js'> </script>
 <script src = 'jquery-ui.js'> </script>
@@ -54,13 +58,10 @@ for(var i=0; i<parseInt(numOfRows); i++){
   index+=2;
 }
 
+
 $row=$('<row/>');
-//alert(index);
 var gate1JustName=mydata[index].name;
-  var gate1=gate1JustName+".png";
-//  alert(gate1);
-  //var gate2=mydata[index+1].name+".png";
-//  $row.append( '<td><div id='+gate1JustName+' class="cloneAble"><img src="images/'+gate1+'"</div></td>' );
+var gate1=gate1JustName+".png";
 var rowStr='<td><img  src="images/'+gate1+'" id='+gate1JustName+ ' class="cloneAble border"/></td>';
 $row.append(rowStr);
 $table.append($row);
