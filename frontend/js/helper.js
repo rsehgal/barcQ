@@ -48,8 +48,14 @@ $(".draggableComp").draggable({ appendTo: "body"});
 
 $('.draggableComp').click(function(){
   //alert("Focussed........");
+  if(idForDelete!=""){
+  $("#"+idForDelete).css("border-color","white");
+  idForDelete="";
+}
   idForDelete=$(this).attr("id");
-  $(this).focus();
+  //$(this).focus();
+  $(this).css("border-color","green");
+  $(this).css("border-width","2px");
   //alert("Focussed element ID : "+$(":focus").id);
 });
 
@@ -63,7 +69,7 @@ $('html').keyup(function(ev){
     //alert("Going to delete element with ID : "+idForDelete);
     var delet="#"+idForDelete;
     $(delet).remove();
-    idForDelete="";
+    //idForDelete="";
   }
   }
 });
