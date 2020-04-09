@@ -55,6 +55,13 @@
     position: fixed;
   }
    
+  #initial{
+    top: 200px;
+  }
+
+  #coord{
+    top: 250px;
+  }
   </style>
   
 <!--  
@@ -88,6 +95,9 @@ alert("X1 : "+pos1.left+" : Y1 : "+pos1.top+" : X2 : "+pos2.left+" : Y2 : "+pos2
 <div id="div3" class="draggableComp"></div>
 <div id="div4" class="draggableComp"></div>
 <svg id="connectionSVG"><line id="connection" class="connection"/></svg>
+
+<div id="initial">Coordinates</div>
+<div id="coord">Coordinates</div>
 
 <script src = 'js/jquery.js'> </script>
 <script src = 'js/jquery-ui.js'> </script>
