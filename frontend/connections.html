@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head> 
+
+<style>  
+
+  div{
+    margin : 0;
+    width : 30px;
+    height : 30px;
+    position: fixed;
+  }
+
+  #div2{
+    left : 150px;
+    background: orange;
+    position: fixed;
+  }
+
+  #div1{
+    background: yellow;
+    position: fixed;
+  }
+
+  #div3{
+    top : 150px;
+    background: orange;
+    position: fixed;
+  }
+
+  #div4{
+    top : 150px;
+    left : 150px;
+    background: orange;
+    position: fixed;
+  }
+  
+
+  .border{
+    border:solid 1px;
+  }
+
+  .circuit{
+    position: fixed;
+  }
+
+  #connection{
+    stroke-width: 2px;
+    stroke: red;
+  }
+
+  .connection{
+    stroke-width: 2px;
+    stroke: red;
+    position: fixed;
+  }
+   
+  </style>
+  
+<!--  
+<script src = 'js/jquery.js'> </script>
+<script src = 'js/jquery-ui.js'> </script>
+<script src="jsonschemas/gates.json"></script>
+<script src="js/helper.js"></script>
+-->
+<script>
+//$('#div1').connections({to:"#div2"});
+/*$(document).ready(function () {
+  alert("Jquery started.........");
+var pos1 = $("#div1").position();
+var pos2 = $("#div2").position();
+alert("X1 : "+pos1.left+" : Y1 : "+pos1.top+" : X2 : "+pos2.left+" : Y2 : "+pos2.top);
+ $("#line1").attr('x1', pos1.left)
+            .attr('y1', pos1.top)
+            .attr('x2', pos2.left)
+            .attr('y2', pos2.top);
+
+});*/
+</script>
+
+</head>
+
+<!--<body onclick="showCoords(event)"> -->
+<body>
+<!-- <div id="blankArea" onmouse="showCoords(event)"></div> -->
+<div id="div1" class="draggableComp"></div>
+<div id="div2" class="draggableComp"></div>
+<div id="div3" class="draggableComp"></div>
+<div id="div4" class="draggableComp"></div>
+<svg id="connectionSVG"><line id="connection" class="connection"/></svg>
+
+<script src = 'js/jquery.js'> </script>
+<script src = 'js/jquery-ui.js'> </script>
+<script src="jsonschemas/gates.json"></script>
+<script src="js/helper.js"></script>
+<script src="js/connections.js"></script>
+<script>
+  //This will make the div draggable
+  //GetEvent();
+
+</script>
+
+</body>
+</html>
