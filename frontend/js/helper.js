@@ -1,4 +1,4 @@
-
+var pos;
 var posx=0;
 var posy=0;
 var counter=0;
@@ -14,6 +14,7 @@ $("#cloneAble").click(function(){
 });
 */
 function Attach(){
+  alert("Events attached........");
 $(".cloneAble").click(function(){
 
   counter++;
@@ -57,9 +58,22 @@ $('.draggableComp').click(function(){
   idForDelete="";
 }
   idForDelete=$(this).attr("id");
+  //alert("Id to delete : "+idForDelete);
   //$(this).focus();
+  var isSVG=$(this).attr("svg");
+  //alert("SVG : "+isSVG);
+  //alert($(this).children("image").attr("id"));
+  var imgId=$(this).children("image").attr("id");
+  if(isSVG=="1"){
+    $(this).css("outline","4px solid green");
+    $(this).css("background-color","yellow");
+    //$("#"+imgId).css("border-color","green");
+    //$("#"+imgId).css("border-width","2px");
+  }
+    else{
   $(this).css("border-color","green");
   $(this).css("border-width","2px");
+}
   //alert("Focussed element ID : "+$(":focus").id);
 });
 

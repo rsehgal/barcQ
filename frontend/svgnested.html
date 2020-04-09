@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Nested SVG</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .geom{
+    stroke-width: 2px;
+    stroke: red;
+    position: fixed;
+    fill: white;
+  }
+
+  .geomm{
+    stroke-width: 2px;
+    stroke: black;
+    position: fixed;
+    fill: black;
+  }
+    </style>
+</head>
+
+<body>
+    <!--
+    <svg width="100%" height="100%">
+        <rect x="25%" y="25%" width="50%" hei;ght="50%" style="fill: dodgerblue;" />
+        <svg x="25%" y="25%" width="50%" height="50%">
+            <rect x="25%" y="25%" width="50%" height="50%" style="fill: tomato;" />
+        </svg>
+    </svg>
+-->
+
+<!-- <svg width="800" height="600" class="cloneAble"> 
+    <svg width="50%" height="50%" > -->
+
+        <svg id="gate" svg="1" width="60" height="60" class="cloneAble" >
+        <!-- <rect  id="rect" class="geom" width="10%" height="10%" />
+        <rect x="40" y="5" id="rect" class="geomm" width="2%" height="2%" />
+        <rect x="40" y="15" id="rect" class="geomm" width="2%" height="2%" />
+        -->
+           
+           <image href="images/H.png" height="80%" width="80%" id="hadamard"/>
+            <rect x="40" y="5" id="rect1" class="geomm" width="16%" height="16%"/>
+            <rect x="40" y="25" id="rect2" class="geomm" width="16%" height="16%"/>
+        </svg>
+<!-- </svg> -->
+
+<script src = 'js/jquery.js'> </script>
+<script src = 'js/jquery-ui.js'> </script>
+<script src='js/helper.js'></script>
+
+<script>
+    Attach();
+</script>
+
+</body>
