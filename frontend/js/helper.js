@@ -3,6 +3,7 @@ var posx=0;
 var posy=0;
 var counter=0;
 var idForDelete="";
+var isSVG=0;
 /*        
 $("#cloneAble").click(function(){
   alert("Cloneable called.....");
@@ -54,13 +55,18 @@ $(".draggableComp").draggable({ appendTo: "body"});
 $('.draggableComp').click(function(){
   //alert("Focussed........");
   if(idForDelete!=""){
+    if(isSVG==1){
+  $("#"+idForDelete).css("outline","4px solid white");
+    $("#"+idForDelete).css("background-color","white");  
+  }else{
   $("#"+idForDelete).css("border-color","white");
+}
   idForDelete="";
 }
   idForDelete=$(this).attr("id");
   //alert("Id to delete : "+idForDelete);
   //$(this).focus();
-  var isSVG=$(this).attr("svg");
+  isSVG=$(this).attr("svg");
   //alert("SVG : "+isSVG);
   //alert($(this).children("image").attr("id"));
   var imgId=$(this).children("image").attr("id");
