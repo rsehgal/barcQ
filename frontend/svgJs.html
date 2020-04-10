@@ -59,16 +59,18 @@ $(function(){
 		var num_bits=jsonData[i]["num_bits"];
 		//alert("Num of bits : "+num_bits);
 
-	var draw = SVG(gateName).size(40, 40);
+	var draw = SVG(gateName).size(45, 45);
 	draw.attr("class","cloneAble")
 		.attr("svg",1)
 		.attr("id",gateName);
-	var rect = draw.image("images/"+gateName+".png");
+	var rect = draw.image("images/"+gateName+".png")
+					.move(5,0);
 	rect.attr("class","gateimage");
 	var ystart=2;
 	for(var bitnum=0;bitnum<num_bits;bitnum++){
 		yval=ystart+10*bitnum;
-		draw.rect(5,5).move(35, yval).attr("class","gate_connector");
+		draw.rect(5,5).move(40, yval).attr("class","output_gate_connector");
+		draw.rect(5,5).move(0, yval).attr("class","input_gate_connector");
 	}
 
 	}
