@@ -1,0 +1,7 @@
+data = '[\
+		{"name":"X", "num_bits":1},\
+ 		{"name":"Y", "num_bits":1},\
+		{"name":"Z", "num_bits":1},\
+		{"name":"CNOT", "num_bits":2},\
+		{"name":"SWAP", "num_bits":2},\
+		{"name":"TOFFOLI", "num_bits":3} ]';

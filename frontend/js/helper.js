@@ -1,4 +1,4 @@
-var pos;
+var pos=0;
 var posx=0;
 var posy=0;
 var counter=0;
@@ -15,7 +15,7 @@ $("#cloneAble").click(function(){
 });
 */
 function Attach(){
-  alert("Events attached........");
+  //alert("Events attached........");
 $(".cloneAble").click(function(){
 
   counter++;
@@ -31,6 +31,7 @@ $(".cloneAble").click(function(){
                  .addClass("draggableComp")
                  .appendTo("body")
                  .addClass("circuit");
+  $("#"+newid).css("position","fixed");
   $("#"+newid).css("left",posx);
   $("#"+newid).css("top",posy);
   GetEvent();

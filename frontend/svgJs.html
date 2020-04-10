@@ -43,25 +43,38 @@
 <script src = 'js/jquery-ui.js'> </script>
 <script src='js/helper.js'></script>
 <script src='js/svg.min.js'></script>
+<script src="jsonschemas/gatesUI.json"></script>
 
 <script>
+	var newId=0;
 $(function(){
-	var draw = SVG('drawing').size(40, 40);
+
+	var jsonData = JSON.parse(data);
+	var numOfRows=jsonData.length;
+
+	for(var i=0; i<parseInt(numOfRows); i++){
+		var gateName=jsonData[i]["name"];
+		$("<div/>").appendTo("body")
+			   .attr("id",gateName);
+		var num_bits=jsonData[i]["num_bits"];
+		//alert("Num of bits : "+num_bits);
+
+	var draw = SVG(gateName).size(40, 40);
 	draw.attr("class","cloneAble")
-		.attr("svg",1);
-	//var rect = draw.rect(40,40);//.move(40, 5)
-	var rect = draw.image("images/H.png");
-	rect.attr("class","geom");
-	var rect1 = draw.rect(5,5).move(35, 5);
-	rect1.attr("class","geomm");
-	var rect2 = draw.rect(5,5).move(35, 25);
-	rect2.attr("class","geomm");
+		.attr("svg",1)
+		.attr("id",gateName);
+	var rect = draw.image("images/"+gateName+".png");
+	rect.attr("class","gateimage");
+	var ystart=2;
+	for(var bitnum=0;bitnum<num_bits;bitnum++){
+		yval=ystart+10*bitnum;
+		draw.rect(5,5).move(35, yval).attr("class","gate_connector");
+	}
+
+	}
 	Attach();
    
 });
-
-    
-
 
 
 </script>
