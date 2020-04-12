@@ -27,6 +27,7 @@ $(".cloneAble").click(function(){
   //alert(idOfDroppable);
   //$(idOfDroppable).clone().insertAfter(".draggableComp");
   var newid=idOfDroppable+counter;
+  
   $(this).clone().attr("id",newid)
                  .addClass("draggableComp")
                  .appendTo("body")
@@ -34,6 +35,33 @@ $(".cloneAble").click(function(){
   $("#"+newid).css("position","fixed");
   $("#"+newid).css("left",posx);
   $("#"+newid).css("top",posy);
+
+  var isSVGClone=$(this).attr("svg");
+
+  if(isSVGClone==1){
+    //var imgId=$(this).children("image").attr("id");
+    var newImageId="gateImage"+counter;
+    //alert("Setting New Image id of clone : "+newImageId);
+    $("#"+newid).children("image").attr("id",newImageId);
+
+    var connectors=$("#"+newid).children("rect");//.length;
+    //alert("numOfConnectors : "+connectors.length);
+    var conString="";
+    for(var conId=0;conId<connectors.length;conId++){
+      //conString+=" : "+connectors[conId].getAttribute("id");
+      var connId=newImageId+"Conn"+conId;
+      connectors[conId].setAttribute("id",connId);
+    }
+
+    for(var conId=0;conId<connectors.length;conId++){
+      conString+=" : "+connectors[conId].getAttribute("id");
+      
+    }
+    //alert(conString);
+
+  }else{
+  
+}
   GetEvent();
   
 });
@@ -72,8 +100,9 @@ $('.draggableComp').click(function(){
   //alert($(this).children("image").attr("id"));
   var imgId=$(this).children("image").attr("id");
   if(isSVG=="1"){
-    $(this).css("outline","4px solid green");
-    $(this).css("background-color","yellow");
+    $(this).css("outline","2px solid green");
+    //$(this).css("background-color","yellow");
+    
     //$("#"+imgId).css("border-color","green");
     //$("#"+imgId).css("border-width","2px");
   }
