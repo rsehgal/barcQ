@@ -24,11 +24,13 @@ $(".cloneAble").click(function(){
   var posx="150px";
   var posy="1px";
   var idOfDroppable=$(this).attr("id");
+  var gateName=$(this).attr("name");
   //alert(idOfDroppable);
   //$(idOfDroppable).clone().insertAfter(".draggableComp");
   var newid=idOfDroppable+counter;
-  
-  $(this).clone().attr("id",newid)
+  var numOfBits=$(this).attr("num_bits");
+  //CreateGate(gateName,newid,numOfBits,posx,posy,0);
+$(this).clone().attr("id",newid)
                  .addClass("draggableComp")
                  .appendTo("body")
                  .addClass("circuit");
@@ -73,7 +75,7 @@ function GetEvent(){
 $(".draggableComp").draggable({ appendTo: "body"});
     $('.draggableComp').on('mousedown',function(event){
     $(this).draggable( 'option', 'revert', false ); 
-    pos = $("#winston").position();
+    var pos = $("#winston").position();
     posx=pos.left;
     posy=pos.top;
     //var coords = "X coords: " + posx + ", Y coords: " + posy;
@@ -85,7 +87,7 @@ $('.draggableComp').click(function(){
   //alert("Focussed........");
   if(idForDelete!=""){
     if(isSVG==1){
-  $("#"+idForDelete).css("outline","4px solid white");
+  $("#"+idForDelete).css("outline","1px solid black");
     $("#"+idForDelete).css("background-color","white");  
   }else{
   $("#"+idForDelete).css("border-color","white");

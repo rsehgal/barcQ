@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Nested SVG</title>
+    <style>
+        
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .geom{
+    stroke-width: 2px;
+    stroke: red;
+    position: fixed;
+    fill: red;
+  }
+
+  .geomm{
+    stroke-width: 2px;
+    stroke: black;
+    position: fixed;
+    fill: black;
+  }
+
+  .input_gate_connector{
+  	stroke-width: 1px;
+    stroke: black;
+    position: fixed;
+    fill:  #f9e79f ;
+    
+  }
+
+  .output_gate_connector{
+  	stroke-width: 1px;
+    stroke: black;
+    position: fixed;
+    fill:  #d5f5e3 ;
+    
+  }
+
+  .connection{
+    stroke-width: 2px;X = svg.append('svg')
+    .classed('gates', true)
+    .attr("id","X");
+    stroke: red;
+    position: fixed;
+  }
+
+#initial{
+    top: 200px;
+  }
+
+  #coord{
+    top: 250px;
+  }
+  
+.gates{
+  
+}
+  .draggableComp{
+  outline : 1px solid black;
+}
+    </style>
+</head>
+
+<body>
+<div id="drawing"></div>
+<div id="initial">Coordinates</div>
+<div id="coord">Coordinates</div>
+
+<script src="js/d3.v3.min.js"></script><script src="js/cons.js"></script>
+<script src="js/globalvars.js"></script>
+<script src = 'js/jquery.js'> </script>
+<script src = 'js/jquery-ui.js'> </script>
+<script src='js/helper.js'></script>
+<script src="jsonschemas/gatesUI.json"></script>
+<script src="js/cons.js"></script>
+<!--<script src="js/connections2.js"></script> -->
+
+
+<script>
+
+	svg = d3.select('body').append('svg')
+    .classed('container', true)
+    .attr('width', 1000)
+    .attr('height',1000)
+    .attr("id","circuitContainer");
+
+
+var newId=0;
+var jsonData = JSON.parse(data);
+var numOfRows=jsonData.length;
+
+  for(var i=0; i<parseInt(numOfRows); i++){
+    var gateName=jsonData[i]["name"];
+    
+    var num_bits=jsonData[i]["num_bits"];
+    //alert("Num of bits : "+num_bits);
+
+  gateX=5;
+  gateY=5+i*50;
+  //CreateGate(gateName,gateName,num_bits,gateX,gateY);
+
+  gate=svg.append('svg')
+    .classed('gates', true)
+    .attr("id",gateName)
+    .attr("x",5)
+    .attr("y",gateY)
+    .attr("width",45)
+    .attr("height",45)
+    .attr("class","cloneAble")
+    .attr("svg",1);
+
+  image=gate.append('image')
+      .attr("href","images/"+gateName+".png")
+      .attr("x",5)
+      .attr("y",0)
+      .attr("onmousedown","enabledrag(evt)");
+
+
+  var ystart=2;
+  for(var bitnum=0;bitnum<num_bits;bitnum++){
+    yval=ystart+10*bitnum;
+    inputConn=gate.append('rect')
+            .attr("width",5)
+            .attr("height",5)
+            .attr("x",0)
+            .attr("y",yval)
+            .attr("class","connector input_gate_connector")
+            .attr("onmousedown","test(evt)")
+            .attr("onmouseup","TestMouseUp(evt)");
+
+    outputConn=gate.append('rect')
+            .attr("width",5)
+            .attr("height",5)
+            .attr("x",40)
+            .attr("y",yval)
+            .attr("class","connector output_gate_connector")
+            .attr("onmousedown","test(evt)")
+            .attr("onmouseup","TestMouseUp(evt)");
+
+    
+  }
+
+  }
+  
+Attach();
+</script>
+
+<!-- <svg id="connectionSVG">
+  <line id="connectionWire" class="connection"/>
+</svg> -->
+<svg id="connectionSVG">
+  <line id="connectionWire" class="connection"/>
+</svg>
+</body>
