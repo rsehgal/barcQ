@@ -175,6 +175,7 @@ function TestMouseUp(evt){
       .attr("stroke","red")
       .classed("deleteable",true)
       .attr("onclick","deleteable(evt)")
+      .attr("onmouseover","changecursor(evt)")
       .attr("id",newid)
       .attr("position","fixed");
     //alert("Line added.........");
@@ -228,4 +229,10 @@ function deleteable(evt){
 	tagname=$("#"+idForDelete).prop("tagName");
 	alert(tagname);
 	alert(idForDelete);
+}
+
+function changecursor(evt){
+	//alert("Moved over line");
+	
+	$("#"+evt.target.getAttribute("id")).css('cursor', 'pointer');
 }
