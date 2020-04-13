@@ -173,6 +173,9 @@ function TestMouseUp(evt){
       .attr("y2",y2+3)
       .attr("stroke-width",2)
       .attr("stroke","red")
+      .classed("deleteable",true)
+      .attr("onclick","deleteable(evt)")
+      .attr("id",newid)
       .attr("position","fixed");
     //alert("Line added.........");
 lineInitiated=0;
@@ -189,8 +192,11 @@ lineInitiated=0;
     wire.setAttribute("x1",x1);
     wire.setAttribute("y1",y1);
     wire.setAttribute("x2",x2);
+
+
     wire.setAttribute("y2",y2);
-    wire.setAttribute("stroke-width",2);
+    wire.setAttribut
+e("stroke-width",2);
     wire.setAttribute("stroke","red");
     wire.setAttribute("position","fixed");*/
                  		
@@ -208,4 +214,18 @@ lineInitiated=0;
   $("#"+newid).css("left",posx);
   $("#"+newid).css("top",posy);
 */
+}
+
+function deleteable(evt){
+	if(idForDelete!=""){
+		tagname=$("#"+idForDelete).prop("tagName");
+	if(tagname=="line"){
+      $("#"+idForDelete).attr("stroke","red");
+  }
+}
+	idForDelete=evt.target.getAttribute("id");
+	$("#"+idForDelete).attr("stroke","blue");
+	tagname=$("#"+idForDelete).prop("tagName");
+	alert(tagname);
+	alert(idForDelete);
 }

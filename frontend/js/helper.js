@@ -67,7 +67,10 @@ $(this).clone().attr("id",newid)
   GetEvent();
   
 });
+
+
 }
+
 
 
 
@@ -92,7 +95,13 @@ $('.draggableComp').click(function(){
   }else{
   $("#"+idForDelete).css("border-color","white");
 }
+  tagname=$("#"+idForDelete).prop("tagName");
+  if(tagname=="line"){
+      $("#"+idForDelete).attr("stroke","red");
+  }
+
   idForDelete="";
+
 }
   idForDelete=$(this).attr("id");
   //alert("Id to delete : "+idForDelete);
@@ -124,6 +133,7 @@ $('html').keyup(function(ev){
     //alert("Going to delete element with ID : "+$(":focus"));
     //alert("Going to delete element with ID : "+idForDelete);
     var delet="#"+idForDelete;
+    
     $(delet).remove();
     //idForDelete="";
   }
