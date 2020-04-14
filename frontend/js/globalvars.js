@@ -9,4 +9,5 @@ var startConnectorId="";
 var endConnectorId="";
 var startConnectorWireIds="";
 var endConnectorWireIds="";
+jsonObj = [];
 //var backSvgCanvas;

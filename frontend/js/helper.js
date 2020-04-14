@@ -140,6 +140,20 @@ $('html').keyup(function(ev){
       end=$("#"+idForDelete).attr("endConnectorId");
       $("#"+start).attr("wireId",$("#"+start).attr("wireId").replace(idForDelete,""));
       $("#"+end).attr("wireId",$("#"+end).attr("wireId").replace(idForDelete,""));
+
+      //Deleting an entry from the JSON object
+      console.log("delete json entry for wire "+idForDelete);
+      var tempStr=""
+      for (var jsonIndex=0;jsonIndex<jsonObj.length;jsonIndex++){
+        tempStr+=" "+Object.keys(jsonObj[jsonIndex])[0];
+        if(Object.keys(jsonObj[jsonIndex])[0]==idForDelete){
+          jsonObj.splice(jsonIndex,1);
+          break;
+        }
+      }
+      //alert(tempStr);
+      //delete jsonObj[idForDelete];
+      PrintJSON();
     }
 
     $(delet).remove();

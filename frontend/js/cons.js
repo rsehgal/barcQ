@@ -183,6 +183,7 @@ function TestMouseUp(evt){
       .attr("endConnectorId",endConnectorId)
       .attr("position","fixed");
     //alert("Line added.........");
+
 lineInitiated=0;
 
 	 //registering WireId to connector
@@ -201,39 +202,23 @@ lineInitiated=0;
 	}
 	
 
-    /*$("#connectionSVG").clone()
-    					.attr("id","svg"+newid);*/
-
-    /*var wire=$("#svg"+newid).children("line");
-    wire.css("id",newid);
-    alert(wire);*/
-    /*wire.setAttribute("id",newid);
-    wire.setAttribute("class","connection");
-    wire.setAttribute("x1",x1);
-    wire.setAttribute("y1",y1);
-    wire.setAttribute("x2",x2);
-
-
-    wire.setAttribute("y2",y2);
-    wire.setAttribut
-e("stroke-width",2);
-    wire.setAttribute("stroke","red");
-    wire.setAttribute("position","fixed");*/
-                 		
-                 		/*.addClass("connection")
-                 		.appendTo("body")
-                 		.attr("x1",x1)
-      					.attr("y1",y1)
-      					.attr("x2",x2)
-      					.attr("y2",y2)
-      					.attr("stroke-width",2)
-      					.attr("stroke","red")
-      					.attr("position","fixed");*/
-                 		
-  /*$("#"+newid).css("position","fixed");
-  $("#"+newid).css("left",posx);
-  $("#"+newid).css("top",posy);
+/*
+** Trying to fill JSON in real time,
+** better approach, because it will keep on adding 
+** an entry, when the line is created
 */
+//finalInsert={};
+item = {};
+inneritem={};
+inneritem ["from"] = startConnectorId;
+inneritem ["to"] = endConnectorId;
+
+item[newid]=inneritem;
+//finalInsert["name"]=item;
+jsonObj.push(item);
+//jsonObj.push(finalInsert);
+PrintJSON();
+//ExportJSON();
 }
 
 function deleteable(evt){
@@ -262,4 +247,39 @@ function changecursor(evt){
 		$("#"+evt.target.getAttribute("id")).attr("outline","2px solid green");
 	}*/
 	$("#"+evt.target.getAttribute("id")).css('cursor', 'pointer');
+}
+
+$("#jsonbutton").click(function(){
+	ExportJSON();
+});
+
+function ExportJSON(){
+	var lines=$("line");
+	//alert("Number of connections : "+lines.length);
+	//console.log("Number of connections : "+lines.length);
+	createJSON();
+}
+
+/*
+** Function to call at the end when we want to export the mapping to JSON
+*/
+function createJSON() {
+    
+    $("line").each(function() {
+
+        var startGateConnectorId = $(this).attr("startConnectorId");
+        var endGateConnectorId = $(this).attr("endConnectorId");
+
+        item = {}
+        item ["from"] = startGateConnectorId;
+        item ["to"] = endGateConnectorId;
+
+        jsonObj.push(item);
+    });
+
+    console.log(jsonObj);
+}
+
+function PrintJSON(){
+	console.log(jsonObj);	
 }
