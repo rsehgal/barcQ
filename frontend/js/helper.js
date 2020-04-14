@@ -134,7 +134,16 @@ $('html').keyup(function(ev){
     //alert("Going to delete element with ID : "+idForDelete);
     var delet="#"+idForDelete;
     
+    tagname=$("#"+idForDelete).prop("tagName");
+    if(tagname=="line"){
+      start=$("#"+idForDelete).attr("startConnectorId");
+      end=$("#"+idForDelete).attr("endConnectorId");
+      $("#"+start).attr("wireId",$("#"+start).attr("wireId").replace(idForDelete,""));
+      $("#"+end).attr("wireId",$("#"+end).attr("wireId").replace(idForDelete,""));
+    }
+
     $(delet).remove();
+
     //idForDelete="";
   }
   }

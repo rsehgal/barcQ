@@ -125,6 +125,7 @@ var numOfRows=jsonData.length;
       .attr("href","images/"+gateName+".png")
       .attr("x",5)
       .attr("y",0)
+      .attr("onmouseover","changecursor(evt)")
       .attr("onmousedown","enabledrag(evt)");
 
 
@@ -138,6 +139,8 @@ var numOfRows=jsonData.length;
             .attr("y",yval)
             .attr("class","connector input_gate_connector")
             .attr("onmousedown","test(evt)")
+            .attr("onmouseover","changecursor(evt)")
+            .attr("wireId","")
             .attr("onmouseup","TestMouseUp(evt)");
 
     outputConn=gate.append('rect')
@@ -147,6 +150,8 @@ var numOfRows=jsonData.length;
             .attr("y",yval)
             .attr("class","connector output_gate_connector")
             .attr("onmousedown","test(evt)")
+            .attr("onmouseover","changecursor(evt)")
+            .attr("wireId","")
             .attr("onmouseup","TestMouseUp(evt)");
 
     

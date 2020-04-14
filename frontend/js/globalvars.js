@@ -5,4 +5,8 @@ var x2=0;
 var y2=0;
 var lineInitiated=0;
 var lineCounter=0;
+var startConnectorId="";
+var endConnectorId="";
+var startConnectorWireIds="";
+var endConnectorWireIds="";
 //var backSvgCanvas;

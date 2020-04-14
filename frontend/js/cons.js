@@ -70,6 +70,7 @@ function test(evt){
 		$("#"+connectorId).css("stroke","black");	
 	}
 	connectorId=conn.getAttribute("id");
+	startConnectorId=connectorId;
 	//alert(connectorId);
 	$("#"+connectorId).css("stroke","red");
 
@@ -142,6 +143,7 @@ function enabledrag(evt){
 function TestMouseUp(evt){
 	//alert("MouseUp called on "+evt.target.getAttribute("id"));
 	connectorId=evt.target.getAttribute("id");
+	endConnectorId=connectorId;
 	var parentSvgId=$("#"+connectorId).parent().attr("id");
 	mySvgToScreen(connectorId,parentSvgId);	
 	alert("Line Coords : ("+x1+","+y1+") : ("+x2+","+y2+")");
@@ -177,10 +179,27 @@ function TestMouseUp(evt){
       .attr("onclick","deleteable(evt)")
       .attr("onmouseover","changecursor(evt)")
       .attr("id",newid)
+      .attr("startConnectorId",startConnectorId)
+      .attr("endConnectorId",endConnectorId)
       .attr("position","fixed");
     //alert("Line added.........");
 lineInitiated=0;
 
+	 //registering WireId to connector
+	 startConnectorWireIds=$("#"+startConnectorId).attr("wireId");
+	 endConnectorWireIds=$("#"+endConnectorId).attr("wireId");
+	 if(startConnectorWireIds==""){
+	 	$("#"+startConnectorId).attr("wireId",newid);
+	 }else{
+	 	$("#"+startConnectorId).attr("wireId",startConnectorWireIds+" "+newid);
+	}
+
+	if(endConnectorWireIds==""){
+		$("#"+endConnectorId).attr("wireId",newid);
+	}else{
+	 $("#"+endConnectorId).attr("wireId",endConnectorWireIds+" "+newid);
+	}
+	
 
     /*$("#connectionSVG").clone()
     					.attr("id","svg"+newid);*/
@@ -231,8 +250,16 @@ function deleteable(evt){
 	alert(idForDelete);
 }
 
+$(".deleteable").mouseover(function(){
+	alert("Line detected....");
+	$(this).css('cursor', 'pointer');
+});
+
 function changecursor(evt){
 	//alert("Moved over line");
-	
+	/*tagname=$("#"+evt.target.getAttribute("id")).prop("tagName");
+	if(tagname=="rect"){
+		$("#"+evt.target.getAttribute("id")).attr("outline","2px solid green");
+	}*/
 	$("#"+evt.target.getAttribute("id")).css('cursor', 'pointer');
 }
