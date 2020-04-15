@@ -78,14 +78,63 @@ function GetEvent(){
 $(".draggableComp").draggable({ appendTo: "body"});
     $('.draggableComp').on('mousedown',function(event){
     $(this).draggable( 'option', 'revert', false ); 
-    var pos = $("#winston").position();
+    /*var pos = $("#winston").position();
     posx=pos.left;
     posy=pos.top;
+    */
+    
+
     //var coords = "X coords: " + posx + ", Y coords: " + posy;
     //alert("On mouse down : "+coords);
 });
   
+//*************************
+/*$(".draggableComp").mouseup(function(){
+//alert("Mouse up called.......... from UpdateDrag........");
+  //var gateid=evt.target.getAttribute("id");
+  var gateid=$(this).attr("id");
+  console.log("GateID : "+gateid);
+  alert("GateID : "+gateid);
+  var gateconns=$("#"+gateid).children("rect");
+  //alert(gateconns.length);
+  for(var conIndex=0;conIndex<gateconns.length;conIndex++){
+      var className=gateconns[conIndex].getAttribute("class").split(" ")[1];
+      var wireId=gateconns[conIndex].getAttribute("wireId");
+      var connectorId=gateconns[conIndex].getAttribute("id");
+      if(wireId!=""){
+      if(className=="input_gate_connector"){
+        //Change X2, Y2
+        console.log("Going to modify initial point..");
+        var parentSvgId=$("#"+connectorId).parent().attr("id");
+    //alert("Parent ID : "+parentSvgId);
 
+    //alert(conn.getAttribute("class").split(" ")[0]);
+    mySvgToScreen(connectorId,parentSvgId,1,0);
+
+      }
+
+      if(className=="output_gate_connector"){
+        //Change X1, Y1
+        console.log("Going to modify final point..");
+        var parentSvgId=$("#"+connectorId).parent().attr("id");
+    //alert("Parent ID : "+parentSvgId);
+
+    //alert(conn.getAttribute("class").split(" ")[0]);
+    mySvgToScreen(connectorId,parentSvgId,1,1);
+
+      }
+      var lineId="#"+wireId;
+     $(lineId).attr("x1",x1-1)
+              .attr("y1",y1+3)
+              .attr("x2",x2+1)
+              .attr("y2",y2+3);
+
+      //alert(gateconns[conId].getAttribute("class").split(" ")[1]);
+    }
+}
+
+});*/
+//***********************************
 $('.draggableComp').click(function(){
   //alert("Focussed........");
   if(idForDelete!=""){
@@ -172,19 +221,30 @@ $('.draggableComp').on('mouseup',function(event){
 });
 
 
-$(".draggableComp").on('mouseup',function(event){
+/*$(".draggableComp").on('mouseup',function(event){
 //$("#winston").draggable({ appendTo: "body"});
   //pos = $(".draggableComp").position();
-  pos=$(this).position();
-  posx=pos.left;
-  posy=pos.top;
-  var coords = "X coords: " + posx + ", Y coords: " + posy;
-  //alert("On mouse down : "+coords);
-  $("#location").html(coords);
+  // pos=$(this).position();
+  // posx=pos.left;
+  // posy=pos.top;
+  // var coords = "X coords: " + posx + ", Y coords: " + posy;
+  // //alert("On mouse down : "+coords);
+  // $("#location").html(coords);
 
+//tagname=$("#"+$(this).attr("id")).prop("tagName");
+//alert(tagname);
+//if(tagname=="svg"){
+  //alert($(this));
+  isgate=$(this).attr("isgate");
+  //alert("IsGate : "+isgate);
+  //alert($(this).attr("id"));
+
+if(isgate==1){
+  UpdateDrag($(this).attr("id"));
+}
 
 });
-
+*/
   $( ".nondropzone" ).droppable( 
         { 
             //accept:"#winston", 
@@ -235,5 +295,6 @@ $(".draggableComp").on('mouseup',function(event){
                 //$(this).css('background', 'cyan');
             }
         });
+
     
 }    

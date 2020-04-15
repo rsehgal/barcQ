@@ -89,13 +89,37 @@ function test(evt){
 /*
 ** This function will set the start and end of connection between two gates
 */
-function mySvgToScreen(svgElemId,parentSvgId){
+function mySvgToScreen(svgElemId,parentSvgId,onlyUpdate=0,initial=0){
 	//alert("ParentID : "+parentSvgId);
 	console.log(svgElemId+" : "+parentSvgId);
 	var posParent=$("#"+parentSvgId).position();
 
 	//alert(posParent.left+" , "+posParent.top);
 	console.log(posParent.left+" , "+posParent.top);
+
+	if(onlyUpdate!=0){
+		if(initial!=0){
+			x1 = parseInt(posParent.left)
+		    	+parseInt($("#"+svgElemId).attr("x"))
+		    	+parseInt($("#"+svgElemId).attr("width")/2)+2;
+			y1 = parseInt(posParent.top)
+				+parseInt($("#"+svgElemId).attr("y"))
+		    	+parseInt($("#"+svgElemId).attr("height")/2)
+		    	-parseInt($("#"+parentSvgId).attr("height"))+2;
+
+		}else{
+			x2 = parseInt(posParent.left)
+		    	-parseInt($("#"+svgElemId).attr("x"))
+		    	-parseInt($("#"+svgElemId).attr("width")/2)+2;
+
+			y2 = parseInt(posParent.top)
+				+parseInt($("#"+svgElemId).attr("y"))
+		    	+parseInt($("#"+svgElemId).attr("height")/2)
+		    	-parseInt($("#"+parentSvgId).attr("height"))+2;
+		}
+
+	}else{
+
 	if(lineInitiated==0){
 		//alert(parseInt(posParent.left)+" : "+parseInt($("#"+svgElemId).attr("x")));
 		
@@ -120,6 +144,7 @@ function mySvgToScreen(svgElemId,parentSvgId){
 		    
 		
 	}
+  }
 }
 /*
 function SVGToScreen(svgX, svgY) {
@@ -212,6 +237,8 @@ item = {};
 inneritem={};
 inneritem ["from"] = startConnectorId;
 inneritem ["to"] = endConnectorId;
+//inneritem ["gate"] = endConnectorId;
+
 
 item[newid]=inneritem;
 //finalInsert["name"]=item;
@@ -282,4 +309,70 @@ function createJSON() {
 
 function PrintJSON(){
 	console.log(jsonObj);	
+}
+
+/*
+** This function is used to update the connecting line when the gate
+** is dragged.
+*/
+
+//function UpdateDrag(gateid){
+function UpdateDrag(evt){
+//$(".draggableComp").mouseup(function(){
+//alert("Mouse up called.......... from UpdateDrag........");
+console.log("------------------------------");
+  //var gateid=evt.target.getAttribute("id");
+  var imageid=evt.target.getAttribute("id");
+  var gateid=$("#"+imageid).parent().attr("id");
+  //var gateid=$(this).attr("id");
+  console.log("GateID : "+gateid);
+  //alert("GateID : "+gateid);
+  var gateconns=$("#"+gateid).children("rect");
+  //alert(gateconns.length);
+  for(var conIndex=0;conIndex<gateconns.length;conIndex++){
+      var className=gateconns[conIndex].getAttribute("class").split(" ")[1];
+      console.log("classname : "+className);
+      var wireId=gateconns[conIndex].getAttribute("wireId");
+      console.log("wireId : "+wireId);
+      var connectorId=gateconns[conIndex].getAttribute("id");
+      console.log("connectorId : "+connectorId);
+      if(wireId!=""){
+      if(className=="input_gate_connector"){
+        //Change X2, Y2
+        console.log("Going to modify final point..");
+        var parentSvgId=$("#"+connectorId).parent().attr("id");
+    //alert("Parent ID : "+parentSvgId);
+
+    //alert(conn.getAttribute("class").split(" ")[0]);
+    mySvgToScreen(connectorId,parentSvgId,1,0);
+   x1=parseInt($("#"+wireId).attr("x1"));
+   y1=parseInt($("#"+wireId).attr("y1"));
+   console.log("Unmodified Initial Point for wireId :"+wireId+" : ("+x1+","+y1+")");
+
+      }
+
+      if(className=="output_gate_connector"){
+        //Change X1, Y1
+        console.log("Going to modify initial point..");
+        var parentSvgId=$("#"+connectorId).parent().attr("id");
+    //alert("Parent ID : "+parentSvgId);
+
+    //alert(conn.getAttribute("class").split(" ")[0]);
+    mySvgToScreen(connectorId,parentSvgId,1,1);
+    x2=parseInt($("#"+wireId).attr("x2"));
+   y2=parseInt($("#"+wireId).attr("y2"));
+   console.log("Unmodified final Point for wireId : "+wireId+" : ("+x2+","+y2+")");
+
+
+      }
+      var lineId="#"+wireId;
+     $(lineId).attr("x1",x1-1)
+              .attr("y1",y1+3)
+              .attr("x2",x2+1)
+              .attr("y2",y2+3);
+
+      //alert(gateconns[conId].getAttribute("class").split(" ")[1]);
+    }
+}
+
 }
