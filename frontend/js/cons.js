@@ -332,10 +332,13 @@ console.log("------------------------------");
   for(var conIndex=0;conIndex<gateconns.length;conIndex++){
       var className=gateconns[conIndex].getAttribute("class").split(" ")[1];
       console.log("classname : "+className);
-      var wireId=gateconns[conIndex].getAttribute("wireId");
-      console.log("wireId : "+wireId);
+      var wireIds=gateconns[conIndex].getAttribute("wireId");
+      console.log("wireId : "+wireIds);
       var connectorId=gateconns[conIndex].getAttribute("id");
       console.log("connectorId : "+connectorId);
+      wireIdsArray=wireIds.split(" ");
+     for(var wireIndex=0 ; wireIndex<wireIdsArray.length ; wireIndex++){
+     	wireId=wireIdsArray[wireIndex];
       if(wireId!=""){
       if(className=="input_gate_connector"){
         //Change X2, Y2
@@ -373,6 +376,7 @@ console.log("------------------------------");
 
       //alert(gateconns[conId].getAttribute("class").split(" ")[1]);
     }
+ }// End of loop of all the wires connected at the connector
 }
 
 }
