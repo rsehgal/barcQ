@@ -71,12 +71,20 @@ line:focus {
   stroke-width: 3;
 }
     </style>
+
+
+<script src = 'js/jquery.js'> </script>
+<script src = 'js/jquery-ui.js'> </script>
+
 </head>
 
 <body>
-<div id="drawing"></div>
+<!-- <div id="drawing"></div> -->
+<!-- <button type="button" id="jsonbutton">Export JSON</button> -->
 <div id="initial">Coordinates</div>
 <div id="coord">Coordinates</div>
+
+<!--<script src="js/connections2.js"></script> -->
 
 <script src="js/d3.v3.min.js"></script><script src="js/cons.js"></script>
 <script src="js/globalvars.js"></script>
@@ -85,7 +93,6 @@ line:focus {
 <script src='js/helper.js'></script>
 <script src="jsonschemas/gatesUI.json"></script>
 <script src="js/cons.js"></script>
-<!--<script src="js/connections2.js"></script> -->
 
 
 <script>
@@ -119,12 +126,18 @@ var numOfRows=jsonData.length;
     .attr("width",45)
     .attr("height",45)
     .attr("class","cloneAble")
+    //.attr("onmouseup","UpdateDrag(evt)")
+    .attr("gate",gateName)
+    .attr("isgate",1)
     .attr("svg",1);
 
   image=gate.append('image')
       .attr("href","images/"+gateName+".png")
       .attr("x",5)
       .attr("y",0)
+      .attr("onmouseover","changecursor(evt)")
+      .attr("onmouseup","UpdateDrag(evt)")
+      .attr("isgate",0)
       .attr("onmousedown","enabledrag(evt)");
 
 
@@ -138,6 +151,9 @@ var numOfRows=jsonData.length;
             .attr("y",yval)
             .attr("class","connector input_gate_connector")
             .attr("onmousedown","test(evt)")
+            .attr("onmouseover","changecursor(evt)")
+            .attr("wireId","")
+            .attr("isgate",0)
             .attr("onmouseup","TestMouseUp(evt)");
 
     outputConn=gate.append('rect')
@@ -147,6 +163,9 @@ var numOfRows=jsonData.length;
             .attr("y",yval)
             .attr("class","connector output_gate_connector")
             .attr("onmousedown","test(evt)")
+            .attr("onmouseover","changecursor(evt)")
+            .attr("wireId","")
+            .attr("isgate",0)
             .attr("onmouseup","TestMouseUp(evt)");
 
     
@@ -160,7 +179,10 @@ Attach();
 <!-- <svg id="connectionSVG">
   <line id="connectionWire" class="connection"/>
 </svg> -->
-<svg id="connectionSVG">
+<!--<svg id="connectionSVG">
   <line id="connectionWire" class="connection"/>
 </svg>
+-->
+
+
 </body>

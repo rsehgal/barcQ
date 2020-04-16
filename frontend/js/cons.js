@@ -70,6 +70,7 @@ function test(evt){
 		$("#"+connectorId).css("stroke","black");	
 	}
 	connectorId=conn.getAttribute("id");
+	startConnectorId=connectorId;
 	//alert(connectorId);
 	$("#"+connectorId).css("stroke","red");
 
@@ -88,13 +89,37 @@ function test(evt){
 /*
 ** This function will set the start and end of connection between two gates
 */
-function mySvgToScreen(svgElemId,parentSvgId){
+function mySvgToScreen(svgElemId,parentSvgId,onlyUpdate=0,initial=0){
 	//alert("ParentID : "+parentSvgId);
 	console.log(svgElemId+" : "+parentSvgId);
 	var posParent=$("#"+parentSvgId).position();
 
 	//alert(posParent.left+" , "+posParent.top);
 	console.log(posParent.left+" , "+posParent.top);
+
+	if(onlyUpdate!=0){
+		if(initial!=0){
+			x1 = parseInt(posParent.left)
+		    	+parseInt($("#"+svgElemId).attr("x"))
+		    	+parseInt($("#"+svgElemId).attr("width")/2)+2;
+			y1 = parseInt(posParent.top)
+				+parseInt($("#"+svgElemId).attr("y"))
+		    	+parseInt($("#"+svgElemId).attr("height")/2)
+		    	-parseInt($("#"+parentSvgId).attr("height"))+2;
+
+		}else{
+			x2 = parseInt(posParent.left)
+		    	-parseInt($("#"+svgElemId).attr("x"))
+		    	-parseInt($("#"+svgElemId).attr("width")/2)+2;
+
+			y2 = parseInt(posParent.top)
+				+parseInt($("#"+svgElemId).attr("y"))
+		    	+parseInt($("#"+svgElemId).attr("height")/2)
+		    	-parseInt($("#"+parentSvgId).attr("height"))+2;
+		}
+
+	}else{
+
 	if(lineInitiated==0){
 		//alert(parseInt(posParent.left)+" : "+parseInt($("#"+svgElemId).attr("x")));
 		
@@ -119,6 +144,7 @@ function mySvgToScreen(svgElemId,parentSvgId){
 		    
 		
 	}
+  }
 }
 /*
 function SVGToScreen(svgX, svgY) {
@@ -142,6 +168,7 @@ function enabledrag(evt){
 function TestMouseUp(evt){
 	//alert("MouseUp called on "+evt.target.getAttribute("id"));
 	connectorId=evt.target.getAttribute("id");
+	endConnectorId=connectorId;
 	var parentSvgId=$("#"+connectorId).parent().attr("id");
 	mySvgToScreen(connectorId,parentSvgId);	
 	alert("Line Coords : ("+x1+","+y1+") : ("+x2+","+y2+")");
@@ -177,44 +204,48 @@ function TestMouseUp(evt){
       .attr("onclick","deleteable(evt)")
       .attr("onmouseover","changecursor(evt)")
       .attr("id",newid)
+      .attr("startConnectorId",startConnectorId)
+      .attr("endConnectorId",endConnectorId)
       .attr("position","fixed");
     //alert("Line added.........");
+
 lineInitiated=0;
 
+	 //registering WireId to connector
+	 startConnectorWireIds=$("#"+startConnectorId).attr("wireId");
+	 endConnectorWireIds=$("#"+endConnectorId).attr("wireId");
+	 if(startConnectorWireIds==""){
+	 	$("#"+startConnectorId).attr("wireId",newid);
+	 }else{
+	 	$("#"+startConnectorId).attr("wireId",startConnectorWireIds+" "+newid);
+	}
 
-    /*$("#connectionSVG").clone()
-    					.attr("id","svg"+newid);*/
+	if(endConnectorWireIds==""){
+		$("#"+endConnectorId).attr("wireId",newid);
+	}else{
+	 $("#"+endConnectorId).attr("wireId",endConnectorWireIds+" "+newid);
+	}
+	
 
-    /*var wire=$("#svg"+newid).children("line");
-    wire.css("id",newid);
-    alert(wire);*/
-    /*wire.setAttribute("id",newid);
-    wire.setAttribute("class","connection");
-    wire.setAttribute("x1",x1);
-    wire.setAttribute("y1",y1);
-    wire.setAttribute("x2",x2);
-
-
-    wire.setAttribute("y2",y2);
-    wire.setAttribut
-e("stroke-width",2);
-    wire.setAttribute("stroke","red");
-    wire.setAttribute("position","fixed");*/
-                 		
-                 		/*.addClass("connection")
-                 		.appendTo("body")
-                 		.attr("x1",x1)
-      					.attr("y1",y1)
-      					.attr("x2",x2)
-      					.attr("y2",y2)
-      					.attr("stroke-width",2)
-      					.attr("stroke","red")
-      					.attr("position","fixed");*/
-                 		
-  /*$("#"+newid).css("position","fixed");
-  $("#"+newid).css("left",posx);
-  $("#"+newid).css("top",posy);
+/*
+** Trying to fill JSON in real time,
+** better approach, because it will keep on adding 
+** an entry, when the line is created
 */
+//finalInsert={};
+item = {};
+inneritem={};
+inneritem ["from"] = startConnectorId;
+inneritem ["to"] = endConnectorId;
+//inneritem ["gate"] = endConnectorId;
+
+
+item[newid]=inneritem;
+//finalInsert["name"]=item;
+jsonObj.push(item);
+//jsonObj.push(finalInsert);
+PrintJSON();
+//ExportJSON();
 }
 
 function deleteable(evt){
@@ -231,8 +262,121 @@ function deleteable(evt){
 	alert(idForDelete);
 }
 
+$(".deleteable").mouseover(function(){
+	alert("Line detected....");
+	$(this).css('cursor', 'pointer');
+});
+
 function changecursor(evt){
 	//alert("Moved over line");
-	
+	/*tagname=$("#"+evt.target.getAttribute("id")).prop("tagName");
+	if(tagname=="rect"){
+		$("#"+evt.target.getAttribute("id")).attr("outline","2px solid green");
+	}*/
 	$("#"+evt.target.getAttribute("id")).css('cursor', 'pointer');
+}
+
+$("#jsonbutton").click(function(){
+	ExportJSON();
+});
+
+function ExportJSON(){
+	var lines=$("line");
+	//alert("Number of connections : "+lines.length);
+	//console.log("Number of connections : "+lines.length);
+	createJSON();
+}
+
+/*
+** Function to call at the end when we want to export the mapping to JSON
+*/
+function createJSON() {
+    
+    $("line").each(function() {
+
+        var startGateConnectorId = $(this).attr("startConnectorId");
+        var endGateConnectorId = $(this).attr("endConnectorId");
+
+        item = {}
+        item ["from"] = startGateConnectorId;
+        item ["to"] = endGateConnectorId;
+
+        jsonObj.push(item);
+    });
+
+    console.log(jsonObj);
+}
+
+function PrintJSON(){
+	console.log(jsonObj);	
+}
+
+/*
+** This function is used to update the connecting line when the gate
+** is dragged.
+*/
+
+//function UpdateDrag(gateid){
+function UpdateDrag(evt){
+//$(".draggableComp").mouseup(function(){
+//alert("Mouse up called.......... from UpdateDrag........");
+console.log("------------------------------");
+  //var gateid=evt.target.getAttribute("id");
+  var imageid=evt.target.getAttribute("id");
+  var gateid=$("#"+imageid).parent().attr("id");
+  //var gateid=$(this).attr("id");
+  console.log("GateID : "+gateid);
+  //alert("GateID : "+gateid);
+  var gateconns=$("#"+gateid).children("rect");
+  //alert(gateconns.length);
+  for(var conIndex=0;conIndex<gateconns.length;conIndex++){
+      var className=gateconns[conIndex].getAttribute("class").split(" ")[1];
+      console.log("classname : "+className);
+      var wireIds=gateconns[conIndex].getAttribute("wireId");
+      console.log("wireId : "+wireIds);
+      var connectorId=gateconns[conIndex].getAttribute("id");
+      console.log("connectorId : "+connectorId);
+      wireIdsArray=wireIds.split(" ");
+     for(var wireIndex=0 ; wireIndex<wireIdsArray.length ; wireIndex++){
+     	wireId=wireIdsArray[wireIndex];
+      if(wireId!=""){
+      if(className=="input_gate_connector"){
+        //Change X2, Y2
+        console.log("Going to modify final point..");
+        var parentSvgId=$("#"+connectorId).parent().attr("id");
+    //alert("Parent ID : "+parentSvgId);
+
+    //alert(conn.getAttribute("class").split(" ")[0]);
+    mySvgToScreen(connectorId,parentSvgId,1,0);
+   x1=parseInt($("#"+wireId).attr("x1"));
+   y1=parseInt($("#"+wireId).attr("y1"));
+   console.log("Unmodified Initial Point for wireId :"+wireId+" : ("+x1+","+y1+")");
+
+      }
+
+      if(className=="output_gate_connector"){
+        //Change X1, Y1
+        console.log("Going to modify initial point..");
+        var parentSvgId=$("#"+connectorId).parent().attr("id");
+    //alert("Parent ID : "+parentSvgId);
+
+    //alert(conn.getAttribute("class").split(" ")[0]);
+    mySvgToScreen(connectorId,parentSvgId,1,1);
+    x2=parseInt($("#"+wireId).attr("x2"));
+   y2=parseInt($("#"+wireId).attr("y2"));
+   console.log("Unmodified final Point for wireId : "+wireId+" : ("+x2+","+y2+")");
+
+
+      }
+      var lineId="#"+wireId;
+     $(lineId).attr("x1",x1-1)
+              .attr("y1",y1+3)
+              .attr("x2",x2+1)
+              .attr("y2",y2+3);
+
+      //alert(gateconns[conId].getAttribute("class").split(" ")[1]);
+    }
+ }// End of loop of all the wires connected at the connector
+}
+
 }
