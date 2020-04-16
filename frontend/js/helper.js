@@ -72,6 +72,66 @@ $(this).clone().attr("id",newid)
 }
 
 
+function DeleteConnection(idForDelete){
+  if(idForDelete!=""){
+    console.log("idForDelete from DeleteConnection : "+idForDelete);
+
+    var delet="#"+idForDelete;
+    
+    
+      start=$(delet).attr("startConnectorId");
+      end=$("#"+idForDelete).attr("endConnectorId");
+      $("#"+start).attr("wireId",$("#"+start).attr("wireId").replace(idForDelete,""));
+      $("#"+end).attr("wireId",$("#"+end).attr("wireId").replace(idForDelete,""));
+
+      //Deleting an entry from the JSON object
+      console.log("delete json entry for wire "+idForDelete);
+      var tempStr=""
+      for (var jsonIndex=0;jsonIndex<jsonObj.length;jsonIndex++){
+        tempStr+=" "+Object.keys(jsonObj[jsonIndex])[0];
+        if(Object.keys(jsonObj[jsonIndex])[0]==idForDelete){
+          jsonObj.splice(jsonIndex,1);
+          break;
+        }
+      }
+      //alert(tempStr);
+      //delete jsonObj[idForDelete];
+      PrintJSON();
+    
+
+    $(delet).remove();
+  }
+
+}
+
+function GetListOfAllConnections(gateId){
+  gateconns=$("#"+gateId).children('rect');
+  //alert("Num of Connector of Gate : "+gateconns.length);
+  var connectionsList="";
+  for(var conIndex=0 ; conIndex<gateconns.length ; conIndex++){
+      var wireId=gateconns[conIndex].getAttribute("wireId");
+      if(wireId!=""){
+      if(conIndex==0){
+        connectionsList=wireId;
+      }else{
+        connectionsList+=" "+wireId;
+      }
+    }
+  }
+  console.log("ConnectionList from GetListOfAllConnections : "+connectionsList);
+  return connectionsList;
+}
+
+
+function DeleteGate(idForDelete){
+  console.log("DeleteGate called......... : ID : "+idForDelete );
+  var connectionsList = GetListOfAllConnections(idForDelete);
+  connectionArray = connectionsList.split(" ");
+  for (var connIndex=0 ; connIndex < connectionArray.length ; connIndex++){
+    DeleteConnection(connectionArray[connIndex]);
+  }
+  $("#"+idForDelete).remove();
+}
 
 
 function GetEvent(){
@@ -178,10 +238,21 @@ $('html').keyup(function(ev){
   if(ev.key==="Delete"){
     //$(":focus").remove();
     if(idForDelete!=""){
+      var delet="#"+idForDelete;
+    
+    tagname=$("#"+idForDelete).prop("tagName");
+    if(tagname=="line"){
+      DeleteConnection(idForDelete);
+      //$(delet).remove();
+    }else{
+      DeleteGate(idForDelete);
+
+    }
+
     //alert("Delete key confirmed.....");
     //alert("Going to delete element with ID : "+$(":focus"));
     //alert("Going to delete element with ID : "+idForDelete);
-    var delet="#"+idForDelete;
+    /*var delet="#"+idForDelete;
     
     tagname=$("#"+idForDelete).prop("tagName");
     if(tagname=="line"){
@@ -206,7 +277,7 @@ $('html').keyup(function(ev){
     }
 
     $(delet).remove();
-
+*/
     //idForDelete="";
   }
   }
