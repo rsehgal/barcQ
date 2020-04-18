@@ -3,8 +3,32 @@ var numOfRows=5;
 circuitJsonObj = {"header":{}, "config":{} };
 instructionsList=[]
 
+/*
+** Function to test core function to find unique elements in javascript array
+*/ 
+function CoreTest(){
+	var duplicates = [1, 3, 4, 2, 1, 2, 3, 8];
+	var uniques = duplicates.unique(); // result = [1,3,4,2,8]
+
+	console.log(uniques);
+	console.log(uniques.sort());
+	console.log("Both the things (Unique finding and Sorting) in one shot");
+	console.log(duplicates.UniqueAndSorted());
+}
+
 function GridToJson(){
-	GetColumnGates(0);
+	instructionsList=[];
+	// GetColumnGates(0);
+	// console.log("-------------------------------------");
+	// circuitJsonObj["instructions"]=instructionsList;
+	// console.log(circuitJsonObj);
+	//var uniqueSortedColIds=[0,1];
+	console.log("Raw column ids : "+colIds);
+	var uniqueSortedColIds=colIds.UniqueAndSorted();
+	console.log("UniqueAndSorted colids : "+uniqueSortedColIds);
+	for(var index = 0 ; index < uniqueSortedColIds.length ; index++){
+		GetColumnGates(uniqueSortedColIds[index]);
+	}
 	console.log("-------------------------------------");
 	circuitJsonObj["instructions"]=instructionsList;
 	console.log(circuitJsonObj);
@@ -14,7 +38,7 @@ function GridToJson(){
 function GetColumnGates(columnNumber){
 	//alert("Inside GetColumnGates...");
 	for(var rowIndex=0 ; rowIndex < numOfRows ; rowIndex++){
-		var divId="r"+rowIndex+"c"+columnNumber;
+		var divId="row"+rowIndex+"col"+columnNumber+"div";
 		//alert($("#"+divId).atgate["num_bits"]=$("#"+divId).attr("num_bits");tr("rowid"));
 		if($("#"+divId).attr("rowid")!=undefined){
 			console.log($("#"+divId).attr("rowid")+" "+$("#"+divId).attr("columnid")+" "+$("#"+divId).attr("gate"));
