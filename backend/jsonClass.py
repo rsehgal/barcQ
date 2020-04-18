@@ -27,7 +27,7 @@ class CircuitCreator:
 		for gate_dict in self.json_dict["instructions"]:
 			self.gate_list.append(Gate(gate_dict))	
 
-		self.qutip_circuit=QubitCircuit(input_lines)
+		self.qutip_circuit=QubitCircuit(input_lines,reverse_states=False)
 		for gate in self.gate_list:
 			self.qutip_circuit.add_gate(gate.gate)
 
@@ -55,6 +55,8 @@ class Gate:
 
 	def __init__(self,gate_dict):
 		self.gate_dict=gate_dict
+		print("===========================")
+		print(self.gate_dict)
 		self.ConstructGate()
 	
 	def CheckGateValidity(self,gate_name):
@@ -68,13 +70,23 @@ class Gate:
 		self.ctl_bits=self.gate_dict["ctl_bits"]
 		self.tgt_bits=self.gate_dict["tgt_bits"]
 		self.ctl_enabled=self.gate_dict["ctl_enabled"]
+		self.arg_enabled=self.gate_dict["arg_enabled"]
+		self.arg_value=self.gate_dict["arg_value"]
+		print("Arg_Value : "+str(self.arg_value))
 		print("Constructing Gate : "+self.gate_name)
 		#self.valid_gate=self.CheckGateValidity(self.gate_name)
 		#if(self.valid_gate):
 		if(self.ctl_enabled==1):
-			self.gate=circuit.Gate(self.gate_name,controls=self.ctl_bits,targets=self.tgt_bits)
+			if(self.arg_enabled==1):
+				self.gate=circuit.Gate(self.gate_name,controls=self.ctl_bits,targets=self.tgt_bits,arg_value=self.arg_value)
+			else:
+				self.gate=circuit.Gate(self.gate_name,controls=self.ctl_bits,targets=self.tgt_bits)
 		else:
-			self.gate=circuit.Gate(self.gate_name,targets=self.tgt_bits)
+			if(self.arg_enabled==1):
+				self.gate=circuit.Gate(self.gate_name,targets=self.tgt_bits,arg_value=self.arg_value)
+			else:
+				self.gate=circuit.Gate(self.gate_name,targets=self.tgt_bits)
+
 
 	def Decompose(self):
 		qc = QubitCircuit(self.num_bits)
@@ -106,18 +118,30 @@ def main():
 				]}'
 
 	'''
+	#New JSON to take care of single input gates as well as gate that accept arg_values
+	gateJson = '{\
+				 "header":{},\
+				 "config":{},\
+				 "instructions":[\
+				 {"name":"RX", "num_bits":1, "ctl_enabled" : 0, "ctl_bits" : [0],"tgt_bits" : [0], "arg_enabled" : 1, "arg_value" : 1.57},\
+				 {"name":"RY", "num_bits":1, "ctl_enabled" : 0, "ctl_bits" : [0],"tgt_bits" : [1], "arg_enabled" : 1, "arg_value" : 1.2},\
+				 {"name":"CNOT", "num_bits":2, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1], "arg_enabled" : 0, "arg_value" : 0},\
+				 {"name":"SWAP", "num_bits":2, "ctl_enabled" : 0, "ctl_bits" : [0], "tgt_bits" : [0,1], "arg_enabled" : 0, "arg_value" : 0}\
+				 ]}'
+	'''
 	#Tested
 	gateJson = '{\
 				 "header":{},\
 				 "config":{},\
 				 "instructions":[\
+				 {"name":"RX", "num_bits":1, "tgt_bits" : [0], "arg_enabled" : 1, "arg_value" : "np.pi/2"},\
 				 {"name":"CNOT", "num_bits":2, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1]},\
 				 {"name":"SWAP", "num_bits":2, "ctl_enabled" : 0, "ctl_bits" : [0], "tgt_bits" : [0,1]},\
 				 {"name":"TOFFOLI", "num_bits":3, "ctl_enabled" : 1, "ctl_bits" : [0,1], "tgt_bits" : [2]},\
 				 {"name":"CCNOT", "num_bits":3, "ctl_enabled" : 1, "ctl_bits" : [0,2], "tgt_bits" : [1]},\
 				 {"name":"CCNOT", "num_bits":3, "ctl_enabled" : 1, "ctl_bits" : [1,2], "tgt_bits" : [0]}\
 				 ]}'
-	
+	'''
 
 	'''
 	gateJson = '{\
@@ -133,9 +157,12 @@ def main():
 	circCreator=CircuitCreator(gateJson,3)
 	print(circCreator.gate_list[0].OperatorMatrix())
 	#print(circCreator.gate_list[1].OperatorMatrix())
+	
 	print(circCreator.OperatorMatrix())
-	#circCreator.DumpCircuitImage()
-	circCreator.DumpDecomposedCircuitImage()
+	circCreator.DumpCircuitImage()
+	#circCreator.DumpDecomposedCircuitImage()
+	
+
 	#print(circCreator.gate_list[2].OperatorMatrix())
 	#print(CircuitCreator(gateJson).gate_list[0].OperatorMatrix())
 	#print(CircuitCreator(gateJson).gate_list[1].OperatorMatrix())
