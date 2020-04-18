@@ -1,0 +1,115 @@
+<html>
+<head>
+	<style>
+		table{
+			//position: fixed;
+		}
+
+		div{
+			width: 35;
+			height: 35;
+			border: solid blue;
+			//position: fixed;
+		}
+
+		.iamdroppable{
+
+		}
+
+		
+	</style>
+
+	<script src = '../../js/jquery.js'> </script>
+    <script src = '../../js/jquery-ui.js'> </script>
+    <script src = "../../js/gridtojson.js"></script>
+    <script src = "../../js/gridInterface.js"></script>
+	<script >
+		$(document).ready(function(){
+			Attach2();
+		});
+	</script>
+
+</head>
+
+<body>
+	<table border="1">
+		<!-- "num_bits":2, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1]} -->
+		<tr>
+			<td id="0">
+				<div id="r0c0" name="" rowId="0" columnId="0" class="dropzone" gate="H" num_bits="" 
+				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0> 
+					<img src="../../images/H.png"/>
+				</div>
+			</td>
+			<td id="1"><div id="r0c1" name="" rowId="0" columnId="1" class="dropzone" gate="X" num_bits="" 
+				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0>
+				<img src="../../images/X.png"/>
+			</div></td>
+			<td id="2"><div id="r0c2" name="" rowId="0" columnId="2" class="dropzone" gate="" num_bits="" 
+				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
+			<td id="3"><div id="r0c3" name="" rowId="0" columnId="3" class="dropzone" gate="" num_bits="" 
+				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
+			<td id="4"><div id="r0c4" name="" rowId="0" columnId="4" class="dropzone" gate="" num_bits="" 
+				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
+		</tr>
+ 
+		<tr>
+			<td id="5"><div id="r1c0" name="" rowId="1" columnId="0" class="nondropzone" gate="Z" num_bits="" 
+				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0>
+				<img src="../../images/Z.png"/>
+			</div></td>
+			<td id="6"><div id="r1c1" name="" rowId="1" columnId="1" class="nondropzone" gate="" num_bits="" 
+				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
+			<td id="7"><div id="r1c2" name="" rowId="1" columnId="2" class="nondropzone" gate="" num_bits="" 
+				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
+			<td id="8"><div id="r1c3" name="" rowId="1" columnId="3" class="nondropzone" gate="" num_bits="" 
+				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
+			<td id="9"><div id="r1c4" name="" rowId="1" columnId="4" class="nondropzone" gate="" num_bits="" 
+				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
+		</tr>
+
+		<tr>
+			<td id="10"><div id="r2c0" name="" rowId="2" columnId="0" class="dropzone" gate="" num_bits="" 
+				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
+			<td id="11"><div id="r2c1" name="" rowId="2" columnId="1" class="dropzone" gate="" num_bits="" 
+				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
+			<td id="12"><div id="r2c2" name="" rowId="2" columnId="2" class="dropzone" gate="" num_bits="" 
+				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
+			<td id="13"><div id="r2c3" name="" rowId="2" columnId="3" class="dropzone" gate="" num_bits="" 
+				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
+			<td id="14"><div id="r2c4" name="" rowId="2" columnId="4" class="dropzone" gate="" num_bits="" 
+				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
+		</tr>
+
+		<tr>
+			<td id="15"><div id="r3c0" name="" rowId="3" columnId="0" class="nondropzone" gate="" num_bits="" 
+				ctl_enabled="" ctl_bits="" tgt_bits=""></div></td>
+			<td id="16"><div id="r3c1" name="" rowId="3" columnId="1" class="nondropzone" gate="" num_bits="" 
+				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
+			<td id="17"><div id="r3c2" name="" rowId="3" columnId="2" class="nondropzone" gate="" num_bits="" 
+				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
+			<td id="18"><div id="r3c3" name="" rowId="3" columnId="3" class="nondropzone" gate="" num_bits="" 
+				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
+			<td id="19"><div id="r3c4" name="" rowId="3" columnId="4" class="nondropzone" gate="" num_bits="" 
+				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
+		</tr>
+
+		<tr>
+			<td id="20"><div id="r4c0" name="" rowId="4" columnId="0" class="dropzone" gate="" num_bits="" 
+				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
+			<td id="21"><div id="r4c1" name="" rowId="4" columnId="1" class="dropzone" gate="" num_bits="" 
+				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
+			<td id="22"><div id="r4c2" name="" rowId="4" columnId="2" class="dropzone" gate="" num_bits="" 
+				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
+			<td id="23"><div id="r4c3" name="" rowId="4" columnId="3" class="dropzone" gate="" num_bits="" 
+				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
+			<td id="24"><div id="r4c4" name="" rowId="4" columnId="4" class="dropzone" gate="" num_bits="" 
+				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
+		</tr>
+	</table>
+
+	<button type="button" id="mergebutton">Merge</button>
+
+</body>
+
+</html>
