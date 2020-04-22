@@ -1,3 +1,10 @@
+'''
+Two transmons coupled to a resonator
+
+Follow the link for details
+https://scqubits.readthedocs.io/en/latest/guide/ipynb/hilbertspace.html#Example:-two-transmons-coupled-to-a-harmonic-mode
+'''
+
 import scqubits as qubit
 import scqubits.utils.plotting as plot
 import numpy as np
