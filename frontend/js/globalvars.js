@@ -11,4 +11,5 @@ var startConnectorWireIds="";
 var endConnectorWireIds="";
 jsonObj = [];
 var dropableCounter=0;
+var idForDelete="";
 //var backSvgCanvas;
