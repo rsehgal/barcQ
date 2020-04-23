@@ -29,6 +29,7 @@ function MouseEnterLeave(){
 }
 
 function AttachDraggableEvents(){
+  AttachSelectAndDelete();
 	$('.draggableComp').on('mousedown',function(event){
 	    $(".dropzone").css('background', 'green');
       //MouseEnterLeave();
