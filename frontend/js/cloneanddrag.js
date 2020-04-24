@@ -18,6 +18,23 @@ $(".cloneAble").click(function(){
   });
 }
 
+
+/*function ModifyParentDiv(divId){
+  $("#"+divId).attr("gate",$("#"+divId).children().attr("gate"));
+}*/ 
+
+
+function ModifyParentDiv(obj){
+  obj.attr("gate",obj.children().attr("gate"));
+  obj.attr("num_bits",obj.children().attr("num_bits"));
+  obj.attr("ctl_enabled",obj.children().attr("ctl_enabled"));
+  obj.attr("ctl_bits",obj.children().attr("ctl_bits"));
+  obj.attr("tgt_bits",obj.children().attr("tgt_bits"));
+  obj.attr("arg_enabled",obj.children().attr("arg_enabled"));
+  obj.attr("arg_value",obj.children().attr("arg_value"));
+}
+
+
 function MouseEnterLeave(){
   $(".dropzone").on('mouseenter',function(){
     $(this).css('background', 'orange');
@@ -90,8 +107,11 @@ $(".dropzone").droppable({
 
               //Very import getting the ID of droppable element
               //May be required somewhere
-              var idOfDroppable=$(this).attr("id");
+            var idOfDroppable=$(this).attr("id");
               //alert($(this).attr("id"));
+            //var divId=$(this).attr("id");
+            //console.log(divId);
+            ModifyParentDiv($(this));
             },
             over: function(event, ui) {
                 //event.preventDefault();
@@ -101,5 +121,8 @@ $(".dropzone").droppable({
                 //event.preventDefault();
                 $(this).css('background', 'cyan');
             }
+
+            
         });
 }
+

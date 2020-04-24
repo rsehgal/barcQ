@@ -1,3 +1,13 @@
+function ResetDiv(objId){
+  $("#"+objId).parent().attr("gate","");
+  $("#"+objId).parent().attr("num_bits",0);
+  $("#"+objId).parent().attr("ctl_enabled",0);
+  $("#"+objId).parent().attr("ctl_bits",0);
+  $("#"+objId).parent().attr("tgt_bits",0);
+  $("#"+objId).parent().attr("arg_enabled",0);
+  $("#"+objId).parent().attr("arg_value",0);
+}
+
 function AttachSelectAndDelete(){
   //alert("Inside AttachSelectAndDelete..........");
   $('.draggableComp').click(function(){
@@ -19,6 +29,7 @@ function AttachSelectAndDelete(){
       //$(":focus").remove();
       if(idForDelete!=""){
         $("#"+idForDelete).parent().css("border-color","blue");
+        ResetDiv(idForDelete);
         $("#"+idForDelete).remove();
         idForDelete="";
       }
