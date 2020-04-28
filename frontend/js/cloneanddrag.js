@@ -15,6 +15,7 @@ $(".cloneAble").click(function(){
   	$("#"+newid).css("top",posy);
 
   	AttachDraggableEvents();
+    AttachDroppableEvents();
   });
 }
 
@@ -23,7 +24,7 @@ $(".cloneAble").click(function(){
   $("#"+divId).attr("gate",$("#"+divId).children().attr("gate"));
 }*/ 
 
-
+//Basically modify parameters of divs
 function ModifyParentDiv(obj){
   obj.attr("gate",obj.children().attr("gate"));
   obj.attr("num_bits",obj.children().attr("num_bits"));
@@ -32,6 +33,10 @@ function ModifyParentDiv(obj){
   obj.attr("tgt_bits",obj.children().attr("tgt_bits"));
   obj.attr("arg_enabled",obj.children().attr("arg_enabled"));
   obj.attr("arg_value",obj.children().attr("arg_value"));
+  if(obj.attr("num_bits")!=1)
+    console.log("Num of bits : "+obj.attr("num_bits"));
+
+  Merge(obj);
 }
 
 
@@ -48,12 +53,12 @@ function MouseEnterLeave(){
 function AttachDraggableEvents(){
   AttachSelectAndDelete();
 	$('.draggableComp').on('mousedown',function(event){
-	    $(".dropzone").css('background', 'green');
+	    //$(".dropzone").css('background', 'green');
       //MouseEnterLeave();
 	});
 
 	$('.draggableComp').on('mouseup',function(event){
-	    $(".dropzone").css('background', 'white');
+	    //$(".dropzone").css('background', 'white');
 	});
 
 	$(".draggableComp").draggable({ appendTo: "body"});
@@ -80,7 +85,9 @@ function AttachDraggableEvents(){
             ui.draggable.css("position","fixed");
         }
     });
+}
 
+function AttachDroppableEvents(){
 
 $(".dropzone").droppable({
             drop: function(event, ui) {
@@ -108,6 +115,7 @@ $(".dropzone").droppable({
               //Very import getting the ID of droppable element
               //May be required somewhere
             var idOfDroppable=$(this).attr("id");
+            //ui.draggable.attr("parentid",idOfDroppable);
               //alert($(this).attr("id"));
             //var divId=$(this).attr("id");
             //console.log(divId);

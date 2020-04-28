@@ -8,6 +8,20 @@ function ResetDiv(objId){
   $("#"+objId).parent().attr("arg_value",0);
 }
 
+function ResetDivWithId(objId,rowid,colid){
+  $("#"+objId).attr("gate","");
+  $("#"+objId).attr("num_bits",0);
+  $("#"+objId).attr("ctl_enabled",0);
+  $("#"+objId).attr("ctl_bits",0);
+  $("#"+objId).attr("tgt_bits",0);
+  $("#"+objId).attr("arg_enabled",0);
+  $("#"+objId).attr("arg_value",0);
+  $("#"+objId).attr("name","");
+  $("#"+objId).attr("rowid",rowid);
+  $("#"+objId).attr("columnid",colid);
+  $("#"+objId).attr("class","dropzone");
+}
+
 function AttachSelectAndDelete(){
   //alert("Inside AttachSelectAndDelete..........");
   $('.draggableComp').click(function(){
@@ -30,8 +44,13 @@ function AttachSelectAndDelete(){
       if(idForDelete!=""){
         $("#"+idForDelete).parent().css("border-color","blue");
         ResetDiv(idForDelete);
+        if(parseInt($("#"+idForDelete).attr("num_bits")) > 1){
+          UnMergeCells(idForDelete);
+        }
         $("#"+idForDelete).remove();
+        
         idForDelete="";
+
       }
     }
   });
