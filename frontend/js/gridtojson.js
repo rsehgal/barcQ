@@ -1,5 +1,5 @@
 
-var numOfRows=5;
+
 circuitJsonObj = {"header":{}, "config":{} };
 instructionsList=[]
 
@@ -23,12 +23,14 @@ function GridToJson(){
 	// circuitJsonObj["instructions"]=instructionsList;
 	// console.log(circuitJsonObj);
 	//var uniqueSortedColIds=[0,1];
+	uniqueSortedRowIds=rowIds.UniqueAndSorted();
 	console.log("Raw column ids : "+colIds);
 	var uniqueSortedColIds=colIds.UniqueAndSorted();
 	console.log("UniqueAndSorted colids : "+uniqueSortedColIds);
 	for(var index = 0 ; index < uniqueSortedColIds.length ; index++){
 		GetColumnGates(uniqueSortedColIds[index]);
 	}
+
 	console.log("-------------------------------------");
 	circuitJsonObj["instructions"]=instructionsList;
 	console.log(circuitJsonObj);
@@ -37,7 +39,8 @@ function GridToJson(){
 
 function GetColumnGates(columnNumber){
 	//alert("Inside GetColumnGates...");
-	for(var rowIndex=0 ; rowIndex < numOfRows ; rowIndex++){
+	for(var index=0 ; index < uniqueSortedRowIds.length ; index++){
+		rowIndex = uniqueSortedRowIds[index];
 		var divId="row"+rowIndex+"col"+columnNumber+"div";
 		//alert($("#"+divId).atgate["num_bits"]=$("#"+divId).attr("num_bits");tr("rowid"));
 		if($("#"+divId).attr("rowid")!=undefined){

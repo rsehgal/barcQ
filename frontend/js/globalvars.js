@@ -13,4 +13,6 @@ var jsonObj = [];
 var dropableCounter=0;
 var idForDelete="";
 var colIds=[];
+var rowIds=[];
+var uniqueSortedRowIds=[];
 //var backSvgCanvas;
