@@ -49,11 +49,17 @@
     <script src = "../../js/cloneanddrag.js"></script>
     <script src = "../../js/selectanddelete.js"></script>
     <script src = "../../js/mergeandunmerge.js"></script>
-    <script>
+    <script src = "../../js/gridtojson.js"></script>
+    <script src = "../../js/core.js"></script>
+	    <script>
 	    $(document).ready(function(){
 	    	CreateToolBox();
 	    	MakeCloneAble();
 	    	AttachSelectAndDelete();
+	    	CoreTest();
+	    	$("#mergebutton").click(function(){
+        	    GridToJson();
+ 			});
 		});
 	</script>
 
@@ -147,7 +153,7 @@
 				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
 		</tr>
 	</table>
-	<button type="button" id="mergebutton">Merge</button>
+	<button type="button" id="mergebutton">Export JSON</button>
 	</div>
 	
 

@@ -92,6 +92,8 @@ function AttachDroppableEvents(){
 $(".dropzone").droppable({
             drop: function(event, ui) {
             //$(this).css("background","yellow");
+            colIds.push($(this).attr("columnid"));
+            rowIds.push($(this).attr("rowid"));
             $(this).append(ui.draggable);
              
             var pos=$(this).position();
