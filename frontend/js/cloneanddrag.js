@@ -1,22 +1,44 @@
 function MakeCloneAble(){
 $(".cloneAble").click(function(){
-  	dropableCounter++;
   	var posx="150px";
   	var posy="1px";
-  	var idOfDroppable=$(this).attr("id");
-  	var newid=idOfDroppable+dropableCounter;
-  	var numOfBits=$(this).attr("num_bits");
-  	$(this).clone().attr("id",newid)
+  	/*var idOfDroppable=$(this).attr("id");
+    var newid=idOfDroppable+dropableCounter;
+    dropableCounter++;*/
+    
+  	//var numOfBits=$(this).attr("num_bits");
+  	/*$(this).clone().attr("id",newid)
                  .addClass("draggableComp")
                  .appendTo("body")
                  .addClass("circuit");
-  	$("#"+newid).css("position","fixed");
-  	$("#"+newid).css("left",posx);
-  	$("#"+newid).css("top",posy);
+      $("#"+newid).css("position","fixed");
+                 */
+    CloneIt($(this).attr("id"));
+  	//$("#"+newid).css("left",posx);
+  	//$("#"+newid).css("top",posy);
 
-  	AttachDraggableEvents();
-    AttachDroppableEvents();
+  	/*AttachDraggableEvents();
+    AttachDroppableEvents();*/
   });
+}
+
+/*
+** Function just to create the clone based on the ID of the object to be
+** clone.
+*/
+function CloneIt(objId,parent="body"){
+  dropableCounter++;
+  var idOfDroppable=objId;
+  var newid=idOfDroppable+dropableCounter;
+  console.log("CloneIt called and created new id is "+newid);
+   $("#"+objId).clone().attr("id",newid)
+               .addClass("draggableComp")
+               .appendTo($("#"+parent))
+               .addClass("circuit");
+  
+  $("#"+newid).css("position","fixed");
+  AttachDraggableEvents();
+  AttachDroppableEvents();
 }
 
 
@@ -92,8 +114,8 @@ function AttachDroppableEvents(){
 $(".dropzone").droppable({
             drop: function(event, ui) {
             //$(this).css("background","yellow");
-            colIds.push($(this).attr("columnid"));
-            rowIds.push($(this).attr("rowid"));
+            colIds.push(parseInt($(this).attr("columnid")));
+            rowIds.push(parseInt($(this).attr("rowid")));
             $(this).append(ui.draggable);
              
             var pos=$(this).position();
