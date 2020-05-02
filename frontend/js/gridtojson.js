@@ -44,9 +44,9 @@ function GetColumnGates(columnNumber){
 		var divId="row"+rowIndex+"col"+columnNumber+"div";
 		//alert($("#"+divId).atgate["num_bits"]=$("#"+divId).attr("num_bits");tr("rowid"));
 		if($("#"+divId).attr("rowid")!=undefined){
-			console.log($("#"+divId).attr("rowid")+" "+$("#"+divId).attr("columnid")+" "+$("#"+divId).attr("gate"));
+			//console.log($("#"+divId).attr("rowid")+" "+$("#"+divId).attr("columnid")+" "+$("#"+divId).attr("gate"));
 			//"num_bits":2, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1]}
-			console.log($("#"+divId).children().prop("tagName"));
+			//console.log($("#"+divId).children().prop("tagName"));
 			if($("#"+divId).children().prop("tagName")!=undefined){
 			gate={};
 			gate["name"]=$("#"+divId).attr("gate");
