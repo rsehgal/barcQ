@@ -56,6 +56,8 @@ function GetColumnGates(columnNumber){
 			gate["tgt_bits"]=$("#"+divId).attr("tgt_bits");
 			gate["arg_enabled"]=$("#"+divId).attr("arg_enabled");
 			gate["arg_value"]=$("#"+divId).attr("arg_value");
+			gate["rowid"]=$("#"+divId).attr("rowid");
+			gate["columnid"]=$("#"+divId).attr("columnid");
 			instructionsList.push(gate);
 		}
 			//console.log("-------------------------------------");

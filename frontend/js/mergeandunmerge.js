@@ -12,10 +12,32 @@ function MergeCells(cellIdsString){
 function Merge(obj){
 	console.log("RowId : "+obj.attr("rowid")+" : ColumnId : "+obj.attr("columnid"));
 	var num_bits=obj.attr("num_bits");
-	var cellIdsString="";
+	//----------
+	var rowid=obj.attr("rowid");
+	var colid=obj.attr("columnid")
+	Merge2(rowid,colid,num_bits);
+	//----------
+	/* Taking the below stuff to new function Merge2(), this 
+	** design modification will help in loading the saved circuits from JSON
+	*/
+	/*var cellIdsString="";
 	for(var index=0 ; index < num_bits ; index++){
 		var rowid=obj.attr("rowid");
 		var colid=obj.attr("columnid");
+		if(index==0){
+			cellIdsString+="row"+rowid+"col"+colid;
+		}else{
+			rowid=parseInt(rowid)+parseInt(index);
+			cellIdsString+=" row"+rowid+"col"+colid;
+		}
+	}
+	console.log(cellIdsString);
+	MergeCells(cellIdsString);*/
+}
+
+function Merge2(rowid,colid,num_bits){
+	var cellIdsString="";
+	for(var index=0 ; index < num_bits ; index++){
 		if(index==0){
 			cellIdsString+="row"+rowid+"col"+colid;
 		}else{
