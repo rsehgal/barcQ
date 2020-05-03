@@ -109,13 +109,61 @@ function AttachDraggableEvents(){
     });
 }
 
+/*
+** Function to set the control and target bits.
+**
+** WARNING
+** -------
+** This needs to be modified whenever a new gate is 
+** introduced in the framework
+*/
+function SetControlAndTargetBits(objid,rowid,numofbits){
+  ctlbits=[];
+  tgtbits=[];
+  if(parseInt($("#"+objid).attr("ctl_enabled"))!=0){
+    /*
+    ** This block is for control enabled gates
+    ** Useful for CNOT, CCNOT.
+    ** This needs to be modified whenever a new gate is 
+    ** introduced in the framework
+    */
+
+    for(var bitnum=0;bitnum<numofbits-1;bitnum++){
+        ctlbits.push(rowid);
+        rowid++;
+    }
+    tgtbits.push(rowid);
+  }else{
+    /*
+    ** This block is for gates with control bits
+    ** Useful for all single bit gate and SWAP gate
+    */
+    if(numofbits==1){
+      ctlbits.push(0);
+      tgtbits.push(rowid);
+    }else{
+        //For SWAP gate
+        ctlbits.push(0);
+        for(var bitnum=0;bitnum<numofbits;bitnum++){
+          tgtbits.push(rowid);
+          rowid++;
+        }
+      }
+  }
+
+  $("#"+objid).attr("ctl_bits",ctlbits);
+  $("#"+objid).attr("tgt_bits",tgtbits);
+}
+
 function AttachDroppableEvents(){
 
 $(".dropzone").droppable({
             drop: function(event, ui) {
             //$(this).css("background","yellow");
-            colIds.push(parseInt($(this).attr("columnid")));
-            rowIds.push(parseInt($(this).attr("rowid")));
+            var colid=parseInt($(this).attr("columnid"))
+            colIds.push(colid);
+            var rowid=parseInt($(this).attr("rowid"));
+            rowIds.push(rowid);
             $(this).append(ui.draggable);
              
             var pos=$(this).position();
@@ -143,6 +191,10 @@ $(".dropzone").droppable({
               //alert($(this).attr("id"));
             //var divId=$(this).attr("id");
             //console.log(divId);
+
+            //Trying to set correct control and target bits
+            SetControlAndTargetBits(ui.draggable.attr("id"),rowid,ui.draggable.attr("num_bits"));
+
             ModifyParentDiv($(this));
             },
             over: function(event, ui) {
