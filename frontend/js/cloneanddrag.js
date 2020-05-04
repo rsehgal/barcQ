@@ -24,7 +24,10 @@ $(".cloneAble").click(function(){
 
 /*
 ** Function just to create the clone based on the ID of the object to be
-** clone.
+** cloned.
+** 
+** Created as a separate function because it is required while creating
+** a new circuit and also to load the previously stored circuit
 */
 function CloneIt(objId,parent="body"){
   dropableCounter++;
