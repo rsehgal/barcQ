@@ -39,7 +39,7 @@ function CloneIt(objId,parent="body"){
                .appendTo($("#"+parent))
                .addClass("circuit");
   
-  $("#"+newid).css("position","fixed");
+  //$("#"+newid).css("position","fixed");
   AttachDraggableEvents();
   AttachDroppableEvents();
 }
@@ -62,6 +62,7 @@ function ModifyParentDiv(obj){
     console.log("Num of bits : "+obj.attr("num_bits"));
 
   Merge(obj);
+  InsertConnector(obj.attr("id"),2);
 }
 
 
@@ -83,7 +84,8 @@ function AttachDraggableEvents(){
 	});
 
 	$('.draggableComp').on('mouseup',function(event){
-	    //$(".dropzone").css('background', 'white');
+		//alert("Mouse up called.........");
+	    //$(".dropzone").css('background', 'transparent');
 	});
 
 	$(".draggableComp").draggable({ appendTo: "body"});
@@ -96,7 +98,11 @@ function AttachDraggableEvents(){
   });
 
   $(".dropzone").on('mouseleave',function(){
-    $(this).css('background', 'white');
+    $(this).css('background', 'transparent');
+  });
+  
+  $(".dropzone").on('mouseup',function(){
+    $(this).css('background', 'transparent');
   });
   
 
@@ -162,6 +168,9 @@ function AttachDroppableEvents(){
 
 $(".dropzone").droppable({
             drop: function(event, ui) {
+			console.log("Previous Parent ID of draggable : "+ui.draggable.parent().attr("id"));
+			var prevParentId=ui.draggable.parent().attr("id");
+			//InsertConnector(ui.draggable.parent().attr("id"));
             //$(this).css("background","yellow");
             var colid=parseInt($(this).attr("columnid"))
             colIds.push(colid);
@@ -185,20 +194,27 @@ $(".dropzone").droppable({
             ui.draggable.css('top',posy);
             $(".dropzone").css('background', 'white');
             $(this).css("background","yellow");
-            ui.draggable.css("position","relative");
-
-              //Very import getting the ID of droppable element
-              //May be required somewhere
+            
+            //Very import getting the ID of droppable element
+            //May be required somewhere
             var idOfDroppable=$(this).attr("id");
-            //ui.draggable.attr("parentid",idOfDroppable);
-              //alert($(this).attr("id"));
-            //var divId=$(this).attr("id");
-            //console.log(divId);
-
+            
             //Trying to set correct control and target bits
             SetControlAndTargetBits(ui.draggable.attr("id"),rowid,ui.draggable.attr("num_bits"));
+            
+            var numOfBits=parseInt(ui.draggable.attr("num_bits"));
+            if(numOfBits==1){
+				$("#svg-"+$(this).attr("id")).remove();
+			}else{
+			
+				for(var index=0 ; index < numOfBits ; index++){
+					var svgId="svg-row"+(rowid+index)+"col"+colid+"div";
+					$("#"+svgId).remove();
+				}
+			}
 
             ModifyParentDiv($(this));
+            InsertConnector(prevParentId);
             },
             over: function(event, ui) {
                 //event.preventDefault();

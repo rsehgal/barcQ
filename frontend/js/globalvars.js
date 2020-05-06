@@ -15,4 +15,5 @@ var idForDelete="";
 var colIds=[];
 var rowIds=[];
 var uniqueSortedRowIds=[];
+var gridConnectorRadius=3;
 //var backSvgCanvas;
