@@ -58,11 +58,12 @@ function ModifyParentDiv(obj){
   obj.attr("tgt_bits",obj.children().attr("tgt_bits"));
   obj.attr("arg_enabled",obj.children().attr("arg_enabled"));
   obj.attr("arg_value",obj.children().attr("arg_value"));
+  obj.children().remove();
   if(obj.attr("num_bits")!=1)
     console.log("Num of bits : "+obj.attr("num_bits"));
 
   Merge(obj);
-  InsertConnector(obj.attr("id"),2);
+  InsertConnector(obj.attr("id"));
 }
 
 
@@ -194,26 +195,20 @@ $(".dropzone").droppable({
             ui.draggable.css('top',posy);
             $(".dropzone").css('background', 'white');
             $(this).css("background","yellow");
-            
-            //Very import getting the ID of droppable element
-            //May be required somewhere
             var idOfDroppable=$(this).attr("id");
             
             //Trying to set correct control and target bits
             SetControlAndTargetBits(ui.draggable.attr("id"),rowid,ui.draggable.attr("num_bits"));
             
             var numOfBits=parseInt(ui.draggable.attr("num_bits"));
-            if(numOfBits==1){
-				$("#svg-"+$(this).attr("id")).remove();
-			}else{
-			
-				for(var index=0 ; index < numOfBits ; index++){
-					var svgId="svg-row"+(rowid+index)+"col"+colid+"div";
-					$("#"+svgId).remove();
-				}
-			}
+            
+          //  if(numOfBits==1){
+            console.log("Deleting SVG of div : "+$(this).attr("id"));
+            $("#svg-"+$(this).attr("id")).remove();
+          //}
 
             ModifyParentDiv($(this));
+            console.log("Previous Parent Div : "+prevParentId);
             InsertConnector(prevParentId);
             },
             over: function(event, ui) {

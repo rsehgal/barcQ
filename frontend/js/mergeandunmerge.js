@@ -4,9 +4,13 @@ function MergeCells(cellIdsString){
         console.log(cellIdsLength);
         $('#'+cellIdsArray[0]).attr('rowspan',cellIdsLength);
         $('#'+cellIdsArray[0]).children().css("background","transparent");
+        var height=$('#'+cellIdsArray[0]).children().height()
+        $('#'+cellIdsArray[0]).children().css("height",cellIdsLength*height);
+
         for(var index=1 ; index < cellIdsLength ; index++){
                 $('#'+cellIdsArray[index]).remove();
         }
+        //CreateControlledGate(cellIdsArray[0],cellIdsLength);
 }
 
 function Merge(obj){

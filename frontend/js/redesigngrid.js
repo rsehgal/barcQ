@@ -23,8 +23,8 @@ function InsertConnectorOnGrid(){
 			//console.log("ColID : "+colid);
 			var divid=$("#"+colid).children().attr("id");
 			//console.log("DivIDD : "+divid);
-			InsertConnector(divid);
-			/*
+			//InsertConnector(divid);
+			
 			var divWidth=$("#"+divid).width();
 			var divHeight=$("#"+divid).height();
 			var svgContainer = d3.select("#"+divid).append("svg")
@@ -38,7 +38,7 @@ function InsertConnectorOnGrid(){
 							  .attr("r", gridConnectorRadius)
 							  .attr("stroke","black")
 							  .attr("stroke-width","1px"); 
-			*/
+			
 			
 	 	}
 	}
@@ -46,81 +46,52 @@ function InsertConnectorOnGrid(){
 }
 
 
-function CreateControlledGate(svgContainer,cx,cy){
-	
-}
-
-function InsertConnector(divid,initalize=1){
-	alert(divid+" "+initalize);
+function CreateControlledGate(divid,numofbits){
 	var divWidth=$("#"+divid).width();
 	var divHeight=$("#"+divid).height();
 	var cx=divWidth/2;
-	var cy=divHeight/2;
+	var cy=divHeight/(2*numofbits);
 	if(divid!="body"){
 		var svgContainer = d3.select("#"+divid).append("svg")
 								 .attr("width",divWidth)
 								 .attr("height",divHeight)
 								 .attr("id","svg-"+divid);
-	if(initalize==1){
-		InsertOnlyConnector(svgContainer,cx,cy);
-	}else{
-		//var numOfBits=parseInt($("#"+divid).attr("num_bits");
-		//var ctl_enabled=parseInt($("#"+divid).attr("ctl_enabled");
-		/*if(numOfBits>1){
-			if(ctl_enabled==1){
-				cy=0.25*divHeight;
-				InsertOnlyConnector(svgContainer,cx,cy);
-			}
-		}*/
-	}
-	
-}
-	/*
-	if(divid!="body"){
-		var divWidth=$("#"+divid).width();
-		var divHeight=$("#"+divid).height();
-		var cx=divWidth/2;
-		var cy=0;
-		var numOfBits=parseInt($("#"+divid).attr("num_bits");
-				
-		var svgContainer = d3.select("#"+divid).append("svg")
-								 .attr("width",divWidth)
-								 .attr("height",divHeight)
-								 .attr("id","svg-"+divid);
-		if(initalize==1){
-			//Draw the Circle
-			var circle = svgContainer.append("circle")
-							  .attr("cx",divWidth/2)
-							  .attr("cy",divHeight/2)
-							  .attr("r", gridConnectorRadius)
-							  .attr("stroke","black")
-							  .attr("stroke-width","1px"); 
-		}else{
-		if(numOfBits)==1){
-			cy=divHeight/2;
-		}else{
-			if(numOfBits)==2){
-				//CNOT equivalent
-				cy=3*divHeight/2;
-			}else{
-				if(numOfBits)==3){
-					//CCNOT equivalent
-					cy=5*divHeight/2;
-					
-				}
-			}
-			
-		}
-		//Draw the Circle
 		var circle = svgContainer.append("circle")
 							  .attr("cx",cx)
 							  .attr("cy",cy)
 							  .attr("r", gridConnectorRadius)
 							  .attr("stroke","black")
 							  .attr("stroke-width","1px"); 
+
 	}
+}
+
+/*
+** Function to just put the connector for single bit gate upon 
+** ideally it should support all
+*/
+function InsertConnector(divid){
+	//alert(divid+" "+initalize);
+	var numofbits=$("#"+divid).attr("num_bits");
+	console.log("DivId from InsertConnector : "+divid+" :: Num of bits from InsertConnector : "+numofbits);
+	console.log("parent : "+divid);
+	var divWidth=$("#"+divid).width();
+	var divHeight=$("#"+divid).height();
+	var cx=divWidth/2;
+	var cy=divHeight/(2*numofbits);
+	if(divid!="body"){
+		var svgContainer = d3.select("#"+divid).append("svg")
+								 .attr("width",divWidth)
+								 .attr("height",divHeight)
+								 .attr("id","svg-"+divid);
+		var circle = svgContainer.append("circle")
+							  .attr("cx",cx)
+							  .attr("cy",cy)
+							  .attr("r", gridConnectorRadius)
+							  .attr("stroke","black")
+							  .attr("stroke-width","1px"); 
+
 	}
-	*/
 }
 
 function InsertOnlyConnector(svgContainer,cx,cy){
