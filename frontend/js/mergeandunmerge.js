@@ -3,14 +3,14 @@ function MergeCells(cellIdsString){
         var cellIdsLength=cellIdsArray.length;
         console.log(cellIdsLength);
         $('#'+cellIdsArray[0]).attr('rowspan',cellIdsLength);
-        $('#'+cellIdsArray[0]).children().css("background","white");
+        $('#'+cellIdsArray[0]).children().css("background","transparent");
         for(var index=1 ; index < cellIdsLength ; index++){
                 $('#'+cellIdsArray[index]).remove();
         }
 }
 
 function Merge(obj){
-	console.log("RowId : "+obj.attr("rowid")+" : ColumnId : "+obj.attr("columnid"));
+	console.log("From Merge Function : ID : "+obj.attr("id")+" : RowId : "+obj.attr("rowid")+" : ColumnId : "+obj.attr("columnid"));
 	var num_bits=obj.attr("num_bits");
 	//----------
 	var rowid=obj.attr("rowid");
@@ -36,8 +36,9 @@ function Merge(obj){
 }
 
 function Merge2(rowid,colid,num_bits){
+	console.log("From Merge2 Function : RowID : "+rowid+" : ColID : "+colid+" : NumBits : "+num_bits);
 	var cellIdsString="";
-	for(var index=0 ; index < num_bits ; index++){
+	for(var index=0 ; index < parseInt(num_bits) ; index++){
 		if(index==0){
 			cellIdsString+="row"+rowid+"col"+colid;
 		}else{
@@ -45,7 +46,7 @@ function Merge2(rowid,colid,num_bits){
 			cellIdsString+=" row"+rowid+"col"+colid;
 		}
 	}
-	console.log(cellIdsString);
+	console.log("CellsID String : "+cellIdsString);
 	MergeCells(cellIdsString);
 }
 
