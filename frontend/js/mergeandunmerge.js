@@ -1,7 +1,10 @@
 function MergeCells(cellIdsString){
-        var cellIdsArray=cellIdsString.split(" ");
+	var cellIdsArray=cellIdsString.split(" ");
         var cellIdsLength=cellIdsArray.length;
+if(cellIdsLength>1){
+        
         console.log(cellIdsLength);
+
         $('#'+cellIdsArray[0]).attr('rowspan',cellIdsLength);
         $('#'+cellIdsArray[0]).children().css("background","transparent");
         var height=$('#'+cellIdsArray[0]).children().height()
@@ -10,12 +13,14 @@ function MergeCells(cellIdsString){
         for(var index=1 ; index < cellIdsLength ; index++){
                 $('#'+cellIdsArray[index]).remove();
         }
-        //CreateControlledGate(cellIdsArray[0],cellIdsLength);
+        
+    }
 }
 
 function Merge(obj){
 	console.log("From Merge Function : ID : "+obj.attr("id")+" : RowId : "+obj.attr("rowid")+" : ColumnId : "+obj.attr("columnid"));
 	var num_bits=obj.attr("num_bits");
+
 	//----------
 	var rowid=obj.attr("rowid");
 	var colid=obj.attr("columnid")
