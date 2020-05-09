@@ -41,7 +41,7 @@
 		
 	</style>
 
-	<script src = "../../jsonschemas/gatesUI.json"></script>
+	<script src = "../../jsonschemauserDefinedControlGatesDivIdss/gatesUI.json"></script>
 	<script src = "../../jsonschemas/gatesUIExtended.json"></script>
 	<script src = '../../js/jquery.js'> </script>
     <script src = '../../js/jquery-ui.js'> </script>
@@ -57,6 +57,7 @@
     <script src = "../../js/gridinputlines.js"></script>
     <script src = "../../js/redesigngrid.js"></script>
     <script src = "../../js/gatessymbol.js"></script>
+    <script src = "../../js/userdefinedcontrolgates.js"></script>
 	    <script>
 	    $(document).ready(function(){
 	    	CreateToolBox();
@@ -71,6 +72,11 @@
  			});
  			AddInputLinesToGrid();
  			InsertConnectorOnGrid();
+ 			ControlGateInitialization();
+ 			$("#create").click(function(){
+ 				StoreDivIds();	
+ 			});
+ 			
 		});
 	</script>
 
@@ -166,6 +172,8 @@
 	</table>
 	<button type="button" id="mergebutton">Export JSON</button>
 	<button type="button" id="loadbutton">Load Circuit</button>
+	<button type="button" id="create">New Controlled Gate</button>
+	<button type="button" id="display">Create Gate</button>
 	</div>
 	
 

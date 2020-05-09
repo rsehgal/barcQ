@@ -97,11 +97,11 @@ function AttachDraggableEvents(){
     });
   
   $(".dropzone").on('mouseenter',function(){
-    $(this).css('background', 'orange');
+    //$(this).css('background', 'orange');
   });
 
   $(".dropzone").on('mouseleave',function(){
-    $(this).css('background', 'transparent');
+   // $(this).css('background', 'transparent');
   });
   
   $(".dropzone").on('mouseup',function(){
