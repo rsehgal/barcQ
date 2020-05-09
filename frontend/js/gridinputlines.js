@@ -59,7 +59,8 @@ var rowList=$("#dropzonetable tr");
                           .attr("x2", x2)
                           .attr("y2", y2)
                           .attr("stroke-width","2px")
-                          .attr("stroke","black");
+                          .attr("stroke","black")
+                          .attr("style","position:fixed;");
 
 	}
 
