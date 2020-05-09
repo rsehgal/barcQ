@@ -59,9 +59,18 @@ function CreateControlledGate(divid,numofbits){
 		var circle = svgContainer.append("circle")
 							  .attr("cx",cx)
 							  .attr("cy",cy)
-							  .attr("r", gridConnectorRadius)
-							  .attr("stroke","black")
+							  .attr("r", gridConnectorRadius+2)
+							  .attr("stroke","red")
 							  .attr("stroke-width","1px"); 
+
+		cy*=3
+		var circle2 = svgContainer.append("circle")
+							  .attr("cx",cx)
+							  .attr("cy",cy)
+							  .attr("r", gridConnectorRadius+2)
+							  .attr("stroke","red")
+							  .attr("stroke-width","1px"); 
+
 
 	}
 }
@@ -70,7 +79,7 @@ function CreateControlledGate(divid,numofbits){
 ** Function to just put the connector for single bit gate upon 
 ** ideally it should support all
 */
-function InsertConnector(divid){
+function InsertConnector(divid,rad=gridConnectorRadius){
 	//alert(divid+" "+initalize);
 	var numofbits=$("#"+divid).attr("num_bits");
 	console.log("DivId from InsertConnector : "+divid+" :: Num of bits from InsertConnector : "+numofbits);
@@ -83,15 +92,17 @@ function InsertConnector(divid){
 		var svgContainer = d3.select("#"+divid).append("svg")
 								 .attr("width",divWidth)
 								 .attr("height",divHeight)
-								 .attr("id","svg-"+divid);
+								 .attr("id","svg-"+divid)
+								 .classed("draggableComp",true);
 		var circle = svgContainer.append("circle")
 							  .attr("cx",cx)
 							  .attr("cy",cy)
-							  .attr("r", gridConnectorRadius)
+							  .attr("r", rad)
 							  .attr("stroke","black")
 							  .attr("stroke-width","1px"); 
 
 	}
+	AttachDraggableEvents();
 }
 
 function InsertOnlyConnector(svgContainer,cx,cy){

@@ -34,7 +34,7 @@ function CloneIt(objId,parent="body"){
   var idOfDroppable=objId;
   var newid=idOfDroppable+dropableCounter;
   console.log("CloneIt called and created new id is "+newid);
-   $("#"+objId).clone().attr("id",newid)
+   $("#"+objId).children().clone().attr("id",newid)
                .addClass("draggableComp")
                .appendTo($("#"+parent))
                .addClass("circuit");
@@ -58,12 +58,14 @@ function ModifyParentDiv(obj){
   obj.attr("tgt_bits",obj.children().attr("tgt_bits"));
   obj.attr("arg_enabled",obj.children().attr("arg_enabled"));
   obj.attr("arg_value",obj.children().attr("arg_value"));
-  obj.children().remove();
-  if(obj.attr("num_bits")!=1)
-    console.log("Num of bits : "+obj.attr("num_bits"));
-
-  Merge(obj);
-  InsertConnector(obj.attr("id"));
+  
+  var numOfBits=parseInt(obj.children().attr("num_bits"));
+  console.log("Num of bits from ModifyParentDiv : "+numOfBits);
+  if(numOfBits>1){
+      console.log("Num of bits : "+obj.attr("num_bits"));
+      Merge(obj);
+  }
+  //InsertConnector(obj.attr("id"),5);
 }
 
 
@@ -196,6 +198,7 @@ $(".dropzone").droppable({
             $(".dropzone").css('background', 'white');
             $(this).css("background","yellow");
             var idOfDroppable=$(this).attr("id");
+            $("#"+ui.draggable.attr("id")).attr("style","position:fixed;");
             
             //Trying to set correct control and target bits
             SetControlAndTargetBits(ui.draggable.attr("id"),rowid,ui.draggable.attr("num_bits"));
