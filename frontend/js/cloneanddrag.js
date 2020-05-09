@@ -195,7 +195,7 @@ $(".dropzone").droppable({
             posy=posy+parseInt(height/2)-parseInt(winHeight/2);
             ui.draggable.css('left',posx);
             ui.draggable.css('top',posy);
-            $(".dropzone").css('background', 'white');
+            $(".dropzone").css('background', 'transparent');
             $(this).css("background","yellow");
             var idOfDroppable=$(this).attr("id");
             $("#"+ui.draggable.attr("id")).attr("style","position:fixed;");
