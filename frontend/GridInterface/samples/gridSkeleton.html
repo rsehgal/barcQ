@@ -21,7 +21,6 @@
 		}
 
 		.iamdroppable{
-￼Export JSON ￼Load Circuit
 
 		}
 
@@ -86,7 +85,11 @@
 
 <body id="body">
 	<div id="toolboxDiv"></div>
+	
+	<svg xmlns="http://www.w3.org/2000/svg" id="testSvg" width="1000" height="1000">
+  	<foreignObject x="10" y="10" width=500 height=500 >
 	<div id="dropzoneDiv">
+
 	<table border="0" id="dropzonetable" cellpadding=0 cellspacing=0>
 		<tr id="row0">
 			<td id="row0col0">
@@ -123,7 +126,7 @@
 			</td>
 			<td id="row1col2">
 				<div id="row1col2div" name="" rowId="1" columnId="2" class="dropzone" gate="" num_bits="" 
-				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
+				ctl_enaforeignObjectbled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
 			<td id="row1col3">
 				<div id="row1col3div" name="" rowId="1" columnId="3" class="dropzone" gate="" num_bits="" 
 				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
@@ -170,11 +173,14 @@
 				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
 		</tr>
 	</table>
+
 	<button type="button" id="mergebutton">Export JSON</button>
 	<button type="button" id="loadbutton">Load Circuit</button>
 	<button type="button" id="create">New Controlled Gate</button>
 	<button type="button" id="display">Create Gate</button>
 	</div>
+	</foreignObject>
+</svg>
 	
 
 </body>

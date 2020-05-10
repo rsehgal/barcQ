@@ -1,8 +1,10 @@
 function AddInputLinesToGrid(){
 console.log("AddInputLinesToGrid called........");
-var svgContainer = d3.select("body").append("svg")
+var svgContainer = d3.select("#testSvg").append("svg")
                                     .attr("width", 500)
-                                     .attr("height", 500);
+                                     .attr("height", 500)
+                                     .attr("viewbox","0 0 500 500");
+
  
  
 /* //Draw the line
@@ -59,8 +61,8 @@ var rowList=$("#dropzonetable tr");
                           .attr("x2", x2)
                           .attr("y2", y2)
                           .attr("stroke-width","2px")
-                          .attr("stroke","black")
-                          .attr("style","position:fixed;");
+                          .attr("stroke","black");
+
 
 	}
 
