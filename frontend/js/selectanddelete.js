@@ -1,6 +1,6 @@
 function ResetDiv(objId){
   $("#"+objId).parent().attr("gate","");
-  $("#"+objId).parent().attr("num_bits",0);
+  $("#"+objId).parent().attr("num_bits",1);
   $("#"+objId).parent().attr("ctl_enabled",0);
   $("#"+objId).parent().attr("ctl_bits",0);
   $("#"+objId).parent().attr("tgt_bits",0);
@@ -10,7 +10,7 @@ function ResetDiv(objId){
 
 function ResetDivWithId(objId,rowid,colid){
   $("#"+objId).attr("gate","");
-  $("#"+objId).attr("num_bits",0);
+  $("#"+objId).attr("num_bits",1);
   $("#"+objId).attr("ctl_enabled",0);
   $("#"+objId).attr("ctl_bits",0);
   $("#"+objId).attr("tgt_bits",0);
@@ -46,6 +46,8 @@ function AttachSelectAndDelete(){
         ResetDiv(idForDelete);
         if(parseInt($("#"+idForDelete).attr("num_bits")) > 1){
           UnMergeCells(idForDelete);
+        }else{
+          InsertConnector($("#"+idForDelete).parent().attr("id"));
         }
         $("#"+idForDelete).remove();
         
