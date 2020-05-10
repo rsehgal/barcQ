@@ -75,6 +75,11 @@ function UnMergeCells(idToDelete){
 */
 function InsertCell(rownum, colnum){
 	$("#row"+rownum+"col"+colnum).attr("rowspan",1);
+	$("#row"+rownum+"col"+colnum+"div").css("width",singleDivWidth);
+	$("#row"+rownum+"col"+colnum+"div").css("height",singleDivHeight);
+	console.log("Inserting connector for DivID : "+"#row"+rownum+"col"+colnum+"div");
+	InsertConnector("row"+rownum+"col"+colnum+"div");
+
 	var rowid="row"+(parseInt(rownum)+1);
 	var row = document.getElementById(rowid);
   	var x = row.insertCell(colnum);
@@ -84,6 +89,7 @@ function InsertCell(rownum, colnum){
   	console.log(divid);
   	$("#"+rowid+"col"+colnum).children().attr("id",divid);
   	ResetDivWithId(divid,parseInt(rownum)+1,colnum);
+  	InsertConnector(divid);
   	console.log("Cell INserted.........");
   	AttachDroppableEvents();
 }
