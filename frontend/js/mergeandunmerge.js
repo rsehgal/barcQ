@@ -4,6 +4,7 @@ function MergeCells(cellIdsString){
 if(cellIdsLength>1){
         
         console.log(cellIdsLength);
+        console.log("CellIdArray : "+cellIdsArray);
 
         $('#'+cellIdsArray[0]).attr('rowspan',cellIdsLength);
         $('#'+cellIdsArray[0]).children().css("background","transparent");
@@ -11,6 +12,7 @@ if(cellIdsLength>1){
         $('#'+cellIdsArray[0]).children().css("height",cellIdsLength*height);
 
         for(var index=1 ; index < cellIdsLength ; index++){
+        		console.log("REMOVING : "+cellIdsArray[index]);
                 $('#'+cellIdsArray[index]).remove();
         }
         
@@ -45,13 +47,14 @@ function Merge(obj){
 }
 
 function Merge2(rowid,colid,num_bits){
+	rowid=parseInt(rowid);
 	console.log("From Merge2 Function : RowID : "+rowid+" : ColID : "+colid+" : NumBits : "+num_bits);
 	var cellIdsString="";
 	for(var index=0 ; index < parseInt(num_bits) ; index++){
 		if(index==0){
 			cellIdsString+="row"+rowid+"col"+colid;
 		}else{
-			rowid=parseInt(rowid)+parseInt(index);
+			rowid+=1;//parseInt(index);
 			cellIdsString+=" row"+rowid+"col"+colid;
 		}
 	}
@@ -69,6 +72,48 @@ function UnMergeCells(idToDelete){
 							 +" , "
 							 +$("#"+$("#"+idToDelete).attr("parentid")).attr("columnid"));
 */}
+
+
+function UnMergeCellsOnDrag(idToDrag){
+	console.log("UnMergeCellsOnDrag: "+$("#"+idToDrag).attr("rowid")
+								 +" , "
+								 +$("#"+idToDrag).attr("columnid")
+								 +" : RowSpan : "+$("#"+idToDrag).parent().attr("rowspan"));
+	//InsertCell($("#"+idToDrag).parent().attr("rowid"),$("#"+idToDrag).parent().attr("columnid"));
+	InsertCellOnDrag($("#"+idToDrag).attr("rowid"), 
+					 $("#"+idToDrag).attr("columnid"),
+					 $("#"+idToDrag).parent().attr("rowspan"));
+}
+
+
+/*
+** Logic to insert a cell (on drag) containing a div in at particular row at particulur cell location
+*/
+function InsertCellOnDrag(rownum, colnum,rowspan){
+	console.log("**************************************");
+	$("#row"+rownum+"col"+colnum).attr("rowspan",1);
+	$("#row"+rownum+"col"+colnum+"div").css("width",singleDivWidth);
+	$("#row"+rownum+"col"+colnum+"div").css("height",singleDivHeight);
+	console.log("Inserting connector for DivID : "+"#row"+rownum+"col"+colnum+"div");
+	InsertConnector("row"+rownum+"col"+colnum+"div");
+
+	for(var index=1; index < parseInt(rowspan) ; index++){
+	var rowid="row"+(parseInt(rownum)+index);
+	var row = document.getElementById(rowid);
+  	var x = row.insertCell(colnum);
+  	x.id=rowid+"col"+colnum;
+  	$("#"+rowid+"col"+colnum).append($("<div />"));
+  	var divid=rowid+"col"+colnum+"div";
+  	console.log("Divid : "+divid);
+  	$("#"+rowid+"col"+colnum).children().attr("id",divid);
+  	ResetDivWithId(divid,parseInt(rownum)+1,colnum);
+  	InsertConnector(divid);
+  	console.log("Cell INserted.........");
+  	AttachDroppableEvents();
+
+  }
+  console.log("**************************************");
+}
 
 /*
 ** Logic to insert a cell containing a div in at particular row at particulur cell location
