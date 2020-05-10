@@ -211,8 +211,13 @@ $(".dropzone").droppable({
           //}
 
             ModifyParentDiv($(this));
+            if(prevParentId!="body"){
+              //alert("PreviousParentID : "+prevParentId);
+              console.log("Previous Parent ID for Drag : "+prevParentId)
+              UnMergeCellsOnDrag(prevParentId);
+            }
             console.log("Previous Parent Div : "+prevParentId);
-            InsertConnector(prevParentId);
+            //InsertConnector(prevParentId);
             },
             over: function(event, ui) {
                 //event.preventDefault();
