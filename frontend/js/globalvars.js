@@ -18,6 +18,8 @@ var uniqueSortedRowIds=[];
 var gridConnectorRadius=3;
 var userControlGateFlag=0;
 var userDefinedControlGatesDivIds=[];
+var userDefinedControlGatesRowIds=[];
+var userDefinedControlGateColumnId=0;
 var singleDivWidth=35;
 var singleDivHeight=35;
 //var backSvgCanvas;

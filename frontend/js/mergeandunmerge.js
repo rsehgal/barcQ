@@ -1,3 +1,33 @@
+function MergeCellsUserDefinedGate(){
+	cellIdsArray=userDefinedControlGatesDivIds;
+    var cellIdsLength2=cellIdsArray.length;
+	if(cellIdsLength2>1){
+        
+        // console.log(cellIdsLength);
+        // console.log("CellIdArray : "+cellIdsArray);
+
+        var uniqueSorted=userDefinedControlGatesRowIds.UniqueAndSorted();
+        var minRowId=uniqueSorted[0];
+        var maxRowId=uniqueSorted[uniqueSorted.length-1];
+        cellIdsLength=maxRowId-minRowId+1;
+        console.log(cellIdsLength2);
+        console.log("CellIdArray : "+cellIdsArray);
+        console.log("minRowId : "+minRowId+" : maxRowId : "+maxRowId);
+
+
+        $('#'+cellIdsArray[minRowId]).parent().attr('rowspan',cellIdsLength);
+        $('#'+cellIdsArray[minRowId]).css("background","transparent");
+        var height=$('#'+cellIdsArray[minRowId]).height()
+        $('#'+cellIdsArray[minRowId]).css("height",cellIdsLength*height);
+
+        for(var index=1 ; index < cellIdsLength ; index++){
+        		console.log("REMOVING : "+$("#"+cellIdsArray[uniqueSorted[index]]).parent());
+                $('#'+cellIdsArray[uniqueSorted[index]]).parent().remove();
+        }
+        
+    }
+}
+
 function MergeCells(cellIdsString){
 	var cellIdsArray=cellIdsString.split(" ");
         var cellIdsLength=cellIdsArray.length;
@@ -18,6 +48,7 @@ if(cellIdsLength>1){
         
     }
 }
+
 
 function Merge(obj){
 	console.log("From Merge Function : ID : "+obj.attr("id")+" : RowId : "+obj.attr("rowid")+" : ColumnId : "+obj.attr("columnid"));

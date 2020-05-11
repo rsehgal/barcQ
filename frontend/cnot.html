@@ -42,16 +42,23 @@
 	var customSqr = d3.symbol().type(customSymbolSquare).size(500);
 
 svg=d3.select("#testDiv").append('svg');
-g = svg.append('g').attr("transform", "translate(17.5,52.5)");
-g.append('circle').attr("r",10).attr("fill","green")
+g = svg.append('g');//.attr("transform", "translate(17.5,52.5)");
+g.append('circle').attr("r",10).attr("cx",17.5).attr("cy",52.5).attr("fill","green")
     .attr("stroke-width","2px")
     .attr("stroke","red");
-g.append('line').attr("x1",-10).attr("y1",0).attr("x2",10).attr("y2",0)
+g.append('line').attr("x1",7.5).attr("y1",52.5).attr("x2",27.5).attr("y2",52.5)
 .attr("stroke-width","2px")
     .attr("stroke","red");
-g.append('line').attr("x1",0).attr("y1",-10).attr("x2",0).attr("y2",10)
+g.append('line').attr("x1",17.5).attr("y1",42.5).attr("x2",17.5).attr("y2",62.5)
 .attr("stroke-width","2px")
     .attr("stroke","red");
+g.append('circle').attr("r",6).attr("cx",17.5).attr("cy",17.5).attr("fill","red")
+    .attr("stroke-width","2px")
+    .attr("stroke","red");
+g.append('line').attr("x1",17.5).attr("y1",17.5).attr("x2",17.5).attr("y2",52.5)
+.attr("stroke-width","2px")
+    .attr("stroke","red");
+
 
 
 
