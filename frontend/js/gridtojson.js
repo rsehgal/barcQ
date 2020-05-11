@@ -24,9 +24,9 @@ function GridToJson(){
 	// console.log(circuitJsonObj);
 	//var uniqueSortedColIds=[0,1];
 	uniqueSortedRowIds=rowIds.UniqueAndSorted();
-	console.log("Raw column ids : "+colIds);
+	console.log("GridToJson Raw column ids : "+colIds);
 	var uniqueSortedColIds=colIds.UniqueAndSorted();
-	console.log("UniqueAndSorted colids : "+uniqueSortedColIds);
+	console.log("GridToJson UniqueAndSorted colids : "+uniqueSortedColIds);
 	for(var index = 0 ; index < uniqueSortedColIds.length ; index++){
 		GetColumnGates(uniqueSortedColIds[index]);
 	}
@@ -39,11 +39,14 @@ function GridToJson(){
 
 function GetColumnGates(columnNumber){
 	//alert("Inside GetColumnGates...");
+	console.log("uniqueSortedRowIds : "+uniqueSortedRowIds);
 	for(var index=0 ; index < uniqueSortedRowIds.length ; index++){
 		rowIndex = uniqueSortedRowIds[index];
 		var divId="row"+rowIndex+"col"+columnNumber+"div";
+		console.log("DivId from GetColumnGates for column number : "+columnNumber+" is "+divId+" : rowID : "+$("#"+divId).attr("rowid")+" : Name : "+$("#"+divId).attr("name"));
 		//alert($("#"+divId).atgate["num_bits"]=$("#"+divId).attr("num_bits");tr("rowid"));
-		if($("#"+divId).attr("rowid")!=undefined){
+		//if($("#"+divId).attr("rowid")!=undefined){
+		if($("#"+divId).attr("name")!=undefined && $("#"+divId).attr("name")!=""){
 			//console.log($("#"+divId).attr("rowid")+" "+$("#"+divId).attr("columnid")+" "+$("#"+divId).attr("gate"));
 			//"num_bits":2, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1]}
 			//console.log($("#"+divId).children().prop("tagName"));

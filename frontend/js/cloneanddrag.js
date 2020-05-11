@@ -30,6 +30,7 @@ $(".cloneAble").click(function(){
 ** a new circuit and also to load the previously stored circuit
 */
 function CloneIt(objId,parent="body"){
+  console.log("ObjID from CloneIt : "+objId+" : TagName : "+$("#"+objId).prop("tagName"));
   dropableCounter++;
   var idOfDroppable=objId;
   var newid=idOfDroppable+dropableCounter;
@@ -51,6 +52,7 @@ function CloneIt(objId,parent="body"){
 
 //Basically modify parameters of divs
 function ModifyParentDiv(obj){
+  obj.attr("name",obj.children().attr("gate"));	
   obj.attr("gate",obj.children().attr("gate"));
   obj.attr("num_bits",obj.children().attr("num_bits"));
   obj.attr("ctl_enabled",obj.children().attr("ctl_enabled"));

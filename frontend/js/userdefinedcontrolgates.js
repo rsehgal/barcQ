@@ -9,7 +9,8 @@ function ControlGateInitialization(){
 			$(this).css("background","yellow");
 			userDefinedControlGatesDivIds.push($(this).attr("id"));
 			userDefinedControlGatesRowIds.push($(this).attr("rowid"));
-			userDefinedControlGateColumnId=$(this).attr("columnid")
+			userDefinedControlGateColumnId=$(this).attr("columnid");
+			userDefinedControlGatesComponent.push($(this).attr("gate"));
 		}
 	});
 }
