@@ -10,6 +10,7 @@ for(var index=0; index<parseInt(numOfRows); index++){
   var gate1JustName=mydata[index].name;
   //console.log(gate1JustName);
   var gate1=gate1JustName+".png";
+  var tdGateName="Raman"+gate1JustName;
   //console.log(gate1);
   /*var rowStr='<td><img src="../../images/'+gate1+'" id='
                       +gate1JustName
@@ -23,6 +24,7 @@ for(var index=0; index<parseInt(numOfRows); index++){
                       +' arg_value='+mydata[index].arg_value
                       +' /></td>';
 */
+ 
   var rowStr='<td id="'+gate1JustName+'"/td>';  
   console.log("RowStr : "+rowStr);
   $row.append(rowStr);
@@ -44,6 +46,7 @@ for(var index=0; index<parseInt(numOfRows); index++){
   console.log(mydata[index]);
  }
  svgGate.attr("id",mydata[index].name)
+ svgGate.attr("gate",mydata[index].name)
                       .attr("num_bits",parseInt(mydata[index].num_bits))
                       .attr("ctl_enabled",mydata[index].ctl_enabled)
                       .attr("ctl_bits",mydata[index].ctl_bits)

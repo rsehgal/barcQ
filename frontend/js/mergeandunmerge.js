@@ -10,22 +10,44 @@ function MergeCellsUserDefinedGate(){
         var minRowId=uniqueSorted[0];
         var maxRowId=uniqueSorted[uniqueSorted.length-1];
         cellIdsLength=maxRowId-minRowId+1;
-        console.log(cellIdsLength2);
+        console.log(cellIdsLength);
         console.log("CellIdArray : "+cellIdsArray);
         console.log("minRowId : "+minRowId+" : maxRowId : "+maxRowId);
 
+		
 
-        $('#'+cellIdsArray[minRowId]).parent().attr('rowspan',cellIdsLength);
+        /*$('#'+cellIdsArray[minRowId]).parent().attr('rowspan',cellIdsLength);
         $('#'+cellIdsArray[minRowId]).css("background","transparent");
         var height=$('#'+cellIdsArray[minRowId]).height()
         $('#'+cellIdsArray[minRowId]).css("height",cellIdsLength*height);
 
         for(var index=1 ; index < cellIdsLength ; index++){
-        		console.log("REMOVING : "+$("#"+cellIdsArray[uniqueSorted[index]]).parent());
+        		console.log("REMOVING : "+$("#"+cellIdsArray[uniqueSorted[index]]).parent().attr("id"));
                 $('#'+cellIdsArray[uniqueSorted[index]]).parent().remove();
-        }
+        }*/
         
+        sortedCellIdsArray=GetSortedCellIdArray(minRowId,maxRowId);
+        $('#'+sortedCellIdsArray[0]).parent().attr('rowspan',cellIdsLength);
+        $('#'+sortedCellIdsArray[0]).css("background","transparent");
+        var height=$('#'+sortedCellIdsArray[0]).height()
+        $('#'+sortedCellIdsArray[0]).css("height",cellIdsLength*height);
+        
+        for(var index=1 ; index < cellIdsLength ; index++){
+        		console.log("REMOVING : "+$("#"+sortedCellIdsArray[index]).parent().attr("id"));
+                $('#'+sortedCellIdsArray[index]).parent().remove();
+        }
     }
+}
+
+function GetSortedCellIdArray(minRowId,maxRowId){
+	//userDefinedControlGateColumnId
+	sortedCellIdsArray=[];
+	for(var index=minRowId ; index <= maxRowId ; index++){
+		var cellId="row"+index+"col"+userDefinedControlGateColumnId+"div";
+		sortedCellIdsArray.push(cellId);
+	}
+	return sortedCellIdsArray;
+	
 }
 
 function MergeCells(cellIdsString){
