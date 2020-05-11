@@ -5,7 +5,7 @@
 			left: 120;
 			top : 60;
 			width: 35;
-			height: 70;
+			height: 90;
 			border: solid blue;
 			position: fixed;
 		}
@@ -17,6 +17,7 @@
 	<script src="https://d3js.org/d3-shape.v1.min.js"></script>
 	<!-- <script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script> -->
 	<script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/gatessymbol.js"></script>
 	<script type="text/javascript">
 	$(document).ready(function(){
 		/*$.get('imagesSVG/XOR.svg', function(data){
@@ -41,18 +42,42 @@
 	
 	var customSqr = d3.symbol().type(customSymbolSquare).size(500);
 
-svg=d3.select("#testDiv").append('svg');
-g = svg.append('g').attr("transform", "translate(17.5,52.5)");
-g.append('circle').attr("r",10).attr("fill","green")
+var numOfBits=3;
+ccnot("testDiv");//,3);
+/*var width=$("#testDiv").width();
+var height=$("#testDiv").height();
+var x=width/2;
+var y=5*height/(2*numOfBits);
+var xorrad=10;
+svg=d3.select("#testDiv").append('svg').attr("width",width).attr("height",height);
+g = svg.append('g');//.attr("transform", "translate(17.5,52.5)");
+g.append('circle').attr("r",xorrad).attr("cx",x).attr("cy",y).attr("fill","green")
     .attr("stroke-width","2px")
     .attr("stroke","red");
-g.append('line').attr("x1",-10).attr("y1",0).attr("x2",10).attr("y2",0)
+g.append('line').attr("x1",x-xorrad).attr("y1",y).attr("x2",x+xorrad).attr("y2",y)
 .attr("stroke-width","2px")
     .attr("stroke","red");
-g.append('line').attr("x1",0).attr("y1",-10).attr("x2",0).attr("y2",10)
+g.append('line').attr("x1",x).attr("y1",y-xorrad).attr("x2",x).attr("y2",y+xorrad)
 .attr("stroke-width","2px")
     .attr("stroke","red");
 
+//First control
+y=3*height/(2*numOfBits);
+g.append('circle').attr("r",6).attr("cx",x).attr("cy",y).attr("fill","red")
+    .attr("stroke-width","2px")
+    .attr("stroke","red");
+//Second control
+y=height/(2*numOfBits);
+g.append('circle').attr("r",6).attr("cx",x).attr("cy",y).attr("fill","red")
+    .attr("stroke-width","2px")
+    .attr("stroke","red");
+
+
+g.append('line').attr("x1",x).attr("y1",y).attr("x2",x).attr("y2",5*y+xorrad)
+.attr("stroke-width","2px")
+    .attr("stroke","red");
+
+*/
 
 
     /*g.append("path")

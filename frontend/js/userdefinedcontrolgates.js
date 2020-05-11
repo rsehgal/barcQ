@@ -7,7 +7,9 @@ function ControlGateInitialization(){
 	$(".dropzone").click(function(){
 		if(userControlGateFlag){
 			$(this).css("background","yellow");
-		userDefinedControlGatesDivIds.push($(this).attr("id"));
+			userDefinedControlGatesDivIds.push($(this).attr("id"));
+			userDefinedControlGatesRowIds.push($(this).attr("rowid"));
+			userDefinedControlGateColumnId=$(this).attr("columnid")
 		}
 	});
 }
@@ -25,6 +27,17 @@ function DisplayDivIds(){
 	userControlGateFlag=0;
 	console.log("User Control gate flag : "+userControlGateFlag);
 	//userDefinedControlGatesDivIds=[];
+
+	/*divIds="";
+	for(var index=0 ; index < userDefinedControlGatesDivIds.length ; index++){
+		if(index==0){
+			divIds+=userDefinedControlGatesDivIds[index];
+		}else{
+			divIds+=" "+userDefinedControlGatesDivIds[index];
+		}
+	}
+	Merge(divIds);*/
+	MergeCellsUserDefinedGate();
 
 
 }
