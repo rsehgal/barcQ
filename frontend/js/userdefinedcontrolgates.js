@@ -21,6 +21,9 @@ function StoreDivIds(){
 		$("#"+userDefinedControlGatesDivIds[index]).css("background","transparent");
 	}
 	userDefinedControlGatesDivIds=[];
+	userDefinedControlGatesComponent=[];
+	userDefinedControlGatesRowIds=[];
+	userDefinedControlGateColumnId=0;
 }
 
 function DisplayDivIds(){
