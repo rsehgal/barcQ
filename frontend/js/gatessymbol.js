@@ -84,6 +84,7 @@ function xor(divid,ctl_bits=[0,1]){
 }
 
 function InsertXorSymbol(g,x,y){
+	console.log("Trying to insert XOR symbol in the provided group object with X, Y"+x+","+y);
 	g.append('circle').attr("r",xorrad).attr("cx",x).attr("cy",y).attr("fill","green")
 	    .attr("stroke-width","2px")
 	    .attr("stroke","red");
@@ -123,7 +124,11 @@ function InsertControlSymbol(g,x,y){
 	    .attr("stroke","red");
 }
 
-
+function InsertLine(g,x1,y1,x2,y2){
+	g.append('line').attr("x1",x1).attr("y1",y1).attr("x2",x2).attr("y2",y2)
+	.attr("stroke-width","2px")
+	.attr("stroke","red");
+}
 function ccnot(divid,ctl_bits=[0,1]){
 	$("#"+divid).css("width","35px");
   	$("#"+divid).css("height","105px");
@@ -236,3 +241,6 @@ function cnot(divid,ctl_bits=[0]){
 
 	return svg;
 }
+{
+        			x1=x; y1=y;
+        		}

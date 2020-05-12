@@ -31,11 +31,44 @@ function MergeCellsUserDefinedGate(){
         $('#'+sortedCellIdsArray[0]).css("background","transparent");
         var height=$('#'+sortedCellIdsArray[0]).height()
         $('#'+sortedCellIdsArray[0]).css("height",cellIdsLength*height);
+        $('#'+sortedCellIdsArray[0]).children().remove();
         
         for(var index=1 ; index < cellIdsLength ; index++){
         		console.log("REMOVING : "+$("#"+sortedCellIdsArray[index]).parent().attr("id"));
                 $('#'+sortedCellIdsArray[index]).parent().remove();
         }
+        
+        svg=d3.select("#"+sortedCellIdsArray[0]).append('svg')
+        					.attr("width",$("#"+sortedCellIdsArray[0]).width())
+        					.attr("height",$("#"+sortedCellIdsArray[0]).height())
+							.classed("draggableComp",true);
+		g = svg.append('g');
+
+        $('#'+sortedCellIdsArray[0]).children().attr("height",cellIdsLength*singleDivHeight);
+        console.log("userDefinedControlGatesComponent : "+userDefinedControlGatesComponent);
+        var x1=0,y1=0,x2=0,y2=0;
+        for(var index=0 ; index < cellIdsLength ; index++){
+        	if(userDefinedControlGatesComponent[index]!=""){
+        		var gateName=userDefinedControlGatesComponent[index];
+        		console.log(gateName);
+        		var x = 0.5*singleDivWidth;
+        		var y = (2*index+1)*(0.5*singleDivHeight);
+        		if(index==0){
+        			x1=x; y1=y;
+        		}
+        		if(index==(cellIdsLength-1)){
+        			x2=x; y2=y;
+        		}
+        		if(gateName=="CONTROL"){
+        			InsertControlSymbol(g,x,y);
+        		}
+        		if(gateName=="XOR"){
+        			
+        			InsertXorSymbol(g,x,y);
+        		}
+        	}
+        }
+        InsertLine(g,x1,y1,x2,y2);
     }
 }
 
