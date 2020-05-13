@@ -45,11 +45,16 @@ function MergeCellsUserDefinedGate(){
 		g = svg.append('g');
 
         $('#'+sortedCellIdsArray[0]).children().attr("height",cellIdsLength*singleDivHeight);
+                
+        userDefinedControlGatesComponent.push(tempDict);
         console.log("userDefinedControlGatesComponent : "+userDefinedControlGatesComponent);
+        ModifyDict();
+        
         var x1=0,y1=0,x2=0,y2=0;
         for(var index=0 ; index < cellIdsLength ; index++){
-        	if(userDefinedControlGatesComponent[index]!=""){
-        		var gateName=userDefinedControlGatesComponent[index];
+        	//if(userDefinedControlGatesComponent[index]!=""){
+        	if(tempRaman[index]!=undefined){
+        		var gateName=tempRaman[index];//userDefinedControlGatesComponent[index];
         		console.log(gateName);
         		var x = 0.5*singleDivWidth;
         		var y = (2*index+1)*(0.5*singleDivHeight);
@@ -68,8 +73,32 @@ function MergeCellsUserDefinedGate(){
         		}
         	}
         }
+        
+        
+        
         InsertLine(g,x1,y1,x2,y2);
+         
     }
+}
+
+function ModifyDict(){//minRowId,maxRowId){
+	tempRaman={}
+	var dictKeys=Object.keys(tempDict);
+	var dictLength=dictKeys.length;
+	var uniqueSortedKeys=dictKeys.UniqueAndSorted();
+	console.log("UniqueSorted Keys : "+uniqueSortedKeys);
+	
+	//var temp={};
+	tempRaman[0]=tempDict[uniqueSortedKeys[0]];
+	for(var index=1;index < dictLength ; index++){
+		tempRaman[uniqueSortedKeys[index]-uniqueSortedKeys[0]]=tempDict[uniqueSortedKeys[index]];
+	}
+	console.log("TempRaman : "+tempRaman);
+	
+}
+
+function RemakeUserDefinedControlGatesComponent(){
+	
 }
 
 function GetSortedCellIdArray(minRowId,maxRowId){

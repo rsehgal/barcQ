@@ -25,6 +25,8 @@ var controlrad=6;
 //variable related to user defined control gates
 var userDefinedControlGatesDivIds=[];
 var userDefinedControlGatesComponent=[];
+var tempDict={};
+var tempRaman={};
 var userDefinedControlGatesRowIds=[];
 var userDefinedControlGateColumnId=0;
 
