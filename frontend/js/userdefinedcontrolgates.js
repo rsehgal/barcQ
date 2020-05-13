@@ -8,14 +8,23 @@ function ControlGateInitialization(){
 		if(userControlGateFlag){
 			$(this).css("background","yellow");
 			userDefinedControlGatesDivIds.push($(this).attr("id"));
-			userDefinedControlGatesRowIds.push($(this).attr("rowid"));
+			var rowid=$(this).attr("rowid");
+			console.log("RowID : "+rowid);
+			userDefinedControlGatesRowIds.push(rowid);
 			userDefinedControlGateColumnId=$(this).attr("columnid");
-			userDefinedControlGatesComponent.push($(this).attr("gate"));
+			//userDefinedControlGatesComponent.push($(this).attr("gate"));
+			//var strRowId=rowid.toString()+"entry";
+			//console.log("StrRowId : "+strRowId);
+			//var temp={};
+			tempDict[rowid]=$(this).attr("gate");
+			//userDefinedControlGatesComponent.push(temp);
+			//userDefinedControlGatesComponent[strRowId]=$(this).attr("gate");
 		}
 	});
 }
 
 function StoreDivIds(){
+	console.log("StoreDivIds called, now reinitializing all global variables used for creating user defined gatges.........");
 	userControlGateFlag=1;
 	for(var index=0;index<userDefinedControlGatesDivIds.length;index++){
 		$("#"+userDefinedControlGatesDivIds[index]).css("background","transparent");
@@ -24,6 +33,8 @@ function StoreDivIds(){
 	userDefinedControlGatesComponent=[];
 	userDefinedControlGatesRowIds=[];
 	userDefinedControlGateColumnId=0;
+	tempDict={};
+	tempRaman={};
 }
 
 function DisplayDivIds(){
