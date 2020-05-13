@@ -81,12 +81,32 @@ function MouseEnterLeave(){
   });
 }
 
-function AttachDraggableEvents(){
-  AttachSelectAndDelete();
-	$('.draggableComp').on('mousedown',function(event){
+
+//function InputArg(obj) {
+function InputArg() {
+  var txt;
+  var argVal = prompt("Please enter your value :", 1.57);
+  console.log("Entered value : "+argVal);
+}
+
+function Attach(obj){
+	obj.on('mousedown',function(event){
+		if(event.which == 2){
+			//console.log("Middle button clicked.......");
+			//if($(this).prop("tagName")=="svg" && $(this).attr("arg_enabled")==1){
+			if(obj.attr("arg_enabled")==1){
+				//InputArg($(this));
+				InputArg();
+			}
+		}
 	    //$(".dropzone").css('background', 'green');
       //MouseEnterLeave();
 	});
+}
+
+function AttachDraggableEvents(){
+  AttachSelectAndDelete();
+	
 
 	$('.draggableComp').on('mouseup',function(event){
 		//alert("Mouse up called.........");
@@ -182,6 +202,7 @@ $(".dropzone").droppable({
             var rowid=parseInt($(this).attr("rowid"));
             rowIds.push(rowid);
             $(this).append(ui.draggable);
+            Attach(ui.draggable);
              
             var pos=$(this).position();
             posx=pos.left;
