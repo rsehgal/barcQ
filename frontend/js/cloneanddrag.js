@@ -52,6 +52,8 @@ function CloneIt(objId,parent="body"){
 
 //Basically modify parameters of divs
 function ModifyParentDiv(obj){
+  console.log("ModifyParentDiv called.............");
+  console.log("SVG ARG_VALUE  "+obj.children().attr("arg_value"));
   obj.attr("name",obj.children().attr("gate"));	
   obj.attr("gate",obj.children().attr("gate"));
   obj.attr("num_bits",obj.children().attr("num_bits"));
@@ -82,25 +84,24 @@ function MouseEnterLeave(){
 }
 
 
-//function InputArg(obj) {
 function InputArg() {
   var txt;
   var argVal = prompt("Please enter your value :", 1.57);
   console.log("Entered value : "+argVal);
+  
 }
 
 function Attach(obj){
 	obj.on('mousedown',function(event){
 		if(event.which == 2){
-			//console.log("Middle button clicked.......");
-			//if($(this).prop("tagName")=="svg" && $(this).attr("arg_enabled")==1){
+			
 			if(obj.attr("arg_enabled")==1){
-				//InputArg($(this));
-				InputArg();
+				var argVal = prompt("Please enter your value :", 1.57);
+				console.log("Need to set arg_val of "+obj.attr("id")+ " to "+argVal);
+			    obj.attr("arg_value",argVal);
+			    ModifyParentDiv(obj.parent());
 			}
-		}
-	    //$(".dropzone").css('background', 'green');
-      //MouseEnterLeave();
+		}  
 	});
 }
 
@@ -201,8 +202,8 @@ $(".dropzone").droppable({
             colIds.push(colid);
             var rowid=parseInt($(this).attr("rowid"));
             rowIds.push(rowid);
-            $(this).append(ui.draggable);
             Attach(ui.draggable);
+            $(this).append(ui.draggable);
              
             var pos=$(this).position();
             posx=pos.left;
