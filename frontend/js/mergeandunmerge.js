@@ -50,11 +50,13 @@ function MergeCellsUserDefinedGate(){
         console.log("userDefinedControlGatesComponent : "+userDefinedControlGatesComponent);
         ModifyDict();
         
+        var idOfUserDefinedGate="";
         var x1=0,y1=0,x2=0,y2=0;
         for(var index=0 ; index < cellIdsLength ; index++){
         	//if(userDefinedControlGatesComponent[index]!=""){
         	if(tempRaman[index]!=undefined){
         		var gateName=tempRaman[index];//userDefinedControlGatesComponent[index];
+        		idOfUserDefinedGate+=gateName;
         		console.log(gateName);
         		var x = 0.5*singleDivWidth;
         		var y = (2*index+1)*(0.5*singleDivHeight);
@@ -74,7 +76,9 @@ function MergeCellsUserDefinedGate(){
         	}
         }
         
-        
+        dropableCounter++;
+        idOfUserDefinedGate+=dropableCounter;
+        svg.attr("id",idOfUserDefinedGate);
         
         InsertLine(g,x1,y1,x2,y2);
          
