@@ -9,6 +9,7 @@ function ResetDiv(objId){
 }
 
 function ResetDivWithId(objId,rowid,colid){
+  console.log("RAMAN : ResetDivWithId : "+objId);
   $("#"+objId).attr("gate","");
   $("#"+objId).attr("num_bits",1);
   $("#"+objId).attr("ctl_enabled",0);
