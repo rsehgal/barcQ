@@ -53,6 +53,7 @@ function DisplayDivIds(){
 	}
 	Merge(divIds);*/
 	MergeCellsUserDefinedGate();
+	AttachDraggableEvents();
 
 
 }

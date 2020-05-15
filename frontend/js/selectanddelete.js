@@ -28,14 +28,23 @@ function AttachSelectAndDelete(){
 
     //alert("Clicked the image...........");
     if(idForDelete!=""){
-      $("#"+idForDelete).parent().css("border-color","blue");
+      $("#"+idForDelete).parent().css("border","0px solid");
+      $("#"+idForDelete).parent().css("border-color","transparent");
     }
     idForDelete=$(this).attr("id");
+    $("#"+idForDelete).parent().css("border","1px solid");
     $("#"+idForDelete).parent().css("border-color","green");
     console.log(idForDelete);
     //$(this).css("border-color","green");
     //$(this).css("border-width","4px");
   });
+
+/*$('body').click(function(){
+  $("#"+idForDelete).parent().css("border","0px solid");
+  $("#"+idForDelete).parent().css("border-color","transparent");
+  idForDelete="";
+});*/
+
 
   $('html').keyup(function(ev){
     //alert("Key released..........");
