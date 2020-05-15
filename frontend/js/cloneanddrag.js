@@ -13,7 +13,7 @@ $(".cloneAble").click(function(){
                  .addClass("circuit");
       $("#"+newid).css("position","fixed");
                  */
-    CloneIt($(this).attr("id"));
+    CloneIt($(this).attr("id"),"clonedElement");
   	//$("#"+newid).css("left",posx);
   	//$("#"+newid).css("top",posy);
 
