@@ -69,10 +69,15 @@ function MergeCellsUserDefinedGate(){
         		if(gateName=="CONTROL"){
         			InsertControlSymbol(g,x,y);
         		}
-        		if(gateName=="XOR"){
+        		if(gateName=="XOR" || gateName=="X"){
         			
         			InsertXorSymbol(g,x,y);
         		}
+        		if(gateName=="RX" || gateName=="RY" || gateName=="RZ"){
+					x = 0;
+					y -= 0.5*singleDivHeight;
+					InsertImageSymbol(g,gateName,x,y);
+				}
         	}
         }
         
