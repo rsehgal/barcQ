@@ -84,6 +84,7 @@ function MergeCellsUserDefinedGate(){
         dropableCounter++;
         idOfUserDefinedGate+=dropableCounter;
         svg.attr("id",idOfUserDefinedGate);
+        svg.attr("num_bits",Object.keys(tempRaman).length);
         
         InsertLine(g,x1,y1,x2,y2);
          
@@ -190,7 +191,12 @@ function UnMergeCells(idToDelete){
 	console.log("UnMergeCells : "+$("#"+idToDelete).parent().attr("rowid")
 								 +" , "
 								 +$("#"+idToDelete).parent().attr("columnid"));
-	InsertCell($("#"+idToDelete).parent().attr("rowid"),$("#"+idToDelete).parent().attr("columnid"));
+    var rowspan=$("#"+idToDelete).parent().parent().attr("rowspan");
+    console.log("************* ROWSPAN : "+rowspan+" ***************" );
+	//InsertCell($("#"+idToDelete).parent().attr("rowid"),$("#"+idToDelete).parent().attr("columnid"));
+	InsertCellOnDrag($("#"+idToDelete).parent().attr("rowid"), 
+					 $("#"+idToDelete).parent().attr("columnid"),
+					 $("#"+idToDelete).parent().parent().attr("rowspan"));
 
 /*console.log("UnMergeCells : "+$("#"+$("#"+idToDelete).attr("parentid")).attr("rowid")
 							 +" , "
