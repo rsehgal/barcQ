@@ -17,7 +17,7 @@ function gate(divid){
 	if(divid=="CONTROL"){
 		return control(divid);
 	}
-	if(divid=="X" || divid=="RX" || divid=="RY" || divid=="RZ"){
+	if(divid=="X" || divid=="Z" || divid=="RX" || divid=="RY" || divid=="RZ" || divid=="PHASEGATE"){
 		return x(divid);
 	}
 	if(divid=="CRX" || divid=="CRY" || divid=="CRZ"){
