@@ -3,10 +3,14 @@ gateJson = '{\
 				 "config":{},\
 				 "instructions":[\
 				 {"name":"CNOT", "num_bits":2, "ctl_enabled" : 1, "ctl_bits" : [2], "tgt_bits" : [3], "arg_enabled" : 0, "arg_value" : 0, "rowid" : 2, "columnid" : 3},\
+				 {"name":"SWAP", "num_bits":2, "ctl_enabled" : 1, "ctl_bits" : [2], "tgt_bits" : [3], "arg_enabled" : 0, "arg_value" : 0, "rowid" : 2, "columnid" : 3},\
+				 {"name":"CSWAP", "num_bits":3, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1,2], "arg_enabled" : 0, "arg_value" : 0, "rowid" : 2, "columnid" : 3},\
 				 {"name":"CCNOT", "num_bits":3, "ctl_enabled" : 1, "ctl_bits" : [0,1], "tgt_bits" : [2], "arg_enabled" : 0, "arg_value" : 0, "rowid" : 0, "columnid" : 4},\
 				 {"name":"XOR", "num_bits":1, "ctl_enabled" : 0, "ctl_bits" : [0], "tgt_bits" : [0], "arg_enabled" : 0, "arg_value" : 0, "rowid" : 4, "columnid" : 4},\
 				 {"name":"CONTROL", "num_bits":1, "ctl_enabled" : 0, "ctl_bits" : [0], "tgt_bits" : [0], "arg_enabled" : 0, "arg_value" : 0, "rowid" : 3, "columnid" : 4},\
 				 {"name":"X", "num_bits":1, "ctl_enabled" : 0, "ctl_bits" : [0], "tgt_bits" : [0], "arg_enabled" : 0, "arg_value" : 0, "rowid" : 2, "columnid" : 4},\
 				 {"name":"RX", "num_bits":1, "ctl_enabled" : 0, "ctl_bits" : [0], "tgt_bits" : [0], "arg_enabled" : 1, "arg_value" : 0, "rowid" : 2, "columnid" : 4},\
-				 {"name":"RY", "num_bits":1, "ctl_enabled" : 0, "ctl_bits" : [0], "tgt_bits" : [0], "arg_enabled" : 1, "arg_value" : 0, "rowid" : 2, "columnid" : 4}\
+				 {"name":"RY", "num_bits":1, "ctl_enabled" : 0, "ctl_bits" : [0], "tgt_bits" : [0], "arg_enabled" : 1, "arg_value" : 0, "rowid" : 2, "columnid" : 4},\
+				 {"name":"CRX", "num_bits":2, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1], "arg_enabled" : 0, "arg_value" : 0, "rowid" : 2, "columnid" : 3},\
+				 {"name":"CRY", "num_bits":2, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1], "arg_enabled" : 0, "arg_value" : 0, "rowid" : 2, "columnid" : 3}\
 				 ]}'
