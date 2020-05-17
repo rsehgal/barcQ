@@ -11,6 +11,6 @@ gateJson = '{\
 				 {"name":"X", "num_bits":1, "ctl_enabled" : 0, "ctl_bits" : [0], "tgt_bits" : [0], "arg_enabled" : 0, "arg_value" : 0, "rowid" : 2, "columnid" : 4},\
 				 {"name":"RX", "num_bits":1, "ctl_enabled" : 0, "ctl_bits" : [0], "tgt_bits" : [0], "arg_enabled" : 1, "arg_value" : 0, "rowid" : 2, "columnid" : 4},\
 				 {"name":"RY", "num_bits":1, "ctl_enabled" : 0, "ctl_bits" : [0], "tgt_bits" : [0], "arg_enabled" : 1, "arg_value" : 0, "rowid" : 2, "columnid" : 4},\
-				 {"name":"CRX", "num_bits":2, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1], "arg_enabled" : 0, "arg_value" : 0, "rowid" : 2, "columnid" : 3},\
-				 {"name":"CRY", "num_bits":2, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1], "arg_enabled" : 0, "arg_value" : 0, "rowid" : 2, "columnid" : 3}\
+				 {"name":"CRX", "num_bits":2, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1], "arg_enabled" : 1, "arg_value" : 0, "rowid" : 2, "columnid" : 3},\
+				 {"name":"CRY", "num_bits":2, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1], "arg_enabled" : 1, "arg_value" : 0, "rowid" : 2, "columnid" : 3}\
 				 ]}'
