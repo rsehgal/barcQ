@@ -2,6 +2,12 @@ function gate(divid){
 	if(divid=="CNOT"){
 		return cnot(divid);
 	}
+	if(divid=="SWAP"){
+		return swap(divid);
+	}
+	if(divid=="CSWAP"){
+		return cswap(divid);
+	}
 	if(divid=="CCNOT"){
 		return ccnot(divid);
 	}
@@ -14,6 +20,63 @@ function gate(divid){
 	if(divid=="X" || divid=="RX" || divid=="RY" || divid=="RZ"){
 		return x(divid);
 	}
+	if(divid=="CRX" || divid=="CRY" || divid=="CRZ"){
+		console.log("DIVID substring : "+divid);
+		return cx(divid);
+	}
+
+}
+
+function cswap(divid){
+	return swap(divid,1);
+}
+
+function swap(divid,ctl_enabled=0,ctl_bits=[0],tgt_bits=[1,2]){
+	console.log("INside SWAP symbol........");
+	var numOfBits=2;
+	if(ctl_enabled==1){
+		$("#"+divid).css("height",105.0);
+		numOfBits=3;	
+	}else{
+		$("#"+divid).css("height",70.0);
+	}
+	$("#"+divid).css("width",35.0);
+  	
+	
+	var width=$("#"+divid).width();
+	var height=$("#"+divid).height();
+	console.log("width : "+width+" : height : "+height);
+	var x=width/2;
+	//var y=(2*numOfBits-1)*height/(2*numOfBits);
+	var y= parseFloat((2*numOfBits-1))/(2*numOfBits)*height;
+	console.log("X : "+x+" :: Y : "+y);
+	var xorrad=10;
+	svg=d3.select("#"+divid).append('svg').attr("width",width).attr("height",height);
+	
+	g = svg.append('g');
+	InsertCrossSymbol(g,x,y);
+	//First control
+	y=parseFloat(height*(2*(numOfBits-1)-1)/(2*numOfBits));
+	InsertCrossSymbol(g,x,y);
+
+	if(numOfBits==3){
+	y=parseFloat(height*1.0/(2*numOfBits));
+	InsertControlSymbol(g,x,y);
+	}
+	g.append('line').attr("x1",x).attr("y1",y).attr("x2",x).attr("y2",(2*numOfBits-1)*y)
+	.attr("stroke-width","2px")
+	    .attr("stroke","red");
+
+	return svg;	
+}
+
+function InsertCrossSymbol(g,x,y){
+	g.append('line').attr("x1",x-controlrad).attr("y1",y-controlrad).attr("x2",x+controlrad).attr("y2",y+controlrad)
+	.attr("stroke-width","2px")
+	    .attr("stroke","red");
+	g.append('line').attr("x1",x-controlrad).attr("y1",y+controlrad).attr("x2",x+controlrad).attr("y2",y-controlrad)
+	.attr("stroke-width","2px")
+	    .attr("stroke","red");	
 
 }
 
@@ -31,9 +94,13 @@ function CustomGate(divid){ //,rowspan){
 	return svg;
 }
 
-function x(divid){
+/*function x(divid,ctl_enabled=0){
 	$("#"+divid).css("width","35px");
-  	$("#"+divid).css("height","35px");
+	if(ctl_enabled==1){
+  		$("#"+divid).css("height","70px");
+  	}else{
+  		$("#"+divid).css("height","35px");
+  	}
 	var numOfBits=1;
 	var width=$("#"+divid).width();
 	var height=$("#"+divid).height();
@@ -42,11 +109,69 @@ function x(divid){
 	//var xorrad=10;
 	svg=d3.select("#"+divid).append('svg').attr("width",width).attr("height",height)
 							.classed("draggableComp",true);
+	x=0.5*width;
+	y1=1.5*height;
 	g = svg.append('g');
-	InsertImageSymbol(g,divid);
+	InsertImageSymbol(g,divid,x,y1);
+	
 	//var path="../../images/"+divid+".png";
 	//g.append("image").attr("href",path)
 							//.image("href","../images/X.png");
+    y2 = 0.5*height;
+    InsertControlSymbol(g,x,y2);
+
+    InsertLine(g,x,y1,x,y2);
+	return svg;
+}
+*/
+
+function cx(divid,ctl_enabled=0){
+	$("#"+divid).css("width","35px");
+	$("#"+divid).css("height","70px");
+	var numOfBits=2;
+	var width=$("#"+divid).width();
+	var height=$("#"+divid).height();
+	
+	//var x=width/2;
+	//var y=height/(2*numOfBits);
+	//var xorrad=10;
+	svg=d3.select("#"+divid).append('svg').attr("width",width).attr("height",height)
+							.classed("draggableComp",true);
+	xval=0.0;
+    var y1=0,y2=0;
+	y1=0.5*height;
+	
+	g = svg.append('g');
+	if(divid=="CRX"){
+		InsertImageSymbol(g,"RX",xval,y1);
+	}
+	if(divid=="CRY"){
+		InsertImageSymbol(g,"RY",xval,y1);
+	}
+	if(divid=="CRZ"){
+		InsertImageSymbol(g,"RZ",xval,y1);
+	}
+	
+	y2 = 0.25*height;
+	xval=0.5*width;
+	InsertControlSymbol(g,xval,y2);
+   	InsertLine(g,xval,y1,xval,y2);
+    
+	return svg;
+}
+
+function x(divid,ctl_enabled=0){
+	$("#"+divid).css("width","35px");
+  	$("#"+divid).css("height","35px");
+  	
+	var numOfBits=1;
+	var width=$("#"+divid).width();
+	var height=$("#"+divid).height();
+	svg=d3.select("#"+divid).append('svg').attr("width",width).attr("height",height)
+							.classed("draggableComp",true);
+	g = svg.append('g');
+	InsertImageSymbol(g,divid);
+	
 	return svg;
 }
 
@@ -241,6 +366,3 @@ function cnot(divid,ctl_bits=[0]){
 
 	return svg;
 }
-{
-        			x1=x; y1=y;
-        		}
