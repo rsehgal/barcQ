@@ -3,7 +3,8 @@ function CreateToolBox(){
 var mydataExtended = JSON.parse(gateJson);
 var mydata = mydataExtended.instructions;
 var numOfRows=mydata.length;
-var $table = $('<table border=1 cellpading=0 cellspacing=0/>');
+var $tableSingle = $('<table border=1 cellpading=0 cellspacing=0/>');
+var $tableMultiple = $('<table border=1 cellpading=0 cellspacing=0/>');
 var index=0;
 for(var index=0; index<parseInt(numOfRows); index++){
   $row=$('<row/>');
@@ -28,7 +29,11 @@ for(var index=0; index<parseInt(numOfRows); index++){
   var rowStr='<td id="'+gate1JustName+'"/td>';  
   console.log("RowStr : "+rowStr);
   $row.append(rowStr);
-  $table.append($row);
+  if(mydata[index].num_bits > 1){
+    $tableMultiple.append($row);
+  }else{
+    $tableSingle.append($row);
+  }
 //  gate(gate1JustName);
   
 }
@@ -38,7 +43,8 @@ var rowStr='<td><div id="testDiv"/></td>';
   $table.append($row);
  
 */
-$('#toolboxDiv').append($table);
+$('#toolboxDivSingle').append($tableSingle);
+$('#toolboxDivMultiple').append($tableMultiple);
 for(var index=0; index<parseInt(numOfRows); index++){
  var svgGate=gate(mydata[index].name);
  console.log("GateName : "+mydata[index].name);

@@ -30,7 +30,22 @@
 
 		}
 
-		#toolboxDiv{
+		#toolboxDivSingle{
+			width: 50;
+			height: 1000;
+			border : solid black 1px;
+			position: fixed;
+		}
+
+		#toolboxDivMultiple{
+			width: 50;
+			height: 1000;
+			left: 60;
+			border : solid black 1px;
+			position: fixed;
+		}
+
+		.toolboxcc{
 			width: 50;
 			height: 1000;
 			border : solid black 1px;
@@ -90,7 +105,8 @@
 </head>
 
 <body id="body">
-	<div id="toolboxDiv"></div>
+	<div id="toolboxDivSingle" class="toolbox"></div>
+	<div id="toolboxDivMultiple" class="toolbox"></div>
 	<div id="clonedElement"></div>
 	<svg xmlns="http://www.w3.org/2000/svg" id="testSvg" width="1000" height="1000">
   	<foreignObject x="10" y="10" width=500 height=500 >
