@@ -26,5 +26,13 @@ for(var index=0; index<parseInt(numOfRows); index++){
   $table.append($row);
   
 }
+$row=$('<row/>');
+var rowStr='<td><div id="testDiv"/></td>';
+  $row.append(rowStr);
+  $table.append($row);
+  /*$("#testDiv").css("width",35);
+  $("#testDiv").css("height",70);*/
+
 $('#toolboxDiv').append($table);
+cnot("testDiv");
 }

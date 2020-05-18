@@ -5,10 +5,17 @@
 			//position: fixed;
 		}
 
+		#clonedElement{
+			position: fixed;
+			left: 150;
+			top:5;
+		}
+
 		.dropzone{
 			width: 35;
 			height: 35;
-			border: solid blue;
+			//border: solid blue;
+			background-color:transparent;
 			//position: fixed;
 		}
 
@@ -23,9 +30,24 @@
 
 		}
 
-		#toolboxDiv{
+		#toolboxDivSingle{
 			width: 50;
-			height: 500;
+			height: 1000;
+			border : solid black 1px;
+			position: fixed;
+		}
+
+		#toolboxDivMultiple{
+			width: 50;
+			height: 1000;
+			left: 60;
+			border : solid black 1px;
+			position: fixed;
+		}
+
+		.toolboxcc{
+			width: 50;
+			height: 1000;
 			border : solid black 1px;
 			position: fixed;
 		}
@@ -39,18 +61,23 @@
 		
 	</style>
 
-	<script src = "../../jsonschemas/gatesUI.json"></script>
+	<script src = "../../jsonschemauserDefinedControlGatesDivIdss/gatesUI.json"></script>
 	<script src = "../../jsonschemas/gatesUIExtended.json"></script>
 	<script src = '../../js/jquery.js'> </script>
     <script src = '../../js/jquery-ui.js'> </script>
     <script src = "../../js/globalvars.js"></script>
-    <script src = "../../js/toolbox.js"></script>
+    <script src = "../../js/toolbox_v2.js"></script>
     <script src = "../../js/cloneanddrag.js"></script>
     <script src = "../../js/selectanddelete.js"></script>
     <script src = "../../js/mergeandunmerge.js"></script>
     <script src = "../../js/gridtojson.js"></script>
     <script src = "../../js/core.js"></script>
     <script src = "../../js/loadjson.js"></script>
+    <script src = "../../js/d3.v3.min.js"></script>
+    <script src = "../../js/gridinputlines.js"></script>
+    <script src = "../../js/redesigngrid.js"></script>
+    <script src = "../../js/gatessymbol.js"></script>
+    <script src = "../../js/userdefinedcontrolgates.js"></script>
 	    <script>
 	    $(document).ready(function(){
 	    	CreateToolBox();
@@ -63,6 +90,13 @@
  			$("#loadbutton").click(function(){
         	    LoadJson();
  			});
+ 			AddInputLinesToGrid();
+ 			InsertConnectorOnGrid();
+ 			ControlGateInitialization();
+ 			$("#create").click(function(){
+ 				StoreDivIds();	
+ 			});
+ 			
 		});
 	</script>
 
@@ -71,9 +105,14 @@
 </head>
 
 <body id="body">
-	<div id="toolboxDiv"></div>
+	<div id="toolboxDivSingle" class="toolbox"></div>
+	<div id="toolboxDivMultiple" class="toolbox"></div>
+	<div id="clonedElement"></div>
+	<svg xmlns="http://www.w3.org/2000/svg" id="testSvg" width="1000" height="1000">
+  	<foreignObject x="10" y="10" width=500 height=500 >
 	<div id="dropzoneDiv">
-	<table border="1">
+
+	<table border="0" id="dropzonetable" cellpadding=0 cellspacing=0>
 		<tr id="row0">
 			<td id="row0col0">
 				<div id="row0col0div" name="" rowId="0" columnId="0" class="dropzone" gate="" num_bits="" 
@@ -109,7 +148,7 @@
 			</td>
 			<td id="row1col2">
 				<div id="row1col2div" name="" rowId="1" columnId="2" class="dropzone" gate="" num_bits="" 
-				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
+				ctl_enaforeignObjectbled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
 			<td id="row1col3">
 				<div id="row1col3div" name="" rowId="1" columnId="3" class="dropzone" gate="" num_bits="" 
 				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
@@ -156,9 +195,14 @@
 				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
 		</tr>
 	</table>
+
 	<button type="button" id="mergebutton">Export JSON</button>
 	<button type="button" id="loadbutton">Load Circuit</button>
+	<button type="button" id="create">New Controlled Gate</button>
+	<button type="button" id="display">Create Gate</button>
 	</div>
+	</foreignObject>
+</svg>
 	
 
 </body>

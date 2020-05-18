@@ -15,4 +15,19 @@ var idForDelete="";
 var colIds=[];
 var rowIds=[];
 var uniqueSortedRowIds=[];
+var gridConnectorRadius=3;
+var userControlGateFlag=0;
+var singleDivWidth=35;
+var singleDivHeight=35;
+var xorrad=10;
+var controlrad=6;
+
+//variable related to user defined control gates
+var userDefinedControlGatesDivIds=[];
+var userDefinedControlGatesComponent=[];
+var tempDict={};
+var tempRaman={};
+var userDefinedControlGatesRowIds=[];
+var userDefinedControlGateColumnId=0;
+
 //var backSvgCanvas;

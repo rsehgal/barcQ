@@ -13,7 +13,7 @@ $(".cloneAble").click(function(){
                  .addClass("circuit");
       $("#"+newid).css("position","fixed");
                  */
-    CloneIt($(this).attr("id"));
+    CloneIt($(this).attr("id"),"clonedElement");
   	//$("#"+newid).css("left",posx);
   	//$("#"+newid).css("top",posy);
 
@@ -30,16 +30,17 @@ $(".cloneAble").click(function(){
 ** a new circuit and also to load the previously stored circuit
 */
 function CloneIt(objId,parent="body"){
+  console.log("ObjID from CloneIt : "+objId+" : TagName : "+$("#"+objId).prop("tagName"));
   dropableCounter++;
   var idOfDroppable=objId;
   var newid=idOfDroppable+dropableCounter;
   console.log("CloneIt called and created new id is "+newid);
-   $("#"+objId).clone().attr("id",newid)
+   $("#"+objId).children().clone().attr("id",newid)
                .addClass("draggableComp")
                .appendTo($("#"+parent))
                .addClass("circuit");
   
-  $("#"+newid).css("position","fixed");
+  //$("#"+newid).css("position","fixed");
   AttachDraggableEvents();
   AttachDroppableEvents();
 }
@@ -51,6 +52,9 @@ function CloneIt(objId,parent="body"){
 
 //Basically modify parameters of divs
 function ModifyParentDiv(obj){
+  console.log("ModifyParentDiv called.............");
+  console.log("SVG ARG_VALUE  "+obj.children().attr("arg_value"));
+  obj.attr("name",obj.children().attr("gate"));	
   obj.attr("gate",obj.children().attr("gate"));
   obj.attr("num_bits",obj.children().attr("num_bits"));
   obj.attr("ctl_enabled",obj.children().attr("ctl_enabled"));
@@ -58,10 +62,14 @@ function ModifyParentDiv(obj){
   obj.attr("tgt_bits",obj.children().attr("tgt_bits"));
   obj.attr("arg_enabled",obj.children().attr("arg_enabled"));
   obj.attr("arg_value",obj.children().attr("arg_value"));
-  if(obj.attr("num_bits")!=1)
-    console.log("Num of bits : "+obj.attr("num_bits"));
-
-  Merge(obj);
+  
+  var numOfBits=parseInt(obj.children().attr("num_bits"));
+  console.log("Num of bits from ModifyParentDiv : "+numOfBits);
+  if(numOfBits>1){
+      console.log("Num of bits : "+obj.attr("num_bits"));
+      Merge(obj);
+  }
+  //InsertConnector(obj.attr("id"),5);
 }
 
 
@@ -75,15 +83,35 @@ function MouseEnterLeave(){
   });
 }
 
+
+function InputArg() {
+  var txt;
+  var argVal = prompt("Please enter your value :", 1.57);
+  console.log("Entered value : "+argVal);
+  
+}
+
+function Attach(obj){
+	obj.on('mousedown',function(event){
+		if(event.which == 2){
+			
+			if(obj.attr("arg_enabled")==1){
+				var argVal = prompt("Please enter your value :", 1.57);
+				console.log("Need to set arg_val of "+obj.attr("id")+ " to "+argVal);
+			    obj.attr("arg_value",argVal);
+			    ModifyParentDiv(obj.parent());
+			}
+		}  
+	});
+}
+
 function AttachDraggableEvents(){
   AttachSelectAndDelete();
-	$('.draggableComp').on('mousedown',function(event){
-	    //$(".dropzone").css('background', 'green');
-      //MouseEnterLeave();
-	});
+	
 
 	$('.draggableComp').on('mouseup',function(event){
-	    //$(".dropzone").css('background', 'white');
+		//alert("Mouse up called.........");
+	    //$(".dropzone").css('background', 'transparent');
 	});
 
 	$(".draggableComp").draggable({ appendTo: "body"});
@@ -92,11 +120,15 @@ function AttachDraggableEvents(){
     });
   
   $(".dropzone").on('mouseenter',function(){
-    $(this).css('background', 'orange');
+    //$(this).css('background', 'orange');
   });
 
   $(".dropzone").on('mouseleave',function(){
-    $(this).css('background', 'white');
+   // $(this).css('background', 'transparent');
+  });
+  
+  $(".dropzone").on('mouseup',function(){
+    $(this).css('background', 'transparent');
   });
   
 
@@ -162,11 +194,15 @@ function AttachDroppableEvents(){
 
 $(".dropzone").droppable({
             drop: function(event, ui) {
+			console.log("Previous Parent ID of draggable : "+ui.draggable.parent().attr("id"));
+			var prevParentId=ui.draggable.parent().attr("id");
+			//InsertConnector(ui.draggable.parent().attr("id"));
             //$(this).css("background","yellow");
             var colid=parseInt($(this).attr("columnid"))
             colIds.push(colid);
             var rowid=parseInt($(this).attr("rowid"));
             rowIds.push(rowid);
+            Attach(ui.draggable);
             $(this).append(ui.draggable);
              
             var pos=$(this).position();
@@ -183,22 +219,29 @@ $(".dropzone").droppable({
             posy=posy+parseInt(height/2)-parseInt(winHeight/2);
             ui.draggable.css('left',posx);
             ui.draggable.css('top',posy);
-            $(".dropzone").css('background', 'white');
+            $(".dropzone").css('background', 'transparent');
             $(this).css("background","yellow");
-            ui.draggable.css("position","relative");
-
-              //Very import getting the ID of droppable element
-              //May be required somewhere
             var idOfDroppable=$(this).attr("id");
-            //ui.draggable.attr("parentid",idOfDroppable);
-              //alert($(this).attr("id"));
-            //var divId=$(this).attr("id");
-            //console.log(divId);
-
+            $("#"+ui.draggable.attr("id")).attr("style","position:fixed;");
+            
             //Trying to set correct control and target bits
             SetControlAndTargetBits(ui.draggable.attr("id"),rowid,ui.draggable.attr("num_bits"));
+            
+            var numOfBits=parseInt(ui.draggable.attr("num_bits"));
+            
+          //  if(numOfBits==1){
+            console.log("Deleting SVG of div : "+$(this).attr("id"));
+            $("#svg-"+$(this).attr("id")).remove();
+          //}
 
             ModifyParentDiv($(this));
+            if(prevParentId!="body"){
+              //alert("PreviousParentID : "+prevParentId);
+              console.log("Previous Parent ID for Drag : "+prevParentId)
+              UnMergeCellsOnDrag(prevParentId);
+            }
+            console.log("Previous Parent Div : "+prevParentId);
+            //InsertConnector(prevParentId);
             },
             over: function(event, ui) {
                 //event.preventDefault();

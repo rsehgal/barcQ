@@ -1,0 +1,49 @@
+<html>
+<head>
+	<style type="text/css">
+		div{
+			left: 120;
+			top : 60;
+			width: 40;
+			height: 40;
+			border: solid blue;
+			position: fixed;
+		}
+	</style>
+        
+
+	<script type="text/javascript" src="js/d3.v3.min.js"></script>
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+	var jsonCircles = [
+   { "x_axis": 20, "y_axis": 20, "radius": 20, "color" : "green" , "divid" : "testDiv"},//];
+   { "x_axis": 70, "y_axis": 70, "radius": 20, "color" : "purple" , "divid" : "testDiv"},
+   { "x_axis": 110, "y_axis": 100, "radius": 20, "color" : "red" , "divid" : "testDiv"}];
+ 
+ var svgContainer = d3.select("#testDiv").append("svg")
+                                     .attr("width", 200)
+                                    .attr("height", 200);
+ 
+var circles = svgContainer.selectAll("circle")
+                          .data(jsonCircles)
+                          .enter()
+                          .append("circle");
+
+var circleAttributes = circles
+                       .attr("cx", function (d) { return d.x_axis; })
+                       .attr("cy", function (d) { return d.y_axis; })
+                       .attr("r", function (d) { return d.radius; })
+                       .attr("stroke","black")
+                       .attr("stroke-width","1px")
+                       .style("fill", function(d) { return d.color; });
+                       //.parent().attr("id",function (d) { return d.divid; });
+});
+	</script>
+</head>
+<body>
+
+	<div id="testDiv"> </div>
+	
+</body>
+</html>

@@ -1,0 +1,107 @@
+<html>
+<head>
+	<style type="text/css">
+		div{
+			left: 120;
+			top : 60;
+			width: 35;
+			height: 70;
+			border: solid blue;
+			position: fixed;
+		}
+	</style>
+        
+
+	<script type="text/javascript" src="js/d3.v3.min.js"></script>
+	<script src="https://d3js.org/d3-path.v1.min.js"></script>
+	<script src="https://d3js.org/d3-shape.v1.min.js"></script>
+	<!-- <script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script> -->
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		/*$.get('imagesSVG/XOR.svg', function(data){
+			console.log("Trying to load svg...........");
+			$('#testDiv').append(data.documentElement)
+						 //.attr("transform", "translate(17.5,52.5)")
+		});*/
+		
+	
+	//Trying to use svg symbols
+
+	var customSymbolSquare = { 
+        draw: function(context, size){
+            let s = Math.sqrt(size)/2;
+            context.moveTo(s,s);
+            context.lineTo(s,-s);
+            context.lineTo(-s,-s);
+            context.lineTo(-s,s);
+            context.closePath();
+        }
+    }
+	
+	var customSqr = d3.symbol().type(customSymbolSquare).size(500);
+
+svg=d3.select("#testDiv").append('svg');
+g = svg.append('g');//.attr("transform", "translate(17.5,52.5)");
+g.append('circle').attr("r",10).attr("cx",17.5).attr("cy",52.5).attr("fill","green")
+    .attr("stroke-width","2px")
+    .attr("stroke","red");
+g.append('line').attr("x1",7.5).attr("y1",52.5).attr("x2",27.5).attr("y2",52.5)
+.attr("stroke-width","2px")
+    .attr("stroke","red");
+g.append('line').attr("x1",17.5).attr("y1",42.5).attr("x2",17.5).attr("y2",62.5)
+.attr("stroke-width","2px")
+    .attr("stroke","red");
+g.append('circle').attr("r",6).attr("cx",17.5).attr("cy",17.5).attr("fill","red")
+    .attr("stroke-width","2px")
+    .attr("stroke","red");
+g.append('line').attr("x1",17.5).attr("y1",17.5).attr("x2",17.5).attr("y2",52.5)
+.attr("stroke-width","2px")
+    .attr("stroke","red");
+
+
+
+
+    /*g.append("path")
+    //.attr("d", d3.symbol().type(d3.symbolCross).size(100))
+    .attr("d", d3.symbol().size(300))
+    //.attr("d", d3.symbol().type(d3.customSymbolSquare).size(100))
+    //.attr("d", customSqr)
+    //.attr("transform", "translate(17.5,52.5)")
+    .attr("fill","green")
+    .attr("stroke-width","2px")
+    .attr("stroke","red")
+*/
+    //g.append('line').attr()
+
+/*d3.select("#testDiv").append('svg')
+    .append("path")
+    .attr("d", d3.symbol().size(500))
+    .attr("transform", "translate(17.5,52.5)");*/
+
+	/*d3.select("#testDiv")
+    .append("path")
+    .attr("d", d3.symbol())
+    .attr("transform", "translate(17,17)");*/
+
+    });
+
+
+	</script>
+</head>
+<body>
+	<div id="testDiv"> </div>
+	<script type="text/javascript">
+	/*d3.xml('imagesSVG/XOR.svg')
+    .then(data => {
+        d3.select('#testDiv').node().append(data.documentElement)
+        							//.attr("x",17.5)
+        							//.attr("y",52.5)
+
+    })*/
+    </script>
+
+	
+	
+</body>
+</html>

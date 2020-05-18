@@ -1,6 +1,6 @@
 function ResetDiv(objId){
   $("#"+objId).parent().attr("gate","");
-  $("#"+objId).parent().attr("num_bits",0);
+  $("#"+objId).parent().attr("num_bits",1);
   $("#"+objId).parent().attr("ctl_enabled",0);
   $("#"+objId).parent().attr("ctl_bits",0);
   $("#"+objId).parent().attr("tgt_bits",0);
@@ -9,8 +9,9 @@ function ResetDiv(objId){
 }
 
 function ResetDivWithId(objId,rowid,colid){
+  console.log("RAMAN : ResetDivWithId : "+objId);
   $("#"+objId).attr("gate","");
-  $("#"+objId).attr("num_bits",0);
+  $("#"+objId).attr("num_bits",1);
   $("#"+objId).attr("ctl_enabled",0);
   $("#"+objId).attr("ctl_bits",0);
   $("#"+objId).attr("tgt_bits",0);
@@ -28,14 +29,23 @@ function AttachSelectAndDelete(){
 
     //alert("Clicked the image...........");
     if(idForDelete!=""){
-      $("#"+idForDelete).parent().css("border-color","blue");
+      $("#"+idForDelete).parent().css("border","0px solid");
+      $("#"+idForDelete).parent().css("border-color","transparent");
     }
     idForDelete=$(this).attr("id");
+    $("#"+idForDelete).parent().css("border","1px solid");
     $("#"+idForDelete).parent().css("border-color","green");
     console.log(idForDelete);
     //$(this).css("border-color","green");
     //$(this).css("border-width","4px");
   });
+
+/*$('body').click(function(){
+  $("#"+idForDelete).parent().css("border","0px solid");
+  $("#"+idForDelete).parent().css("border-color","transparent");
+  idForDelete="";
+});*/
+
 
   $('html').keyup(function(ev){
     //alert("Key released..........");
@@ -46,6 +56,8 @@ function AttachSelectAndDelete(){
         ResetDiv(idForDelete);
         if(parseInt($("#"+idForDelete).attr("num_bits")) > 1){
           UnMergeCells(idForDelete);
+        }else{
+          InsertConnector($("#"+idForDelete).parent().attr("id"));
         }
         $("#"+idForDelete).remove();
         
