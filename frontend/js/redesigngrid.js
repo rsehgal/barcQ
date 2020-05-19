@@ -81,17 +81,18 @@ function CreateControlledGate(divid,numofbits){
 */
 function InsertConnector(divid,rad=gridConnectorRadius){
 	//alert(divid+" "+initalize);
-	var numofbits=parseInt($("#"+divid).attr("num_bits"));
+	/*var numofbits=parseInt($("#"+divid).attr("num_bits"));
 	if(numofbits==0){
 		numofbits=1;
-	}
+	}*/
 
-	console.log("DivId from InsertConnector : "+divid+" :: Num of bits from InsertConnector : "+numofbits);
+	//console.log("DivId from InsertConnector : "+divid+" :: Num of bits from InsertConnector : "+numofbits);
 	console.log("parent : "+divid);
 	var divWidth=$("#"+divid).width();
 	var divHeight=$("#"+divid).height();
 	var cx=divWidth/2;
-	var cy=divHeight/(2*numofbits);
+	//var cy=divHeight/(2*numofbits);
+	var cy=divHeight*0.5;
 	if(divid!="body"){
 		var svgContainer = d3.select("#"+divid).append("svg")
 								 .attr("width",divWidth)
