@@ -162,12 +162,31 @@ function SetControlAndTargetBits(objid,rowid,numofbits){
     ** This needs to be modified whenever a new gate is 
     ** introduced in the framework
     */
-
+    if(numofbits==2){
     for(var bitnum=0;bitnum<numofbits-1;bitnum++){
         ctlbits.push(rowid);
         rowid++;
     }
     tgtbits.push(rowid);
+  }else{
+    if(numofbits==3){
+      if($("#"+objid).attr("gate")=="CCNOT"){
+        ctlbits.push(rowid);
+        rowid++;
+        ctlbits.push(rowid);
+        rowid++;
+        tgtbits.push(rowid);
+      }
+      
+      if($("#"+objid).attr("gate")=="CSWAP"){
+        ctlbits.push(rowid);
+        rowid++;
+        tgtbits.push(rowid);
+        rowid++;
+        tgtbits.push(rowid);
+      }
+    }
+  }
   }else{
     /*
     ** This block is for gates with control bits

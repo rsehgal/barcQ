@@ -225,7 +225,9 @@ function InsertCellOnDrag(rownum, colnum,rowspan){
 	$("#row"+rownum+"col"+colnum+"div").css("width",singleDivWidth);
 	$("#row"+rownum+"col"+colnum+"div").css("height",singleDivHeight);
 	console.log("Inserting connector for DivID : "+"#row"+rownum+"col"+colnum+"div");
-	InsertConnector("row"+rownum+"col"+colnum+"div");
+	var divid="row"+rownum+"col"+colnum+"div";
+	InsertConnector(divid);
+	ResetDivWithId(divid,parseInt(rownum),colnum);
 
 	for(var index=1; index < parseInt(rowspan) ; index++){
 	var rowid="row"+(parseInt(rownum)+index);
