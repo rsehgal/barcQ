@@ -1,6 +1,7 @@
 function ResetDiv(objId){
   $("#"+objId).parent().attr("gate","");
-  $("#"+objId).parent().attr("num_bits",1);
+  $("#"+objId).parent().attr("name","");
+  $("#"+objId).parent().attr("num_bits","");
   $("#"+objId).parent().attr("ctl_enabled",0);
   $("#"+objId).parent().attr("ctl_bits",0);
   $("#"+objId).parent().attr("tgt_bits",0);
@@ -35,6 +36,8 @@ function AttachSelectAndDelete(){
     idForDelete=$(this).attr("id");
     $("#"+idForDelete).parent().css("border","1px solid");
     $("#"+idForDelete).parent().css("border-color","green");
+	//parentDivToReset=$(this).parent();
+	//ResetDivWithId(parentDivToReset.attr("id"),parentDivToReset.attr("rowid"),parentDivToReset.attr("columnid"));
     console.log(idForDelete);
     //$(this).css("border-color","green");
     //$(this).css("border-width","4px");

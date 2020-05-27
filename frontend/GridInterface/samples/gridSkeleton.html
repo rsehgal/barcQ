@@ -78,11 +78,14 @@
     <script src = "../../js/redesigngrid.js"></script>
     <script src = "../../js/gatessymbol.js"></script>
     <script src = "../../js/userdefinedcontrolgates.js"></script>
+	<script src = "../../js/checkdiv.js"></script>
 	    <script>
 	    $(document).ready(function(){
 	    	CreateToolBox();
-	    	MakeCloneAble();
-	    	AttachSelectAndDelete();
+	    	//MakeCloneAble();
+	    	//AttachSelectAndDelete();
+			AttachDraggableEvents();
+             AttachDroppableEvents();
 	    	CoreTest();
 	    	$("#mergebutton").click(function(){
         	    GridToJson();
