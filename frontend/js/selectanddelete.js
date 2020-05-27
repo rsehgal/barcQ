@@ -35,6 +35,8 @@ function AttachSelectAndDelete(){
     idForDelete=$(this).attr("id");
     $("#"+idForDelete).parent().css("border","1px solid");
     $("#"+idForDelete).parent().css("border-color","green");
+	parentDivToReset=$(this).parent();
+	ResetDivWithId(parentDivToReset.attr("id"),parentDivToReset.attr("rowid"),parentDivToReset.attr("columnid"));
     console.log(idForDelete);
     //$(this).css("border-color","green");
     //$(this).css("border-width","4px");

@@ -118,6 +118,15 @@ function AttachDraggableEvents(){
     $('.draggableComp').on('mousedown',function(event){
     	$(this).draggable( 'option', 'revert', false );
     });
+	 $(".toolbox .cloneAble").draggable({
+
+        helper: 'clone',
+
+        appendTo: 'body' // this makes the cloned object to be moved with cursor otherwise the object with move with some offset with cursor
+
+
+    });
+
   
   $(".dropzone").on('mouseenter',function(){
     //$(this).css('background', 'orange');
@@ -213,54 +222,77 @@ function AttachDroppableEvents(){
 
 $(".dropzone").droppable({
             drop: function(event, ui) {
-			console.log("Previous Parent ID of draggable : "+ui.draggable.parent().attr("id"));
-			var prevParentId=ui.draggable.parent().attr("id");
-			//InsertConnector(ui.draggable.parent().attr("id"));
-            //$(this).css("background","yellow");
-            var colid=parseInt($(this).attr("columnid"))
-            colIds.push(colid);
-            var rowid=parseInt($(this).attr("rowid"));
-            rowIds.push(rowid);
-            Attach(ui.draggable);
-            $(this).append(ui.draggable);
-             
-            var pos=$(this).position();
-            posx=pos.left;
-            posy=pos.top;
-
-            var width=$(this).width();
-            var height=$(this).height();
-            var winWidth=ui.draggable.width();
-            var winHeight=ui.draggable.height();
-            var coords = "X coords: " + posx + ", Y coords: " + posy + ", Width : "+width+" , Height : " + height+ ", WinstonWidth : "+winWidth+" , WinstonHeight : " + winHeight;
-                //alert(coords);
-            posx=posx+parseInt(width/2)-parseInt(winWidth/2);
-            posy=posy+parseInt(height/2)-parseInt(winHeight/2);
-            ui.draggable.css('left',posx);
-            ui.draggable.css('top',posy);
-            $(".dropzone").css('background', 'transparent');
-            $(this).css("background","yellow");
-            var idOfDroppable=$(this).attr("id");
-            $("#"+ui.draggable.attr("id")).attr("style","position:fixed;");
-            
-            //Trying to set correct control and target bits
-            SetControlAndTargetBits(ui.draggable.attr("id"),rowid,ui.draggable.attr("num_bits"));
-            
-            var numOfBits=parseInt(ui.draggable.attr("num_bits"));
-            
-          //  if(numOfBits==1){
-            console.log("Deleting SVG of div : "+$(this).attr("id"));
-            $("#svg-"+$(this).attr("id")).remove();
-          //}
-
-            ModifyParentDiv($(this));
-            if(prevParentId!="body"){
-              //alert("PreviousParentID : "+prevParentId);
-              console.log("Previous Parent ID for Drag : "+prevParentId)
-              UnMergeCellsOnDrag(prevParentId);
+			  var itemToBeDropped = ui.draggable;
+            var prevParentId = itemToBeDropped.parent().attr("id");
+            //check whether div is empty before dropping to avoid overlapping
+            val = checkDivForEmpty($(this).attr('rowid'), $(this).attr('columnid'), ui.draggable.attr('num_bits'));
+            if (val == 0) { // which implies cells are not empty
+                $(itemToBeDropped).removeAttr('style'); //this will revert item back 
+                $(".dropzone").css('background', 'white');
+                $(itemToBeDropped).attr("style", "position:fixed"); //this is added to again make item draggable
+                return;
             }
-            console.log("Previous Parent Div : "+prevParentId);
+
+            if (ui.draggable.hasClass("cloneAble")) {
+                dropableCounter++;
+                var idOfDroppable = ui.draggable.attr('id');
+                var newid = idOfDroppable + dropableCounter;
+                itemToBeDropped = $(ui.helper).clone().attr('id', newid);
+                console.log("CloneIt called and created new id is " + itemToBeDropped.attr('id'));
+            }
+
+            var colid = parseInt($(this).attr("columnid"))
+            colIds.push(colid);
+            var rowid = parseInt($(this).attr("rowid"));
+            rowIds.push(rowid);
+            //alert("me"+itemToBeDropped.attr("id"));
+            //alert("$this"+$(this).attr("id"));
+            Attach(itemToBeDropped);
+            $(this).append(itemToBeDropped);
+
+            var pos = $(this).position();
+            posx = pos.left;
+            posy = pos.top;
+
+            var width = $(this).width();
+            var height = $(this).height();
+            var winWidth = ui.draggable.width();
+            var winHeight = ui.draggable.height();
+            var coords = "X coords: " + posx + ", Y coords: " + posy + ", Width : " + width + " , Height : " + height + ", WinstonWidth : " + winWidth + " , WinstonHeight : " + winHeight;
+            //alert(coords);
+            posx = posx + parseInt(width / 2) - parseInt(winWidth / 2);
+            posy = posy + parseInt(height / 2) - parseInt(winHeight / 2);
+            itemToBeDropped.css('left', posx);
+            itemToBeDropped.css('top', posy);
+            $(".dropzone").css('background', 'transparent');
+            $(this).css("background", "yellow");
+            var idOfDroppable = $(this).attr("id");
+            $("#" + itemToBeDropped.attr("id")).attr("style", "position:fixed;");
+
+
+            if (itemToBeDropped.hasClass("cloneAble")) {
+                $(".dropzone .cloneAble").addClass("draggableComp");
+                $(".dropzone  .draggableComp").removeClass("cloneAble ");
+                $(ui.helper).remove();
+
+            }
+            $(".draggableComp").draggable({
+                containment: "#dropzonetable"
+
+            });
+            //Trying to set correct control and target bits
+            SetControlAndTargetBits(itemToBeDropped.attr("id"), rowid, itemToBeDropped.attr("num_bits"));
+            var numOfBits = parseInt(itemToBeDropped.attr("num_bits"));
+            console.log("Deleting SVG of div : " + $(this).attr("id"));
+            $("#svg-" + $(this).attr("id")).remove();
+            ModifyParentDiv($(this));
+            if (prevParentId != "body") {
+                console.log("Previous Parent ID for Drag : " + prevParentId)
+                UnMergeCellsOnDrag(prevParentId);
+            }
+            console.log("Previous Parent Div : " + prevParentId);
             //InsertConnector(prevParentId);
+			AttachSelectAndDelete();
             },
             over: function(event, ui) {
                 //event.preventDefault();
