@@ -218,6 +218,13 @@ function SetControlAndTargetBits(objid,rowid,numofbits){
   $("#"+objid).attr("tgt_bits",tgtbits);
 }
 
+function GenerateCode(obj){
+	console.log("=============================================== Generated Code =======================================================");
+	var code="circuit.Gate("+obj.attr("name")+",controls=["+obj.attr("ctl_bits")+"],targets=["+obj.attr("tgt_bits")+"],arg_value="+obj.attr("arg_value")+") <br/>";
+	console.log(code);
+	$("#qutipCode").append(code);
+}
+
 function AttachDroppableEvents(){
 
 $(".dropzone").droppable({
@@ -293,6 +300,7 @@ $(".dropzone").droppable({
             console.log("Previous Parent Div : " + prevParentId);
             //InsertConnector(prevParentId);
 			AttachSelectAndDelete();
+			GenerateCode($(this))
             },
             over: function(event, ui) {
                 //event.preventDefault();
