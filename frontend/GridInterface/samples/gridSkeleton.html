@@ -1,67 +1,10 @@
 <html>
 <head>
-	<style>
-		table{
-			//position: fixed;
-		}
+<link rel="stylesheet" href="../../css/tabstyle.css">
+<link rel="stylesheet" href="../../css/grid.css">
 
-		#clonedElement{
-			position: fixed;
-			left: 150;
-			top:5;
-		}
 
-		.dropzone{
-			width: 35;
-			height: 35;
-			//border: solid blue;
-			background-color:transparent;
-			//position: fixed;
-		}
-
-		.nondropzone{
-			width: 35;
-			height: 35;
-			border: solid blue;
-			//position: fixed;
-		}
-
-		.iamdroppable{
-
-		}
-
-		#toolboxDivSingle{
-			width: 50;
-			height: 1000;
-			border : solid black 1px;
-			position: fixed;
-		}
-
-		#toolboxDivMultiple{
-			width: 50;
-			height: 1000;
-			left: 60;
-			border : solid black 1px;
-			position: fixed;
-		}
-
-		.toolboxcc{
-			width: 50;
-			height: 1000;
-			border : solid black 1px;
-			position: fixed;
-		}
-
-		#dropzoneDiv{
-			left: 100;
-			top: 60;
-			position: fixed;
-		}
-
-		
-	</style>
-
-	<script src = "../../jsonschemauserDefinedControlGatesDivIdss/gatesUI.json"></script>
+	<script src = "../../jsonschemauserDefinedControlGatesDivIdss/gatesUI.json"></script><script type="text/javascript" src="../../js/tabbedInterface.js"></script>
 	<script src = "../../jsonschemas/gatesUIExtended.json"></script>
 	<script src = '../../js/jquery.js'> </script>
     <script src = '../../js/jquery-ui.js'> </script>
@@ -79,6 +22,7 @@
     <script src = "../../js/gatessymbol.js"></script>
     <script src = "../../js/userdefinedcontrolgates.js"></script>
 	<script src = "../../js/checkdiv.js"></script>
+	<script src="../../js/tabbedInterface.js"></script>
 	    <script>
 	    $(document).ready(function(){
 	    	CreateToolBox();
@@ -108,6 +52,19 @@
 </head>
 
 <body id="body">
+	<!-- Trying to create tabbed interface 	-->
+	<h2>Tabs</h2>
+	<p>Click on the buttons inside the tabbed menu:</p>
+
+	<div class="tab">
+  <button class="tablinks" onclick="openCity(event, 'circuitComposer')">Circuit Editor</button>
+  <button class="tablinks" onclick="openCity(event, 'qutipCode')">QuTiP code</button>
+  
+</div>
+
+
+	<!-- ---------------------------------- -->
+	<div id="circuitComposer" class="tabcontent">
 	<div id="toolboxDivSingle" class="toolbox"></div>
 	<div id="toolboxDivMultiple" class="toolbox"></div>
 	<div id="clonedElement"></div>
@@ -206,6 +163,9 @@
 	</div>
 	</foreignObject>
 </svg>
+</div>
+
+<div id="qutipCode" class="tabcontent"></div>
 	
 
 </body>

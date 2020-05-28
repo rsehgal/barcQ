@@ -1,0 +1,56 @@
+table{
+			//position: fixed;
+		}
+
+		#clonedElement{
+			position: fixed;
+			left: 150;
+			top:5;
+		}
+
+		.dropzone{
+			width: 35;
+			height: 35;
+			//border: solid blue;
+			background-color:transparent;
+			//position: fixed;
+		}
+
+		.nondropzone{
+			width: 35;
+			height: 35;
+			border: solid blue;
+			//position: fixed;
+		}
+
+		.iamdroppable{
+
+		}
+
+		#toolboxDivSingle{
+			width: 50;
+			height: 1000;
+			border : solid black 1px;
+			position: fixed;
+		}
+
+		#toolboxDivMultiple{
+			width: 50;
+			height: 1000;
+			left: 60;
+			border : solid black 1px;
+			position: fixed;
+		}
+
+		.toolboxcc{
+			width: 50;
+			height: 1000;
+			border : solid black 1px;
+			position: fixed;
+		}
+
+		#dropzoneDiv{
+			left: 100;
+			top: 60;
+			position: fixed;
+		}
