@@ -31,7 +31,7 @@ table{
 			width: 50;
 			height: 1000;
 			border : solid black 1px;
-			position: fixed;
+			//position: fixed;
 		}
 
 		#toolboxDivMultiple{
@@ -39,7 +39,7 @@ table{
 			height: 1000;
 			left: 60;
 			border : solid black 1px;
-			position: fixed;
+			//position: fixed;
 		}
 
 		.toolboxcc{
@@ -52,5 +52,5 @@ table{
 		#dropzoneDiv{
 			left: 100;
 			top: 60;
-			position: fixed;
+			//position: fixed;
 		}

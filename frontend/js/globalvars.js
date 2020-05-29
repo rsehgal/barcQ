@@ -10,6 +10,7 @@ var endConnectorId="";
 var startConnectorWireIds="";
 var endConnectorWireIds="";
 var jsonObj = [];
+circuitJsonObj = {"header":{}, "config":{} };
 var dropableCounter=0;
 var idForDelete="";
 var colIds=[];
@@ -31,3 +32,16 @@ var userDefinedControlGatesRowIds=[];
 var userDefinedControlGateColumnId=0;
 
 //var backSvgCanvas;
+
+
+//Qutip related imports
+var imports="#importing the required python modules <br/>"+
+			"import numpy as np <br/>"+
+			"import json <br/>"+
+			"from IPython.display import Image <br/> <br/>"+
+			"#importing the required QuTiP modules <br/>"+
+			"from qutip import * <br/>"+
+			"from qutip.qip import * <br/>"+
+			"import qutip.qip.circuit <br/> <br/>"+
+			
+			"#Creating the require circuit <br/>";
