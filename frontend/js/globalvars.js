@@ -42,6 +42,7 @@ var imports="#importing the required python modules <br/>"+
 			"#importing the required QuTiP modules <br/>"+
 			"from qutip import * <br/>"+
 			"from qutip.qip import * <br/>"+
+			"from qutip.qip.circuit import Gate<br/> "+
 			"import qutip.qip.circuit <br/> <br/>"+
 			
 			"#Creating the require circuit <br/>";

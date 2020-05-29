@@ -218,18 +218,28 @@ function SetControlAndTargetBits(objid,rowid,numofbits){
   $("#"+objid).attr("tgt_bits",tgtbits);
 }
 
-function GenerateCode(obj){
-  $("#qutipCode").empty();
-  $("#qutipCode").append(imports)
-	console.log("=============================================== Generated Code =======================================================");
-	var code="circuit.Gate("+obj.attr("name")+",controls=["+obj.attr("ctl_bits")+"],targets=["+obj.attr("tgt_bits")+"],arg_value="+obj.attr("arg_value")+") <br/>";
-	console.log(code);
-  GridToJson();
+function JsonToCode(){
+  var input_lines=5;
+  var code = "qutip_circuit=QubitCircuit("+input_lines+",reverse_states=False) <br/>";
+  $("#qutipCode").append(code);
+
   gatesList=circuitJsonObj["instructions"]
   for(var index=0;index<gatesList.length;index++){
-    code="circuit.Gate("+gatesList[index]["name"]+",controls=["+gatesList[index]["ctl_bits"]+"],targets=["+gatesList[index]["tgt_bits"]+"],arg_value="+obj.attr("arg_value")+") <br/>";
-	  $("#qutipCode").append(code);
+    var gatename=gatesList[index]["name"];
+    if(gatename=="CCNOT")
+      gatename="TOFFOLI";
+    code="qutip_circuit.add_gate(Gate('"+gatename+"',controls=["+gatesList[index]["ctl_bits"]+"],targets=["+gatesList[index]["tgt_bits"]+"],arg_value="+gatesList[index]["arg_value"]+")) <br/>";
+    $("#qutipCode").append(code);
   }
+
+}
+
+function GenerateCode(){
+  $("#qutipCode").empty();
+  $("#qutipCode").append(imports)
+	GridToJson();
+  JsonToCode();
+
 }
 
 function AttachDroppableEvents(){
@@ -307,7 +317,7 @@ $(".dropzone").droppable({
             console.log("Previous Parent Div : " + prevParentId);
             //InsertConnector(prevParentId);
 			AttachSelectAndDelete();
-			GenerateCode($(this))
+			GenerateCode()
             },
             over: function(event, ui) {
                 //event.preventDefault();
