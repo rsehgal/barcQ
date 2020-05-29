@@ -52,6 +52,8 @@
 </head>
 
 <body id="body">
+
+
 	<!-- Trying to create tabbed interface 	-->
 	<h2>Tabs</h2>
 	<p>Click on the buttons inside the tabbed menu:</p>
@@ -65,9 +67,16 @@
 
 	<!-- ---------------------------------- -->
 	<div id="circuitComposer" class="tabcontent">
-	<div id="toolboxDivSingle" class="toolbox"></div>
-	<div id="toolboxDivMultiple" class="toolbox"></div>
-	<div id="clonedElement"></div>
+	<table>
+		<tr> 
+			<td>
+				<div id="toolboxDivSingle" class="toolbox"></div>
+			</td>
+			<td>
+				<div id="toolboxDivMultiple" class="toolbox"></div>
+			</td>
+	<!-- <div id="clonedElement"></div> -->
+			<td>
 	<svg xmlns="http://www.w3.org/2000/svg" id="testSvg" width="1000" height="1000">
   	<foreignObject x="10" y="10" width=500 height=500 >
 	<div id="dropzoneDiv">
@@ -163,9 +172,12 @@
 	</div>
 	</foreignObject>
 </svg>
+</td>
+</tr>
+</table>
 </div>
 
-<div id="qutipCode" class="tabcontent"></div>
+<div id="qutipCode" class="tabcontent monospace"></div>
 	
 
 </body>

@@ -148,7 +148,7 @@ function AttachDraggableEvents(){
 	$( ".nondropzone" ).droppable({ 
         drop :function(event,ui) {   
             ui.draggable.draggable( 'option', 'revert', true ); 
-            ui.draggable.css("position","fixed");
+            ui.draggable.css("position","relative");
         }
     });
 }
@@ -219,10 +219,17 @@ function SetControlAndTargetBits(objid,rowid,numofbits){
 }
 
 function GenerateCode(obj){
+  $("#qutipCode").empty();
+  $("#qutipCode").append(imports)
 	console.log("=============================================== Generated Code =======================================================");
 	var code="circuit.Gate("+obj.attr("name")+",controls=["+obj.attr("ctl_bits")+"],targets=["+obj.attr("tgt_bits")+"],arg_value="+obj.attr("arg_value")+") <br/>";
 	console.log(code);
-	$("#qutipCode").append(code);
+  GridToJson();
+  gatesList=circuitJsonObj["instructions"]
+  for(var index=0;index<gatesList.length;index++){
+    code="circuit.Gate("+gatesList[index]["name"]+",controls=["+gatesList[index]["ctl_bits"]+"],targets=["+gatesList[index]["tgt_bits"]+"],arg_value="+obj.attr("arg_value")+") <br/>";
+	  $("#qutipCode").append(code);
+  }
 }
 
 function AttachDroppableEvents(){
@@ -236,7 +243,7 @@ $(".dropzone").droppable({
             if (val == 0) { // which implies cells are not empty
                 $(itemToBeDropped).removeAttr('style'); //this will revert item back 
                 $(".dropzone").css('background', 'white');
-                $(itemToBeDropped).attr("style", "position:fixed"); //this is added to again make item draggable
+                $(itemToBeDropped).attr("style", "position:relative"); //this is added to again make item draggable
                 return;
             }
 
@@ -274,7 +281,7 @@ $(".dropzone").droppable({
             $(".dropzone").css('background', 'transparent');
             $(this).css("background", "yellow");
             var idOfDroppable = $(this).attr("id");
-            $("#" + itemToBeDropped.attr("id")).attr("style", "position:fixed;");
+            $("#" + itemToBeDropped.attr("id")).attr("style", "position:relative;");
 
 
             if (itemToBeDropped.hasClass("cloneAble")) {
