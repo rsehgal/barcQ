@@ -67,6 +67,7 @@ function AttachSelectAndDelete(){
         idForDelete="";
 
       }
+      GenerateCode();
     }
   });
 }
