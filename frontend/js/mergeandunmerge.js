@@ -6,6 +6,16 @@ function MergeCellsUserDefinedGate(){
         // console.log(cellIdsLength);
         // console.log("CellIdArray : "+cellIdsArray);
 
+
+		//check whether all gate has been dropped to same columns or not
+		userDefinedControlGateColumnId=userDefinedControlGateColumnIds[0];
+		for (i=1;i<userDefinedControlGateColumnIds.length;i++){
+			if(userDefinedControlGateColumnId!=userDefinedControlGateColumnIds[i]){
+				alert("Kindly drop the gates to the same column and again repeat gate creation process");
+				return;
+			}
+		}
+
         var uniqueSorted=userDefinedControlGatesRowIds.UniqueAndSorted();
         var minRowId=uniqueSorted[0];
         var maxRowId=uniqueSorted[uniqueSorted.length-1];

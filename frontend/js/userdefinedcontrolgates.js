@@ -9,9 +9,11 @@ function ControlGateInitialization(){
 			$(this).css("background","yellow");
 			userDefinedControlGatesDivIds.push($(this).attr("id"));
 			var rowid=$(this).attr("rowid");
-			console.log("RowID : "+rowid);
+			var colid=$(this).attr("columnid");
+			console.log("RowID : "+rowid + " ColumnID"+colid);
 			userDefinedControlGatesRowIds.push(rowid);
-			userDefinedControlGateColumnId=$(this).attr("columnid");
+			userDefinedControlGateColumnIds.push(colid);
+			//userDefinedControlGateColumnId=$(this).attr("columnid");
 			//userDefinedControlGatesComponent.push($(this).attr("gate"));
 			//var strRowId=rowid.toString()+"entry";
 			//console.log("StrRowId : "+strRowId);
@@ -32,7 +34,8 @@ function StoreDivIds(){
 	userDefinedControlGatesDivIds=[];
 	userDefinedControlGatesComponent=[];
 	userDefinedControlGatesRowIds=[];
-	userDefinedControlGateColumnId=0;
+	//userDefinedControlGateColumnId=0;
+	userDefinedControlGateColumnIds=[];
 	tempDict={};
 	tempRaman={};
 }
