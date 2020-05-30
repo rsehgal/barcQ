@@ -1,0 +1,41 @@
+<html>
+<head>
+	<!-- Load plotly.js into the DOM -->
+	<script src='../js/plotly-latest.min.js'></script>
+	<script src = '../js/jquery.js'> </script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+		/*var x = ["Apples","Apples","Apples","Organges", "Bananas"]
+		var y = ["5","10","3","10","5"]*/
+		var x = ["Apples","Organges", "Bananas"]
+		var y = ["5","10","3"]
+
+		var data = [
+		  {
+		    histfunc: "count",
+		    y: y,
+		    x: x,
+		    type: "histogram",
+		    name: "count"
+		  },
+		  {
+		    histfunc: "sum",
+		    y: y,
+		    x: x,
+		    type: "histogram",
+		    name: "sum"
+		  }
+		]
+
+		Plotly.newPlot('myDiv', data);
+	});
+	</script>
+</head>
+
+<body>
+	<div id='myDiv'>
+		<!-- Plotly chart will be drawn inside this DIV -->
+		
+	</div>
+</body>
+</html>
