@@ -39,6 +39,12 @@ var rowList=$("#dropzonetable tr");
 
 		var startColid=colList[0].id;
 		var endColid=colList[numOfColumns-1].id;
+		console.log("StartColId : "+startColid+" : EndColId : "+endColid);
+		dividd=startColid+"div";
+		console.log("DIVIDD : "+dividd);
+		startingConnLocation=$("#"+dividd).children().children().attr("cx");
+
+		console.log("StartConnLocation : "+startingConnLocation);
 		//console.log("ColID : "+colid);
 		//var divid=$("#"+colid).children().attr("id");
 
@@ -47,10 +53,14 @@ var rowList=$("#dropzonetable tr");
 
 		var startPos=$("#"+startColid).position();
 		var endPos=$("#"+endColid).position();
+		console.log("Start Pos : "+startPos.left+" : EndPos : "+endPos.left);
 		var x1=startPos.left+dropzoneDivPos.left+divwidth/4;
-		var y1=startPos.top+dropzoneDivPos.top+divheight/4;
-		var x2=endPos.left+dropzoneDivPos.left+divwidth/4;
-		var y2=endPos.top+dropzoneDivPos.top+divheight/4;
+		//var y1=startPos.top+dropzoneDivPos.top+divheight/4;
+		var y1=(startPos.top+(rowIndex+1)*1.0*divheight);//dropzoneDivPos.top+divheight/4;
+		//var x2=endPos.left+dropzoneDivPos.left+divwidth/4;
+		var x2=x1+numOfColumns*divwidth;
+		//var y2=endPos.top+dropzoneDivPos.top+divheight/4;
+		var y2=y1
 
 		//console.log(startPos);
 		console.log("StartPos : "+x1+","+y1);

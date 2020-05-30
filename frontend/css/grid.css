@@ -9,16 +9,16 @@ table{
 		}
 
 		.dropzone{
-			width: 35;
-			height: 35;
+			width: 36;
+			height: 36;
 			//border: solid blue;
 			background-color:transparent;
 			//position: fixed;
 		}
 
 		.nondropzone{
-			width: 35;
-			height: 35;
+			width: 36;
+			height: 36;
 			border: solid blue;
 			//position: fixed;
 		}
