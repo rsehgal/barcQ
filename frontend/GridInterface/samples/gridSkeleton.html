@@ -4,7 +4,6 @@
 <link rel="stylesheet" href="../../css/grid.css">
 
 
-	<script src = "../../jsonschemauserDefinedControlGatesDivIdss/gatesUI.json"></script><script type="text/javascript" src="../../js/tabbedInterface.js"></script>
 	<script src = "../../jsonschemas/gatesUIExtended.json"></script>
 	<script src = '../../js/jquery.js'> </script>
     <script src = '../../js/jquery-ui.js'> </script>
@@ -23,6 +22,7 @@
     <script src = "../../js/userdefinedcontrolgates.js"></script>
 	<script src = "../../js/checkdiv.js"></script>
 	<script src="../../js/tabbedInterface.js"></script>
+	<script src="../../js/plotly-latest.min.js"></script>
 	    <script>
 	    $(document).ready(function(){
 	    	CreateToolBox();
@@ -61,6 +61,7 @@
 	<div class="tab">
   <button class="tablinks" onclick="openCity(event, 'circuitComposer')">Circuit Editor</button>
   <button class="tablinks" onclick="openCity(event, 'qutipCode')">QuTiP code</button>
+  <button class="tablinks" onclick="openCity(event, 'results')">Results</button>
   
 </div>
 
@@ -178,6 +179,13 @@
 </div>
 
 <div id="qutipCode" class="tabcontent monospace"></div>
+
+<div id="results"  class="tabcontent">
+<!-- For each new plot, just add a div below -->
+	<div id="plotHist"></div>
+	<div id="countPlot"></div>
+	<div id="sumPlot"></div>
+</div>
 	
 
 </body>
