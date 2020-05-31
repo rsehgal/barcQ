@@ -49,3 +49,40 @@ var imports="#importing the required python modules <br/>"+
 			"import qutip.qip.circuit <br/> <br/>"+
 			
 			"#Creating the require circuit <br/>";
+
+
+//Plotly related global variables
+var xData = ["Apples","Organges", "Bananas"];
+var yData = ["0.5","0.2","0.3"];
+var plotData=[
+		  {
+		    histfunc: "count",
+		    y: yData,
+		    x: xData,
+		    type: "histogram",
+		    name: "count"
+		  },
+		  {
+		    histfunc: "sum",
+		    y: yData,
+		    x: xData,
+		    type: "histogram",
+		    name: "sum"
+		  }
+		];
+//One has to modify the x and y of sumData and it will be reflected in the histogram
+var sumData=[{
+			  histfunc:"sum",
+			  y: yData,
+		      x: xData,
+		      type: "histogram",
+		      name: "sum"
+			}];
+
+var countData=[{
+			  histfunc:"count",
+			  y: yData,
+		      x: xData,
+		      type: "histogram",
+		      name: "count"
+			}];
