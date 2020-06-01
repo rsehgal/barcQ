@@ -46,7 +46,7 @@
 
  			//Trying to call server side function written in cherryPy
  			$("#submitButton").click(function(e){
-                $.post("/CodeGenerator",function(data) {
+                        $.post("/CodeGenerator",{"jsonObj" : JSON.stringify(circuitJsonObj)},function(data) {
                 			console.log("Reverse function calle........");
                 			data=JSON.parse(data);
                 			console.log(data);

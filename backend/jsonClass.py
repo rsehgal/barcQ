@@ -17,14 +17,14 @@ class Manager:
 
 class CircuitCreator:
 	
-	def __init__(self,json_str,input_lines=2):
+	def __init__(self,json_str,input_lines=2,fromPython=True):
 		print("@@@@ Gate Constructor called @@@@")
 		self.json_str=json_str
 		self.json_dict=json.loads(self.json_str)
 		#gate_dict=Manager(json_str).gate_dict
 		self.gate_list=[]
 		for gate_dict in self.json_dict["instructions"]:
-			self.gate_list.append(Gate(gate_dict))	
+			self.gate_list.append(Gate(gate_dict,fromPython))	
 			#print("------- Individual Gate Matrix of Gate : "+self.gate_list[len(self.gate_list)-1].gate_name+"----------")
 			#print(self.gate_list[len(self.gate_list)-1].OperatorMatrix())
 
@@ -61,17 +61,17 @@ class CircuitCreator:
 		
 class Gate:
 
-	def __init__(self,gate_dict):
+	def __init__(self,gate_dict,fromPython):
 		self.isUserDefined=False
 		self.gate_dict=gate_dict
 		print("===========================")
 		print(self.gate_dict)
-		self.ConstructGate()
+		self.ConstructGate(fromPython)
 	
 	def CheckGateValidity(self,gate_name):
 		return True
 
-	def ConstructGate(self):
+	def ConstructGate(self,fromPython):
 		self.gate_name=self.gate_dict["name"]
 		self.isUserDefined=UserDefined(self.gate_name)
 		print("Sehgal GATENAME : "+self.gate_name)
@@ -94,6 +94,14 @@ class Gate:
 			self.arg_value=None
 		print("Constructing Gate : "+self.gate_name)
 		
+		if(not fromPython):
+			if(self.ctl_bits!=None):
+				self.ctl_bits=list(map(int,self.ctl_bits.split(",")))
+				#print("@@@@@@@@ Comparison with None failed @@@@@@@@")
+			self.tgt_bits=list(map(int,self.tgt_bits.split(",")))
+			if(self.arg_value!=None):
+				self.arg_value=float(self.arg_value)
+			self.num_bits=int(self.num_bits)
 		'''
 		print("Arg_Value : "+str(self.arg_value))
 		print("Control bits : "+str(self.ctl_bits))

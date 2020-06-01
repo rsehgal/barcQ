@@ -4,6 +4,10 @@ import string
 import simplejson
 import cherrypy
 
+import sys
+sys.path.append("..")
+from jsonClass import *
+
 #MEDIA_DIR = os.path.join(os.path.abspath("."), u"media")
 
 class StringGenerator(object):
@@ -19,17 +23,26 @@ class StringGenerator(object):
         return some_string
 
     @cherrypy.expose
-    def CodeGenerator(self):
+    def CodeGenerator(self, jsonObj):
+        
         #cherrypy.response.headers['Content-Type'] = 'application/json'
         cherrypy.response.headers["Access-Control-Allow-Origin"] = "http://localhost"
         print("====================================")
         print("Code Generator called...........")
+        print("JSONObj : "+jsonObj)
         
         # #return "Hello Raman.."
         data=simplejson.dumps(dict(title='Hello, Raman'))
         print(data)
         print("====================================")
+        self.CreateCircuit(jsonObj)
         return data
+
+    #Python code to call QuTiP function
+    def CreateCircuit(self,gateJson):
+        circCreator=CircuitCreator(gateJson,2,False)
+        print(circCreator.OperatorMatrix())
+        circCreator.DumpCircuitImage()
 
     @cherrypy.expose
     def display(self):
