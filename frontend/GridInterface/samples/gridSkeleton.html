@@ -43,8 +43,30 @@
  			$("#create").click(function(){
  				StoreDivIds();	
  			});
- 			$("#submitButton").click(function(){
-                               $.post("/CodeGenerator")
+
+ 			//Trying to call server side function written in cherryPy
+ 			$("#submitButton").click(function(e){
+                $.post("/CodeGenerator",function(data) {
+                			console.log("Reverse function calle........");
+                			data=JSON.parse(data);
+                			console.log(data);
+                           $("#title").html(data["title"]) ;
+               	})
+                 .done(function() {
+               		console.log("Server side function called........");
+            	});
+           	e.preventDefault();
+
+            /*
+			//This also works, keeping it just for the future reference
+            var request = $.ajax({'url': '/CodeGenerator'});
+           	request.done(function(response) {
+		        //$('#foo').text(response.foo);
+		        //$('#baz').text(response.baz);
+		        console.log("Data Received : "+response);
+		        $("#title").html(response);
+		      });*/
+
             });
 
  			
@@ -175,6 +197,7 @@
 	<button type="button" id="create">New Controlled Gate</button>
 	<button type="button" id="display">Create Gate</button>
 	<button type="button" id="submitButton">Submit</button>
+	<h1 id = "title">What's your name?</h1>
 	</div>
 	</foreignObject>
 </svg>

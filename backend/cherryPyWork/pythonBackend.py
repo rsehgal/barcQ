@@ -1,7 +1,7 @@
 import os, os.path
 import random
 import string
-
+import simplejson
 import cherrypy
 
 #MEDIA_DIR = os.path.join(os.path.abspath("."), u"media")
@@ -20,10 +20,16 @@ class StringGenerator(object):
 
     @cherrypy.expose
     def CodeGenerator(self):
+        #cherrypy.response.headers['Content-Type'] = 'application/json'
+        cherrypy.response.headers["Access-Control-Allow-Origin"] = "http://localhost"
         print("====================================")
         print("Code Generator called...........")
+        
+        # #return "Hello Raman.."
+        data=simplejson.dumps(dict(title='Hello, Raman'))
+        print(data)
         print("====================================")
-        return "Hello Raman.."
+        return data
 
     @cherrypy.expose
     def display(self):
