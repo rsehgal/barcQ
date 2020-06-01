@@ -19,6 +19,13 @@ class StringGenerator(object):
         return some_string
 
     @cherrypy.expose
+    def CodeGenerator(self):
+        print("====================================")
+        print("Code Generator called...........")
+        print("====================================")
+        return "Hello Raman.."
+
+    @cherrypy.expose
     def display(self):
         return cherrypy.session['mystring']
 

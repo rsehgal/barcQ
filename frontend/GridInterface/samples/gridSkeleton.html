@@ -43,6 +43,10 @@
  			$("#create").click(function(){
  				StoreDivIds();	
  			});
+ 			$("#submitButton").click(function(){
+                               $.post("/CodeGenerator")
+            });
+
  			
 		});
 	</script>
@@ -170,6 +174,7 @@
 	<button type="button" id="loadbutton">Load Circuit</button>
 	<button type="button" id="create">New Controlled Gate</button>
 	<button type="button" id="display">Create Gate</button>
+	<button type="button" id="submitButton">Submit</button>
 	</div>
 	</foreignObject>
 </svg>
