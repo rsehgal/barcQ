@@ -76,6 +76,7 @@ function MergeCellsUserDefinedGate(){
         		if(index==(cellIdsLength-1)){
         			x2=x; y2=y;
         		}
+				/*
         		if(gateName=="CONTROL"){
         			InsertControlSymbol(g,x,y);
         		}
@@ -87,7 +88,16 @@ function MergeCellsUserDefinedGate(){
 					x = 0;
 					y -= 0.5*singleDivHeight;
 					InsertImageSymbol(g,gateName,x,y);
-				}
+				}*/
+				switch(gateName){
+					case "CONTROL":InsertControlSymbol(g,x,y);break;
+					case "XOR": ;
+					case "X": InsertXorSymbol(g,x,y); break;
+					default: x = 0;
+					y -= 0.5*singleDivHeight;
+					InsertImageSymbol(g,gateName,x,y);break;
+					
+				}	
         	}
         }
         
