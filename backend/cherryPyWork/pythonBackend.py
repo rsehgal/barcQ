@@ -3,6 +3,7 @@ import random
 import string
 import simplejson
 import cherrypy
+import json
 
 import sys
 sys.path.append("..")
@@ -41,17 +42,36 @@ class StringGenerator(object):
         print("############ OUTPUT #############")
         print(self.output)
         print("#################################")
-        return data
+        #return data
+        return self.OutputToJson()
+
+    '''
+    This function will convert the output of the circuit to the JSON format
+    which will be sent back to the frontend for plotting
+    '''
+    def OutputToJson(self):
+        yList=self.output[:,0]
+        yStringList=[abs(item)[0]**2 for item in yList]
+        xList=[bin(val) for val in range(2**self.numOfInputLines)]
+        jsonData={"xdata":xList,"ydata":yStringList}
+        # print("++++++++++++++++++++++++++++++")
+        # print(xList)
+        # print(yStringList)
+        jsonConvObj=json.dumps(jsonData)
+        print(jsonConvObj)
+        return jsonConvObj
+        
+
 
     def Apply(self):
         return self.circCreator.Apply()
 
     #Python code to call QuTiP function
     def CreateCircuit(self,gateJson):
-        numOfInputLines=self.FindNumOfInputLines(gateJson)
-        numOfInputLines=numOfInputLines+1
-        print("====== numOfInputLines : "+str(numOfInputLines)+" ============")
-        self.circCreator=CircuitCreator(gateJson,numOfInputLines,False)
+        self.numOfInputLines=self.FindNumOfInputLines(gateJson)
+        self.numOfInputLines=self.numOfInputLines+1
+        print("====== numOfInputLines : "+str(self.numOfInputLines)+" ============")
+        self.circCreator=CircuitCreator(gateJson,self.numOfInputLines,False)
         print(self.circCreator.OperatorMatrix())
         # self.circCreator.DumpCircuitImage()
 

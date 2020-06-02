@@ -50,7 +50,10 @@
                 			console.log("Reverse function calle........");
                 			data=JSON.parse(data);
                 			console.log(data);
-                           $("#title").html(data["title"]) ;
+                            //$("#title").html(data["title"]) ;
+                            console.log("Plot X : "+data["xdata"])
+                            console.log("Plot Y : "+data["ydata"])
+                            $("#title").html(data["ydata"]) ;
                	})
                  .done(function() {
                		console.log("Server side function called........");
