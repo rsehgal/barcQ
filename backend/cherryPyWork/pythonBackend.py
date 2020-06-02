@@ -37,16 +37,23 @@ class StringGenerator(object):
         print(data)
         print("====================================")
         self.CreateCircuit(jsonObj)
+        self.output=self.circCreator.Apply()
+        print("############ OUTPUT #############")
+        print(self.output)
+        print("#################################")
         return data
+
+    def Apply(self):
+        return self.circCreator.Apply()
 
     #Python code to call QuTiP function
     def CreateCircuit(self,gateJson):
         numOfInputLines=self.FindNumOfInputLines(gateJson)
         numOfInputLines=numOfInputLines+1
         print("====== numOfInputLines : "+str(numOfInputLines)+" ============")
-        circCreator=CircuitCreator(gateJson,numOfInputLines,False)
-        print(circCreator.OperatorMatrix())
-        circCreator.DumpCircuitImage()
+        self.circCreator=CircuitCreator(gateJson,numOfInputLines,False)
+        print(self.circCreator.OperatorMatrix())
+        # self.circCreator.DumpCircuitImage()
 
     def FindNumOfInputLines(self,gateJson):
         json_dict=json.loads(gateJson)

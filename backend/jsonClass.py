@@ -17,7 +17,16 @@ class Manager:
 
 class CircuitCreator:
 	
-	def __init__(self,json_str,input_lines=2,fromPython=True):
+	def __init__(self,json_str,input_lines=2,fromPython=True,basis=2):
+		self.basis=basis
+		self.inputQbitsList=[]
+
+		self.input_lines=input_lines
+		self.PrepareInputState()
+		print("*********** Prepared Input state **************")
+		print(self.inputState)
+		print("***********************************************")
+
 		print("@@@@ Gate Constructor called @@@@")
 		self.json_str=json_str
 		self.json_dict=json.loads(self.json_str)
@@ -33,11 +42,18 @@ class CircuitCreator:
 		self.qutip_circuit.user_gates={"X":PauliX, "Y":PauliY, "Z":PauliZ }
 		for gate in self.gate_list:
 			self.qutip_circuit.add_gate(gate.gate)
-			'''
-			if gate.isUserDefined:
-				self.qutip_circuit.U_list.append(gate.OperatorMatrix())
-				print("RAMAN GateName : "+gate.gate_name)
-			'''
+			
+
+	'''
+	Function to apply the resultant operator matrix to the prepared input states
+	'''
+	def Apply(self):
+		return self.OperatorMatrix()*self.inputState
+		
+	def PrepareInputState(self):
+		for qbitIndex in range(self.input_lines):
+			self.inputQbitsList.append(basis(self.basis,0))
+			self.inputState=tensor(self.inputQbitsList)
 
 	def OperatorMatrix(self):
 		return gate_sequence_product(self.qutip_circuit.propagators())
