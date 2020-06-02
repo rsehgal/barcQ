@@ -8,6 +8,7 @@ import sys
 sys.path.append("..")
 from jsonClass import *
 
+
 #MEDIA_DIR = os.path.join(os.path.abspath("."), u"media")
 
 class StringGenerator(object):
@@ -40,10 +41,60 @@ class StringGenerator(object):
 
     #Python code to call QuTiP function
     def CreateCircuit(self,gateJson):
-        circCreator=CircuitCreator(gateJson,2,False)
+        numOfInputLines=self.FindNumOfInputLines(gateJson)
+        numOfInputLines=numOfInputLines+1
+        print("====== numOfInputLines : "+str(numOfInputLines)+" ============")
+        circCreator=CircuitCreator(gateJson,numOfInputLines,False)
         print(circCreator.OperatorMatrix())
         circCreator.DumpCircuitImage()
 
+    def FindNumOfInputLines(self,gateJson):
+        json_dict=json.loads(gateJson)
+        ctl_bits_List=[]
+        tgt_bits_List=[]
+        for gate_dict in json_dict["instructions"]:
+            print("@@@@@@@@@@@@@@@@@@")
+            print(gate_dict)
+            print("@@@@@@@@@@@@@@@@@@")
+            if(gate_dict["ctl_bits"]=="None"):
+                gate_dict["ctl_bits"]=None
+
+            if(gate_dict["ctl_bits"]!=None):
+                gate_dict["ctl_bits"]=list(map(int,gate_dict["ctl_bits"].split(",")))
+                #print("@@@@@@@@ Comparison with None failed @@@@@@@@")
+            gate_dict["tgt_bits"]=list(map(int,gate_dict["tgt_bits"].split(",")))
+
+            print(gate_dict["ctl_bits"])
+            print(gate_dict["tgt_bits"])
+            print("@@@@@@@@@@@@@@@@@@")
+
+            if(gate_dict["ctl_bits"]!=None):
+                for ctlBit in gate_dict["ctl_bits"]:
+                    ctl_bits_List.append(ctlBit)
+            for tgtBit in gate_dict["tgt_bits"]:
+                    tgt_bits_List.append(tgtBit)
+
+        maxCtl=0
+        if(len(ctl_bits_List)>0):
+            maxCtl=max(ctl_bits_List)
+        maxTgt=max(tgt_bits_List)
+        if(maxCtl > maxTgt):
+            return maxCtl
+        else:
+            return maxTgt
+
+        #return 4
+        '''
+        print("***************************************")
+        print(lists.ctl_bits_List)
+        print("***************************************")
+        maxCtl=max(lists.ctl_bits_List)
+        maxTgt=max(lists.tgt_bits_List)
+        if(maxCtl > maxTgt):
+            return maxCtl
+        else:
+            return maxTgt
+        '''
     @cherrypy.expose
     def display(self):
         return cherrypy.session['mystring']
