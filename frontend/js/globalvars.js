@@ -54,6 +54,8 @@ var imports="#importing the required python modules <br/>"+
 //Plotly related global variables
 //var xData = ["Apples","Organges", "Bananas"];
 //var yData = ["0.5","0.2","0.3"];
+var xData = [];
+var yData = [];
 var plotData=[
 		  {
 		    histfunc: "count",
