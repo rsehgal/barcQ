@@ -26,8 +26,8 @@ function openCity(evt, cityName) {
           and set the x and y of required global variable
     */
 
-    Plotly.newPlot('plotHist', plotData);
-    Plotly.newPlot('countPlot', countData);
+    //Plotly.newPlot('plotHist', plotData);
+    //Plotly.newPlot('countPlot', countData);
     Plotly.newPlot('sumPlot', sumData);
   }
   //evt.currentTarget.className += " active";
