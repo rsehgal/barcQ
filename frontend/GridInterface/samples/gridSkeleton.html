@@ -4,7 +4,6 @@
 <link rel="stylesheet" href="../../css/grid.css">
 
 
-	<script src = "../../jsonschemauserDefinedControlGatesDivIdss/gatesUI.json"></script><script type="text/javascript" src="../../js/tabbedInterface.js"></script>
 	<script src = "../../jsonschemas/gatesUIExtended.json"></script>
 	<script src = '../../js/jquery.js'> </script>
     <script src = '../../js/jquery-ui.js'> </script>
@@ -23,6 +22,7 @@
     <script src = "../../js/userdefinedcontrolgates.js"></script>
 	<script src = "../../js/checkdiv.js"></script>
 	<script src="../../js/tabbedInterface.js"></script>
+	<script src="../../js/plotly-latest.min.js"></script>
 	    <script>
 	    $(document).ready(function(){
 	    	CreateToolBox();
@@ -43,6 +43,35 @@
  			$("#create").click(function(){
  				StoreDivIds();	
  			});
+
+ 			//Trying to call server side function written in cherryPy
+ 			$("#submitButton").click(function(e){
+                        $.post("/CodeGenerator",{"jsonObj" : JSON.stringify(circuitJsonObj)},function(data) {
+                			console.log("Reverse function calle........");
+                			data=JSON.parse(data);
+                			console.log(data);
+                            //$("#title").html(data["title"]) ;
+                            console.log("Plot X : "+data["xdata"])
+                            console.log("Plot Y : "+data["ydata"])
+                            $("#title").html(data["ydata"]) ;
+               	})
+                 .done(function() {
+               		console.log("Server side function called........");
+            	});
+           	e.preventDefault();
+
+            /*
+			//This also works, keeping it just for the future reference
+            var request = $.ajax({'url': '/CodeGenerator'});
+           	request.done(function(response) {
+		        //$('#foo').text(response.foo);
+		        //$('#baz').text(response.baz);
+		        console.log("Data Received : "+response);
+		        $("#title").html(response);
+		      });*/
+
+            });
+
  			
 		});
 	</script>
@@ -61,6 +90,7 @@
 	<div class="tab">
   <button class="tablinks" onclick="openCity(event, 'circuitComposer')">Circuit Editor</button>
   <button class="tablinks" onclick="openCity(event, 'qutipCode')">QuTiP code</button>
+  <button class="tablinks" onclick="openCity(event, 'results')">Results</button>
   
 </div>
 
@@ -169,6 +199,8 @@
 	<button type="button" id="loadbutton">Load Circuit</button>
 	<button type="button" id="create">New Controlled Gate</button>
 	<button type="button" id="display">Create Gate</button>
+	<button type="button" id="submitButton">Submit</button>
+	<h1 id = "title">What's your name?</h1>
 	</div>
 	</foreignObject>
 </svg>
@@ -178,6 +210,13 @@
 </div>
 
 <div id="qutipCode" class="tabcontent monospace"></div>
+
+<div id="results"  class="tabcontent">
+<!-- For each new plot, just add a div below -->
+	<div id="plotHist"></div>
+	<div id="countPlot"></div>
+	<div id="sumPlot"></div>
+</div>
 	
 
 </body>

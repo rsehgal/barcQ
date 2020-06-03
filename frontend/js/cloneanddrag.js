@@ -198,15 +198,15 @@ function SetControlAndTargetBits(objid,rowid,numofbits){
   }
   }else{
     /*
-    ** This block is for gates with control bits
+    ** This block is for gates without control bits
     ** Useful for all single bit gate and SWAP gate
     */
     if(numofbits==1){
-      ctlbits.push(0);
+      ctlbits.push("None");
       tgtbits.push(rowid);
     }else{
         //For SWAP gate
-        ctlbits.push(0);
+        ctlbits.push("None");
         for(var bitnum=0;bitnum<numofbits;bitnum++){
           tgtbits.push(rowid);
           rowid++;

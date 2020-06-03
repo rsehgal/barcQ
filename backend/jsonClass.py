@@ -17,14 +17,23 @@ class Manager:
 
 class CircuitCreator:
 	
-	def __init__(self,json_str,input_lines=2):
+	def __init__(self,json_str,input_lines=2,fromPython=True,basis=2):
+		self.basis=basis
+		self.inputQbitsList=[]
+
+		self.input_lines=input_lines
+		self.PrepareInputState()
+		print("*********** Prepared Input state **************")
+		print(self.inputState)
+		print("***********************************************")
+
 		print("@@@@ Gate Constructor called @@@@")
 		self.json_str=json_str
 		self.json_dict=json.loads(self.json_str)
 		#gate_dict=Manager(json_str).gate_dict
 		self.gate_list=[]
 		for gate_dict in self.json_dict["instructions"]:
-			self.gate_list.append(Gate(gate_dict))	
+			self.gate_list.append(Gate(gate_dict,fromPython))	
 			#print("------- Individual Gate Matrix of Gate : "+self.gate_list[len(self.gate_list)-1].gate_name+"----------")
 			#print(self.gate_list[len(self.gate_list)-1].OperatorMatrix())
 
@@ -33,11 +42,18 @@ class CircuitCreator:
 		self.qutip_circuit.user_gates={"X":PauliX, "Y":PauliY, "Z":PauliZ }
 		for gate in self.gate_list:
 			self.qutip_circuit.add_gate(gate.gate)
-			'''
-			if gate.isUserDefined:
-				self.qutip_circuit.U_list.append(gate.OperatorMatrix())
-				print("RAMAN GateName : "+gate.gate_name)
-			'''
+			
+
+	'''
+	Function to apply the resultant operator matrix to the prepared input states
+	'''
+	def Apply(self):
+		return self.OperatorMatrix()*self.inputState
+		
+	def PrepareInputState(self):
+		for qbitIndex in range(self.input_lines):
+			self.inputQbitsList.append(basis(self.basis,0))
+			self.inputState=tensor(self.inputQbitsList)
 
 	def OperatorMatrix(self):
 		return gate_sequence_product(self.qutip_circuit.propagators())
@@ -61,17 +77,17 @@ class CircuitCreator:
 		
 class Gate:
 
-	def __init__(self,gate_dict):
+	def __init__(self,gate_dict,fromPython):
 		self.isUserDefined=False
 		self.gate_dict=gate_dict
 		print("===========================")
 		print(self.gate_dict)
-		self.ConstructGate()
+		self.ConstructGate(fromPython)
 	
 	def CheckGateValidity(self,gate_name):
 		return True
 
-	def ConstructGate(self):
+	def ConstructGate(self,fromPython):
 		self.gate_name=self.gate_dict["name"]
 		self.isUserDefined=UserDefined(self.gate_name)
 		print("Sehgal GATENAME : "+self.gate_name)
@@ -94,6 +110,14 @@ class Gate:
 			self.arg_value=None
 		print("Constructing Gate : "+self.gate_name)
 		
+		if(not fromPython):
+			if(self.ctl_bits!=None):
+				self.ctl_bits=list(map(int,self.ctl_bits.split(",")))
+				#print("@@@@@@@@ Comparison with None failed @@@@@@@@")
+			self.tgt_bits=list(map(int,self.tgt_bits.split(",")))
+			if(self.arg_value!=None):
+				self.arg_value=float(self.arg_value)
+			self.num_bits=int(self.num_bits)
 		'''
 		print("Arg_Value : "+str(self.arg_value))
 		print("Control bits : "+str(self.ctl_bits))
