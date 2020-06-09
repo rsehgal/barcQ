@@ -10,17 +10,11 @@ function ControlGateInitialization(){
 			userDefinedControlGatesDivIds.push($(this).attr("id"));
 			var rowid=$(this).attr("rowid");
 			var colid=$(this).attr("columnid");
+			var gate=$(this).attr("gate");
 			console.log("RowID : "+rowid + " ColumnID"+colid);
-			userDefinedControlGatesRowIds.push(rowid);
-			userDefinedControlGateColumnIds.push(colid);
-			//userDefinedControlGateColumnId=$(this).attr("columnid");
-			//userDefinedControlGatesComponent.push($(this).attr("gate"));
-			//var strRowId=rowid.toString()+"entry";
-			//console.log("StrRowId : "+strRowId);
-			//var temp={};
-			tempDict[rowid]=$(this).attr("gate");
-			//userDefinedControlGatesComponent.push(temp);
-			//userDefinedControlGatesComponent[strRowId]=$(this).attr("gate");
+			if(gate.length!=0){
+				tempGateLocInfo.push({"row":rowid,"col":colid,"gate":gate});
+			}
 		}
 	});
 }
@@ -32,12 +26,14 @@ function StoreDivIds(){
 		$("#"+userDefinedControlGatesDivIds[index]).css("background","transparent");
 	}
 	userDefinedControlGatesDivIds=[];
-	userDefinedControlGatesComponent=[];
-	userDefinedControlGatesRowIds=[];
+	//userDefinedControlGatesComponent=[];
+	//userDefinedControlGatesRowIds=[];
 	//userDefinedControlGateColumnId=0;
-	userDefinedControlGateColumnIds=[];
-	tempDict={};
-	tempRaman={};
+	//userDefinedControlGateColumnIds=[];
+	//tempDict={};
+	//tempRaman={};
+	tempGateLocInfo=[];
+	
 }
 
 function DisplayDivIds(){

@@ -1,0 +1,13 @@
+userGateJson = '{\
+				 "header":{},\
+				 "config":{},\
+				 "instructions":[\
+				{"name":"CNOT",  "num_bits":2,"ctl_enabled" : 1, "ctl_bits" : [2], "tgt_bits" : [3], "arg_enabled" : 0, "arg_value" : "None", "gate_formedby":["CONTROL","NOT"]},\
+				{"name":"TOFFOLI",  "num_bits":3, "ctl_enabled" : 1, "ctl_bits" : [0,1], "tgt_bits" : [2], "arg_enabled" : 0, "arg_value" : "None","gate_formedby":["CONTROL","CONTROL","NOT"]},\
+				{"name":"CRX", "num_bits":2,"ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1], "arg_enabled" : 1, "arg_value" : 0,"gate_formedby":["CONTROL","RX"]},\
+				{"name":"CRY",  "num_bits":2,"ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1], "arg_enabled" : 1, "arg_value" : 0,"gate_formedby":["CONTROL","RY"]},\
+				{"name":"CRZ",  "num_bits":2, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1], "arg_enabled" : 1, "arg_value" : 0,"gate_formedby":["CONTROL","RZ"]},\
+				{"name":"CSIGN",   "num_bits":2,"ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1], "arg_enabled" : 1, "arg_value" : 0,"gate_formedby":["CONTROL","Z"]},\
+				{"name":"FREDKIN","num_bits":3, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1,2], "arg_enabled" : 0, "arg_value" : "None", "gate_formedby":["CONTROL","SWAP"]}\
+				 ]}'
+				 
