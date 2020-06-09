@@ -51,7 +51,7 @@ function CloneIt(objId,parent="body"){
 }*/ 
 
 //Basically modify parameters of divs
-function ModifyParentDiv(obj){
+function ModifyParentDiv(obj,cellTobeMerged){
   console.log("ModifyParentDiv called.............");
   console.log("SVG ARG_VALUE  "+obj.children().attr("arg_value"));
   obj.attr("name",obj.children().attr("gate"));	
@@ -65,9 +65,9 @@ function ModifyParentDiv(obj){
   
   var numOfBits=parseInt(obj.children().attr("num_bits"));
   console.log("Num of bits from ModifyParentDiv : "+numOfBits);
-  if(numOfBits>1){
+  if(cellTobeMerged>1){
       console.log("Num of bits : "+obj.attr("num_bits"));
-      Merge(obj);
+      Merge(obj,cellTobeMerged);
   }
   //InsertConnector(obj.attr("id"),5);
 }
@@ -152,7 +152,63 @@ function AttachDraggableEvents(){
         }
     });
 }
+function SetControlAndTargetBitsForUserDefinedGate(objid, rowid) {
+    var ctlbits = []; //to set in html
+    var tgtbits = [];
+    var cbits = [];// to get the bit detail of item to be dragged
+    var tbits = [];
 
+    cbits = $("#" + objid).attr("ctl_bits").split(",");
+    tbits = $("#" + objid).attr("tgt_bits").split(",");
+    var cellBetweenControlAndTarget;
+
+
+
+
+    if (cbits[0] < tbits[0]) {
+        cellBetweenControlAndTarget = tbits[0] - cbits[cbits.length - 1];
+
+        for (var bitnum = 0; bitnum < cbits.length; bitnum++) {
+            ctlbits.push(rowid);
+            if (bitnum == cbits.length - 1)
+                break;
+            rowid = rowid + parseInt(cbits[bitnum + 1] - cbits[bitnum]);
+
+        }
+
+        rowid = rowid + cellBetweenControlAndTarget;
+       // alert(cellBetweenControlAndTarget + " " + rowid);
+        for (var bitnum = 0; bitnum < tbits.length; bitnum++) {
+            tgtbits.push(rowid);
+            if (bitnum == tbits.length - 1)
+                break;
+            rowid = rowid + parseInt(tbits[bitnum + 1] - tbits[bitnum]);
+        }
+
+    }
+    if (cbits[0] > tbits[0]) {
+        cellBetweenControlAndTarget = cbits[0] - tbits[tbits.length - 1];
+        for (var bitnum = 0; bitnum < tbits.length; bitnum++) {
+            tgtbits.push(rowid);
+            if (bitnum == tbits.length - 1)
+                break;
+            rowid = rowid + parseInt(tbits[bitnum + 1] - tbits[bitnum]);
+        }
+        rowid = rowid + cellBetweenControlAndTarget;
+        for (var bitnum = 0; bitnum < cbits.length; bitnum++) {
+            ctlbits.push(rowid);
+            if (bitnum == cbits.length - 1)
+                break;
+            rowid = rowid + parseInt(cbits[bitnum + 1] - cbits[bitnum]);
+        }
+
+
+
+
+    }
+    $("#" + objid).attr("ctl_bits", ctlbits);
+    $("#" + objid).attr("tgt_bits", tgtbits);
+}
 /*
 ** Function to set the control and target bits.
 **
@@ -248,8 +304,16 @@ $(".dropzone").droppable({
             drop: function(event, ui) {
 			  var itemToBeDropped = ui.draggable;
             var prevParentId = itemToBeDropped.parent().attr("id");
+					var userDefined=itemToBeDropped.attr("user_defined");
+            
+			var noOfCellRequired;
+			if(userDefined==="Y")
+				noOfCellRequired=itemToBeDropped.attr("row_merged");
+			else 
+				noOfCellRequired=itemToBeDropped.attr("num_bits");
+			
             //check whether div is empty before dropping to avoid overlapping
-            val = checkDivForEmpty($(this).attr('rowid'), $(this).attr('columnid'), ui.draggable.attr('num_bits'));
+            val = checkDivForEmpty($(this).attr('rowid'), $(this).attr('columnid'), noOfCellRequired);
             if (val == 0) { // which implies cells are not empty
                 $(itemToBeDropped).removeAttr('style'); //this will revert item back 
                 $(".dropzone").css('background', 'white');
@@ -304,12 +368,14 @@ $(".dropzone").droppable({
                 containment: "#dropzonetable"
 
             });
-            //Trying to set correct control and target bits
-            SetControlAndTargetBits(itemToBeDropped.attr("id"), rowid, itemToBeDropped.attr("num_bits"));
+           if(userDefined==="Y")
+				SetControlAndTargetBitsForUserDefinedGate(itemToBeDropped.attr("id"), rowid);
+			else
+				SetControlAndTargetBits(itemToBeDropped.attr("id"), rowid, itemToBeDropped.attr("num_bits"));
             var numOfBits = parseInt(itemToBeDropped.attr("num_bits"));
             console.log("Deleting SVG of div : " + $(this).attr("id"));
             $("#svg-" + $(this).attr("id")).remove();
-            ModifyParentDiv($(this));
+            ModifyParentDiv($(this),noOfCellRequired);
             if (prevParentId != "body") {
                 console.log("Previous Parent ID for Drag : " + prevParentId)
                 UnMergeCellsOnDrag(prevParentId);

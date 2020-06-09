@@ -5,38 +5,74 @@ function MergeCellsUserDefinedGate(){
         
         // console.log(cellIdsLength);
         // console.log("CellIdArray : "+cellIdsArray);
-
+		var ctlbits = [];
+        var tgtbits = [];
+        var gateFormedArray = [];
+        console.log(tempGateLocInfo.length);
 
 		//check whether all gate has been dropped to same columns or not
-		userDefinedControlGateColumnId=userDefinedControlGateColumnIds[0];
+		/*userDefinedControlGateColumnId=userDefinedControlGateColumnIds[0];
 		for (i=1;i<userDefinedControlGateColumnIds.length;i++){
 			if(userDefinedControlGateColumnId!=userDefinedControlGateColumnIds[i]){
 				alert("Kindly drop the gates to the same column and again repeat gate creation process");
 				return;
 			}
-		}
+		}*/
+		//sort based on  row
+        sortedRowGateInfo = tempGateLocInfo.sort(function (a, b) {
+            return a.row.localeCompare(b.row);
+        });
+        //remove duplicates
+        jsonObject = sortedRowGateInfo.map(JSON.stringify);
+        uniqueSet = new Set(jsonObject);
+        uniqueRowGateInfo = Array.from(uniqueSet).map(JSON.parse);
+		//********************* Check for same column and whether that gate exist
+        //get the column id for gate formation since all gate is required to be in same columns
+        var userDefinedControlGateColumnId = uniqueRowGateInfo[0].col;
+        var uniqueGateLen = uniqueRowGateInfo.length;
+        for (var index = 0; index < uniqueGateLen; index++) {
+            var gateInfo = uniqueRowGateInfo[index];
+            var gateName = gateInfo.gate;
+            var rowLoc = gateInfo.row;
+            var colLoc = gateInfo.col;
+            if (userDefinedControlGateColumnId != colLoc) {
+                alert("Kindly drop the gates to the same column and again repeat gate creation process");
+                return;
+            }
 
-        var uniqueSorted=userDefinedControlGatesRowIds.UniqueAndSorted();
-        var minRowId=uniqueSorted[0];
-        var maxRowId=uniqueSorted[uniqueSorted.length-1];
+
+            //var nameindex = index + 1;
+            if (gateName === "CONTROL") {
+                ctlbits.push(rowLoc);
+
+            } else {
+                tgtbits.push(rowLoc);
+                if (gateName === "X" || gateName === "XOR")
+                    gateName = "NOT";
+            }
+            //gateFormedBy+=gateName;
+            gateFormedArray[index] = gateName;
+        }
+        console.log(gateFormedArray + "gateFormedArray");
+        //check thet name exist in allowable userdefinedjson gate file
+        var gateData = checkUserDefinedGate(gateFormedArray);
+        if (gateData === undefined) {
+            alert("This gate is not allowed");
+            return;
+        }
+		//********************* Check for same column and whether that gate exist ends here
+
+       // var uniqueSorted=userDefinedControlGatesRowIds.UniqueAndSorted();
+       var minRowId = uniqueRowGateInfo[0].row;
+        var maxRowId = uniqueRowGateInfo[uniqueGateLen - 1].row;
         cellIdsLength=maxRowId-minRowId+1;
         console.log(cellIdsLength);
         console.log("CellIdArray : "+cellIdsArray);
         console.log("minRowId : "+minRowId+" : maxRowId : "+maxRowId);
 
-		
 
-        /*$('#'+cellIdsArray[minRowId]).parent().attr('rowspan',cellIdsLength);
-        $('#'+cellIdsArray[minRowId]).css("background","transparent");
-        var height=$('#'+cellIdsArray[minRowId]).height()
-        $('#'+cellIdsArray[minRowId]).css("height",cellIdsLength*height);
-
-        for(var index=1 ; index < cellIdsLength ; index++){
-        		console.log("REMOVING : "+$("#"+cellIdsArray[uniqueSorted[index]]).parent().attr("id"));
-                $('#'+cellIdsArray[uniqueSorted[index]]).parent().remove();
-        }*/
         
-        sortedCellIdsArray=GetSortedCellIdArray(minRowId,maxRowId);
+        sortedCellIdsArray=GetSortedCellIdArray(minRowId,maxRowId,userDefinedControlGateColumnId);
         $('#'+sortedCellIdsArray[0]).parent().attr('rowspan',cellIdsLength);
         $('#'+sortedCellIdsArray[0]).css("background","transparent");
         var height=$('#'+sortedCellIdsArray[0]).height()
@@ -56,39 +92,30 @@ function MergeCellsUserDefinedGate(){
 
         $('#'+sortedCellIdsArray[0]).children().attr("height",cellIdsLength*singleDivHeight);
                 
-        userDefinedControlGatesComponent.push(tempDict);
-        console.log("userDefinedControlGatesComponent : "+userDefinedControlGatesComponent);
-        ModifyDict();
+       // userDefinedControlGatesComponent.push(tempDict);
+        //console.log("userDefinedControlGatesComponent : "+userDefinedControlGatesComponent);
+        //ModifyDict();
+        row = uniqueRowGateInfo[0].row;
         
-        var idOfUserDefinedGate="";
         var x1=0,y1=0,x2=0,y2=0;
-        for(var index=0 ; index < cellIdsLength ; index++){
+        for(var index=0 ; index < uniqueGateLen ; index++){
         	//if(userDefinedControlGatesComponent[index]!=""){
-        	if(tempRaman[index]!=undefined){
-        		var gateName=tempRaman[index];//userDefinedControlGatesComponent[index];
-        		idOfUserDefinedGate+=gateName;
+			var gateName = uniqueRowGateInfo[index].gate;
+            var rowInfo = uniqueRowGateInfo[index].row;
+            console.log(gateName);
+        	//if(tempRaman[index]!=undefined){
+        		var gateName=uniqueRowGateInfo[index].gate;//userDefinedControlGatesComponent[index];
+        		 var rowInfo = uniqueRowGateInfo[index].row;
         		console.log(gateName);
         		var x = 0.5*singleDivWidth;
-        		var y = (2*index+1)*(0.5*singleDivHeight);
+        		 var y = (2 * (rowInfo - row) + 1) * (0.5 * singleDivHeight);
         		if(index==0){
         			x1=x; y1=y;
         		}
-        		if(index==(cellIdsLength-1)){
+        		if(index==(uniqueGateLen-1)){
         			x2=x; y2=y;
         		}
-				/*
-        		if(gateName=="CONTROL"){
-        			InsertControlSymbol(g,x,y);
-        		}
-        		if(gateName=="XOR" || gateName=="X"){
-        			
-        			InsertXorSymbol(g,x,y);
-        		}
-        		if(gateName=="RX" || gateName=="RY" || gateName=="RZ"){
-					x = 0;
-					y -= 0.5*singleDivHeight;
-					InsertImageSymbol(g,gateName,x,y);
-				}*/
+	
 				switch(gateName){
 					case "CONTROL":InsertControlSymbol(g,x,y);break;
 					case "XOR": ;
@@ -98,19 +125,55 @@ function MergeCellsUserDefinedGate(){
 					InsertImageSymbol(g,gateName,x,y);break;
 					
 				}	
-        	}
+        
         }
         
         dropableCounter++;
-        idOfUserDefinedGate+=dropableCounter;
-        svg.attr("id",idOfUserDefinedGate);
-        svg.attr("num_bits",Object.keys(tempRaman).length);
-        
-        InsertLine(g,x1,y1,x2,y2);
+        var idOfUserDefinedGate = gateData.name + dropableCounter;
+        // userDefinedGateName += dropableCounter;
+        svg.attr("id", idOfUserDefinedGate);
+        svg.attr("num_bits", gateData.num_bits);
+		svg.attr("gate", gateData.name);
+		svg.attr("ctl_bits", ctlbits);
+		svg.attr("tgt_bits",tgtbits);
+		svg.attr("ctl_enabled", gateData.ctl_enabled);
+		svg.attr("user_defined", "Y");
+		svg.attr("row_merged",cellIdsLength );
+        var divparent = $("#" + idOfUserDefinedGate).parent();
+        divparent.attr("name", gateData.name);
+        divparent.attr("gate", gateData.name);
+        divparent.attr("num_bits", gateData.num_bits);
+        divparent.attr("ctl_enabled", gateData.ctl_enabled);
+        divparent.attr("ctl_bits", ctlbits);
+        divparent.attr("tgt_bits", tgtbits);
+		//divparent.attr("user_defined", "Y");
+		//divparent.attr("row_merged",cellIdsLength );
+        InsertLine(g, x1, y1, x2, y2);
          
     }
 }
+function checkUserDefinedGate(gateFormedBy) {
 
+    var userGateData = JSON.parse(userGateJson);
+    var gateData = userGateData.instructions;
+    var numOfRows = gateData.length;
+    var index;
+    //sorted=gateFormedBy.sort();
+    //alert(gateFormedBy);
+    for (index = 0; index < parseInt(numOfRows); index++) {
+        var gateFormationInfo = gateData[index].gate_formedby;
+        // the gate can be formed in reverse order alos means either control and then not or first not and then control
+        var reverse = gateFormationInfo.map((e, i, a) => a[(a.length - 1) - i]);
+
+        if (JSON.stringify(gateFormedBy) === JSON.stringify(gateFormationInfo) || JSON.stringify(gateFormedBy) === JSON.stringify(reverse)) {
+            break;
+        }
+    }
+    if (index === numOfRows) {
+        return undefined;
+    }
+    return gateData[index];
+}
 function ModifyDict(){//minRowId,maxRowId){
 	tempRaman={}
 	var dictKeys=Object.keys(tempDict);
@@ -131,7 +194,7 @@ function RemakeUserDefinedControlGatesComponent(){
 	
 }
 
-function GetSortedCellIdArray(minRowId,maxRowId){
+function GetSortedCellIdArray(minRowId,maxRowId,userDefinedControlGateColumnId){
 	//userDefinedControlGateColumnId
 	sortedCellIdsArray=[];
 	for(var index=minRowId ; index <= maxRowId ; index++){
@@ -164,14 +227,14 @@ if(cellIdsLength>1){
 }
 
 
-function Merge(obj){
+function Merge(obj,cellTobeMerged){
 	console.log("From Merge Function : ID : "+obj.attr("id")+" : RowId : "+obj.attr("rowid")+" : ColumnId : "+obj.attr("columnid"));
-	var num_bits=obj.attr("num_bits");
+	//var num_bits=obj.attr("num_bits");
 
 	//----------
 	var rowid=obj.attr("rowid");
 	var colid=obj.attr("columnid")
-	Merge2(rowid,colid,num_bits);
+	Merge2(rowid,colid,cellTobeMerged);
 	//----------
 	/* Taking the below stuff to new function Merge2(), this 
 	** design modification will help in loading the saved circuits from JSON
@@ -191,11 +254,11 @@ function Merge(obj){
 	MergeCells(cellIdsString);*/
 }
 
-function Merge2(rowid,colid,num_bits){
+function Merge2(rowid,colid,cellTobeMerged){
 	rowid=parseInt(rowid);
-	console.log("From Merge2 Function : RowID : "+rowid+" : ColID : "+colid+" : NumBits : "+num_bits);
+	console.log("From Merge2 Function : RowID : "+rowid+" : ColID : "+colid+" : cellTobeMerged : "+cellTobeMerged);
 	var cellIdsString="";
-	for(var index=0 ; index < parseInt(num_bits) ; index++){
+	for(var index=0 ; index < parseInt(cellTobeMerged) ; index++){
 		if(index==0){
 			cellIdsString+="row"+rowid+"col"+colid;
 		}else{
@@ -258,7 +321,7 @@ function InsertCellOnDrag(rownum, colnum,rowspan){
   	var divid=rowid+"col"+colnum+"div";
   	console.log("Divid : "+divid);
   	$("#"+rowid+"col"+colnum).children().attr("id",divid);
-  	ResetDivWithId(divid,parseInt(rownum)+1,colnum);
+  	ResetDivWithId(divid,parseInt(rownum)+index,colnum);
   	InsertConnector(divid);
   	console.log("Cell INserted.........");
   	AttachDroppableEvents();
