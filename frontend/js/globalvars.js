@@ -31,7 +31,10 @@ var tempRaman={};
 var userDefinedControlGatesRowIds=[];
 var userDefinedControlGateColumnId=0;
 
-//var backSvgCanvas;
+//Global variables to define the number of rows and columns in the dropzone
+var numOfRowsInInterface=12;
+var numOfColsInInterface=12;
+
 
 
 //Qutip related imports

@@ -1,7 +1,5 @@
 function CreateDropzone(){
 
-var numOfRows=10;
-var numOfCols=10;
 var table = $('<table>').attr("id", "dropzonetable")
                         .attr("border", 0)
                         .attr("cellpading",1)
@@ -10,11 +8,11 @@ var table = $('<table>').attr("id", "dropzonetable")
                         .css("vertical-align","middle");
 
 
-for(var rowIndex=0; rowIndex < numOfRows ; rowIndex++){
+for(var rowIndex=0; rowIndex < numOfRowsInInterface ; rowIndex++){
     var rowId="row"+rowIndex;
     var row=$('<tr>').attr("id",rowId);
     //if(rowIndex!=0){
-    for (var colIndex=0 ; colIndex < numOfCols ; colIndex++){
+    for (var colIndex=0 ; colIndex < numOfColsInInterface ; colIndex++){
         var colId=rowId+"col"+colIndex;
         var col=$('<td>').attr("id",colId)
                          .css("max-height",36)
