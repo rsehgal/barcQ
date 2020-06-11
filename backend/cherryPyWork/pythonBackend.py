@@ -164,4 +164,5 @@ if __name__ == '__main__':
              'tools.staticdir.dir': '../../frontend/jsonschemas'
          }
      }
+     cherrypy.config.update({'server.socket_host': 'doitnow.ddns.net','server.socket_port':8000})
      cherrypy.quickstart(StringGenerator(), '/', conf)
