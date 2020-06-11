@@ -7,6 +7,7 @@
 	<script src = "../../jsonschemas/gatesUIExtended.json"></script>
 	<script src = '../../js/jquery.js'> </script>
     <script src = '../../js/jquery-ui.js'> </script>
+    <script src="../../js/createdropzone.js"></script>
     <script src = "../../js/globalvars.js"></script>
     <script src = "../../js/toolbox_v2.js"></script>
     <script src = "../../js/cloneanddrag.js"></script>
@@ -26,6 +27,7 @@
 	    <script>
 	    $(document).ready(function(){
 	    	CreateToolBox();
+	    	CreateDropzone();
 	    	//MakeCloneAble();
 	    	//AttachSelectAndDelete();
 			AttachDraggableEvents();
@@ -110,90 +112,6 @@
 	<svg xmlns="http://www.w3.org/2000/svg" id="testSvg" width="1000" height="1000">
   	<foreignObject x="10" y="10" width=500 height=500 >
 	<div id="dropzoneDiv">
-
-	<table border="0" id="dropzonetable" cellpadding=1 cellspacing=0>
-		<tr id="row0">
-			<td id="row0col0">
-				<div id="row0col0div" name="" rowId="0" columnId="0" class="dropzone" gate="" num_bits="" 
-				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0> 
-				
-				</div>
-			</td>
-			<td id="row0col1">
-				<div id="row0col1div" name="" rowId="0" columnId="1" class="dropzone" gate="" num_bits="" 
-				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0>
-				
-			</div></td>
-			<td id="row0col2">
-				<div id="row0col2div" name="" rowId="0" columnId="2" class="dropzone" gate="" num_bits="" 
-				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
-			<td id="row0col3">
-				<div id="row0col3div" name="" rowId="0" columnId="3" class="dropzone" gate="" num_bits="" 
-				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
-			<td id="row0col4">
-				<div id="row0col4div" name="" rowId="0" columnId="4" class="dropzone" gate="" num_bits="" 
-				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
-		</tr>
- 
-		<tr id="row1">
-			<td id="row1col0">
-				<div id="row1col0div" name="" rowId="1" columnId="0" class="dropzone" gate="" num_bits="" 
-				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0>
-				
-			</div></td>
-			<td id="row1col1">
-				<div id="row1col1div" name="" rowId="1" columnId="1" class="dropzone" gate="" num_bits="" 
-				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div>
-			</td>
-			<td id="row1col2">
-				<div id="row1col2div" name="" rowId="1" columnId="2" class="dropzone" gate="" num_bits="" 
-				ctl_enaforeignObjectbled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
-			<td id="row1col3">
-				<div id="row1col3div" name="" rowId="1" columnId="3" class="dropzone" gate="" num_bits="" 
-				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
-			<td id="row1col4"><div id="row1col4div" name="" rowId="1" columnId="4" class="dropzone" gate="" num_bits="" 
-				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
-		</tr>
-
-		<tr id="row2">
-			<td id="row2col0"><div id="row2col0div" name="" rowId="2" columnId="0" class="dropzone" gate="" num_bits="" 
-				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
-			<td id="row2col1"><div id="row2col1div" name="" rowId="2" columnId="1" class="dropzone" gate="" num_bits="" 
-				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
-			<td id="row2col2"><div id="row2col2div" name="" rowId="2" columnId="2" class="dropzone" gate="" num_bits="" 
-				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
-			<td id="row2col3"><div id="row2col3div" name="" rowId="2" columnId="3" class="dropzone" gate="" num_bits="" 
-				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
-			<td id="row2col4"><div id="row2col4div" name="" rowId="2" columnId="4" class="dropzone" gate="" num_bits="" 
-				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
-		</tr>
-
-		<tr id="row3">
-			<td id="row3col0"><div id="row3col0div" name="" rowId="3" columnId="0" class="dropzone" gate="" num_bits="" 
-				ctl_enabled="" ctl_bits="" tgt_bits=""></div></td>
-			<td id="row3col1"><div id="row3col1div" name="" rowId="3" columnId="1" class="dropzone" gate="" num_bits="" 
-				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
-			<td id="row3col2"><div id="row3col2div" name="" rowId="3" columnId="2" class="dropzone" gate="" num_bits="" 
-				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
-			<td id="row3col3"><div id="row3col3div" name="" rowId="3" columnId="3" class="dropzone" gate="" num_bits="" 
-				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
-			<td id="row3col4"><div id="row3col4div" name="" rowId="3" columnId="4" class="dropzone" gate="" num_bits="" 
-				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
-		</tr>
-
-		<tr id="row4">
-			<td id="row4col0"><div id="row4col0div" name="" rowId="4" columnId="0" class="dropzone" gate="" num_bits="" 
-				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
-			<td id="row4col1"><div id="row4col1div" name="" rowId="4" columnId="1" class="dropzone" gate="" num_bits="" 
-				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
-			<td id="row4col2"><div id="row4col2div" name="" rowId="4" columnId="2" class="dropzone" gate="" num_bits="" 
-				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
-			<td id="row4col3"><div id="row4col3div" name="" rowId="4" columnId="3" class="dropzone" gate="" num_bits="" 
-				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
-			<td id="row4col4"><div id="row4col4div" name="" rowId="4" columnId="4" class="dropzone" gate="" num_bits="" 
-				ctl_enabled="" ctl_bits="" tgt_bits="" arg_enabled=0 arg_value=0></div></td>
-		</tr>
-	</table>
 
 	<button type="button" id="mergebutton">Export JSON</button>
 	<button type="button" id="loadbutton">Load Circuit</button>
