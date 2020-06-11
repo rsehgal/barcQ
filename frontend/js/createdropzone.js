@@ -1,18 +1,26 @@
 function CreateDropzone(){
 
 var numOfRows=10;
-var numOfCols=20;
+var numOfCols=10;
 var table = $('<table>').attr("id", "dropzonetable")
                         .attr("border", 0)
                         .attr("cellpading",1)
-                        .attr("cellspacing",1);
+                        .attr("cellspacing",0)
+                        .attr("border-spacing",0)
+                        .css("vertical-align","middle");
+
 
 for(var rowIndex=0; rowIndex < numOfRows ; rowIndex++){
     var rowId="row"+rowIndex;
     var row=$('<tr>').attr("id",rowId);
+    //if(rowIndex!=0){
     for (var colIndex=0 ; colIndex < numOfCols ; colIndex++){
         var colId=rowId+"col"+colIndex;
-        var col=$('<td>').attr("id",colId);
+        var col=$('<td>').attr("id",colId)
+                         .css("max-height",36)
+                         .css("max-width",36)
+                         .css("padding",0);
+                         //.css("display","block");
         var divId=colId+"div";
         var div=$('<div>').addClass("dropzone")
                           .attr("id",divId)
@@ -26,11 +34,13 @@ for(var rowIndex=0; rowIndex < numOfRows ; rowIndex++){
                           .attr("tgt_bits","")
                           .attr("arg_enabled",0)
                           .attr("arg_value",0);
+                          //.css("background-color","red");
         col.append(div);
 
         row.append(col);
     }
+  //}
     table.append(row);
 }
-$('#dropzoneDiv').append(table);
+$('#dropzoneDiv').append(table);//.css("margin-top",50);
 }

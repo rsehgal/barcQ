@@ -1,9 +1,10 @@
 function AddInputLinesToGrid(){
 console.log("AddInputLinesToGrid called........");
-var svgContainer = d3.select("#testSvg").append("svg")
-                                    .attr("width", 500)
-                                     .attr("height", 500)
-                                     .attr("viewbox","0 0 500 500");
+//var svgContainer = d3.select("#testSvg").append("svg")
+var svgContainer = d3.select("#linesDiv").append("svg")
+                                    .attr("width", 1000)
+                                     .attr("height", 1000);
+                                     //.attr("viewbox","0 0 500 500");
 
  
  
@@ -56,7 +57,7 @@ var rowList=$("#dropzonetable tr");
 		console.log("Start Pos : "+startPos.left+" : EndPos : "+endPos.left);
 		var x1=startPos.left+dropzoneDivPos.left+divwidth/4;
 		//var y1=startPos.top+dropzoneDivPos.top+divheight/4;
-		var y1=(startPos.top+(rowIndex+1)*1.0*divheight);//dropzoneDivPos.top+divheight/4;
+		var y1=(startPos.top+(2*rowIndex+1)*1.0*divheight/2);//dropzoneDivPos.top+divheight/4;
 		//var x2=endPos.left+dropzoneDivPos.left+divwidth/4;
 		var x2=x1+numOfColumns*divwidth;
 		//var y2=endPos.top+dropzoneDivPos.top+divheight/4;
