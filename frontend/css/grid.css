@@ -50,7 +50,9 @@ table{
 		}
 
 		#dropzoneDiv{
-			left: 100;
-			top: 60;
+			//left: 100;
+			//top: 60;
 			//position: fixed;
 		}
+
+		
