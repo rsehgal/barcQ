@@ -55,4 +55,37 @@ table{
 			//position: fixed;
 		}
 
+		.overlap{
+			border : solid black 1px;
+			position: relative;
+		}
+
+		#parentForOverlappingDiv{
+    		left: 50;
+    		right: 50;
+    		width: 530;
+    		height: 530;
+    		position: relative;
+    	}
+
+		.box{
+        width: 100%;
+        height: 100%;            
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0.8;  /* for demo purpose  */
+        border : solid black 2px;
+    	}
+
+    	.stack-top{
+    		width: 100%;
+        height: 100%;
+        z-index: 9;
+        margin: 0px; /* for demo purpose  */
+        border : solid red 1px;
+    	}
+
+    	
+
 		

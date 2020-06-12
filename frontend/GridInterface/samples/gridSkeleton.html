@@ -1,38 +1,6 @@
 <html>
 <head>
 	<style type="text/css">
-		
-		.overlap{
-			border : solid black 1px;
-			position: relative;
-		}
-
-		.box{
-        width: 100%;
-        height: 100%;            
-        position: absolute;
-        top: 0;
-        left: 0;
-        opacity: 0.8;  /* for demo purpose  */
-        border : solid black 2px;
-    	}
-
-    	.stack-top{
-    		width: 100%;
-        height: 100%;
-        z-index: 9;
-        margin: 0px; /* for demo purpose  */
-        border : solid red 1px;
-    	}
-
-    	#parentForOverlappingDiv{
-    		left: 50;
-    		right: 50;
-    		width: 1000;
-    		height: 1000;
-    		position: relative;
-    	}
-
 	</style>
 <link rel="stylesheet" href="../../css/tabstyle.css">
 <link rel="stylesheet" href="../../css/grid.css">
@@ -85,11 +53,23 @@
                         $.post("/CodeGenerator",{"jsonObj" : JSON.stringify(circuitJsonObj)},function(data) {
                 			console.log("Reverse function calle........");
                 			data=JSON.parse(data);
+                			console.log("---- Printing returned JSON ----")
                 			console.log(data);
                             //$("#title").html(data["title"]) ;
                             console.log("Plot X : "+data["xdata"])
                             console.log("Plot Y : "+data["ydata"])
                             $("#title").html(data["ydata"]) ;
+                            //xdata=data["xdata"];
+                            xStringData=[]
+                            for(var index=0;index<data["xdata"].length;index++){
+
+                            	xStringData.push(data["xdata"][index]+"t");
+
+                            }
+
+                            sumData[0]["x"]=xStringData; //data["xdata"].toString();
+                            sumData[0]["y"]=data["ydata"];
+                            
                	})
                  .done(function() {
                		console.log("Server side function called........");
@@ -111,9 +91,6 @@
  			
 		});
 	</script>
-
-    
-
 </head>
 
 <body id="body">
@@ -122,16 +99,12 @@
 	<!-- Trying to create tabbed interface 	-->
 	<h2>Welcome to BarcQ</h2>
 	<!-- <p>Click on the buttons inside the tabbed menu:</p> -->
-
 	<div class="tab">
-  <button class="tablinks" onclick="openCity(event, 'circuitComposer')">Circuit Editor</button>
-  <button class="tablinks" onclick="openCity(event, 'qutipCode')">QuTiP code</button>
-  <button class="tablinks" onclick="openCity(event, 'results')">Results</button>
-  
-</div>
+  		<button class="tablinks" onclick="openCity(event, 'circuitComposer')">Circuit Editor</button>
+  		<button class="tablinks" onclick="openCity(event, 'qutipCode')">QuTiP code</button>
+  		<button class="tablinks" onclick="openCity(event, 'results')">Results</button>
+  	</div>
 
-
-	<!-- ---------------------------------- -->
 	<div id="circuitComposer" class="tabcontent">
 	<table>
 		<tr> 
@@ -141,17 +114,15 @@
 			<td>
 				<div id="toolboxDivMultiple" class="toolbox"></div>
 			</td>
-	<!-- <div id="clonedElement"></div> -->
-			<td>
+			<td style="vertical-align: top;">
 			<div id="parentForOverlappingDiv">
 				<div id="linesDiv" class="box"></div>
 				<div id="svgDropDiv" class="box stack-top" >
-					<svg xmlns="http://www.w3.org/2000/svg" id="testSvg" width="1000" height="1000">
+					<svg xmlns="http://www.w3.org/2000/svg" id="testSvg" width=100% height=100%>
 						<g id="testGroup">
-  							<foreignObject x="0" y="0" width=500 height=500 >
-								<div id="dropzoneDiv"></div>
+  							<foreignObject x="0" y="0" width=100% height=100% >
+								<div id="dropzoneDiv" width=100% height=100% ></div>
 							</foreignObject>
-							<!-- <line x1=9 y1=36 x2=729 y2=36 stroke-width=2 stroke="red"></line> -->
 						</g>
 					</svg>
 				</div>
@@ -167,9 +138,6 @@
 	<button type="button" id="display">Create Gate</button>
 	<button type="button" id="submitButton">Submit</button>
 	<h1 id = "title">What's your name?</h1>
-	<!-- </div> -->
-	<!-- </foreignObject> -->
-<!-- </svg> -->
 
 </div>
 
