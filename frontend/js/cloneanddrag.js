@@ -100,7 +100,9 @@ function Attach(obj){
 				console.log("Need to set arg_val of "+obj.attr("id")+ " to "+argVal);
 			    obj.attr("arg_value",argVal);
 			    ModifyParentDiv(obj.parent());
+          GenerateCode();
 			}
+
 		}  
 	});
 }
