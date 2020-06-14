@@ -129,6 +129,9 @@ function MergeCellsUserDefinedGate(){
         }
         
         dropableCounter++;
+        console.log("=======================");
+        console.log(gateData);
+        console.log("=======================");
         var idOfUserDefinedGate = gateData.name + dropableCounter;
         // userDefinedGateName += dropableCounter;
         svg.attr("id", idOfUserDefinedGate);
@@ -139,13 +142,18 @@ function MergeCellsUserDefinedGate(){
 		svg.attr("ctl_enabled", gateData.ctl_enabled);
 		svg.attr("user_defined", "Y");
 		svg.attr("row_merged",cellIdsLength );
+        svg.attr("arg_enabled",gateData.arg_enabled );
+        svg.attr("arg_value",gateData.arg_value );
         var divparent = $("#" + idOfUserDefinedGate).parent();
+        Attach($("#" + idOfUserDefinedGate));
         divparent.attr("name", gateData.name);
         divparent.attr("gate", gateData.name);
         divparent.attr("num_bits", gateData.num_bits);
         divparent.attr("ctl_enabled", gateData.ctl_enabled);
         divparent.attr("ctl_bits", ctlbits);
         divparent.attr("tgt_bits", tgtbits);
+        divparent.attr("arg_enabled",gateData.arg_enabled );
+        divparent.attr("arg_value",gateData.arg_value );
 		//divparent.attr("user_defined", "Y");
 		//divparent.attr("row_merged",cellIdsLength );
         InsertLine(g, x1, y1, x2, y2);

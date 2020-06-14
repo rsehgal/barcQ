@@ -13,13 +13,13 @@ Array.prototype.contains = function(v) {
 Array.prototype.unique = function() {
   var arr = [];
   for (var i = 0; i < this.length; i++) {
-    if (!arr.contains(this[i])) {
-      arr.push(this[i]);
+    if (!arr.contains(parseInt(this[i]))) {
+      arr.push(parseInt(this[i]));
     }
   }
   return arr;
 }
 
 Array.prototype.UniqueAndSorted = function(){
-  return this.unique().sort();
+  return this.unique().sort(function(a, b){return a-b});
 }

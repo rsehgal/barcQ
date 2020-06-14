@@ -7,7 +7,7 @@ instructionsList=[]
 ** Function to test core function to find unique elements in javascript array
 */ 
 function CoreTest(){
-	var duplicates = [1, 3, 4, 2, 1, 2, 3, 8];
+	var duplicates = [1, 3, 4, 2, 10, 2, 3, 8];
 	var uniques = duplicates.unique(); // result = [1,3,4,2,8]
 
 	console.log(uniques);
