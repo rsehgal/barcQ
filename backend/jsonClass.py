@@ -41,7 +41,7 @@ class CircuitCreator:
 			#print("------- Individual Gate Matrix of Gate : "+self.gate_list[len(self.gate_list)-1].gate_name+"----------")
 			#print(self.gate_list[len(self.gate_list)-1].OperatorMatrix())
 
-		self.qutip_circuit=QubitCircuit(input_lines,reverse_states=False)
+		self.qutip_circuit=QubitCircuit(input_lines,reverse_states=True)
 		num_lines=input_lines
 		
 		#self.qutip_circuit.user_gates={"X":PauliX, "Y":PauliY, "Z":PauliZ }
@@ -133,7 +133,7 @@ class CircuitCreator:
 
 	def OperatorMatrix(self):
 		#return gate_sequence_product(self.qutip_circuit.propagators())
-		return gate_sequence_product(self.Propagators())
+		return gate_sequence_product(self.Propagators(),left_to_right=False)
 
 	def DumpCircuitImage(self,targetCkt="Self"):
 		if(targetCkt=="Self"):

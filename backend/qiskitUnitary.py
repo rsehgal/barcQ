@@ -6,8 +6,8 @@ from qiskit import Aer
 backend = Aer.get_backend('unitary_simulator')
 
 #The circuit without measurement
-circ = QuantumCircuit(1)
-circ.h(0)
+circ = QuantumCircuit(2)
+circ.crz(1.57079632,0,1)
 
 #job execution and getting the result as an object
 job = execute(circ, backend)
