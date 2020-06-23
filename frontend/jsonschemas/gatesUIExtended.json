@@ -8,6 +8,7 @@ gateJson = '{\
 				 {"name":"Z", "num_bits":1, "ctl_enabled" : 0, "ctl_bits" : "None", "tgt_bits" : [0], "arg_enabled" : 0, "arg_value" : "None", "rowid" : 2, "columnid" : 4},\
 				 {"name":"SWAP", "num_bits":2, "ctl_enabled" : 0, "ctl_bits" : "None", "tgt_bits" : [1,2], "arg_enabled" : 0, "arg_value" : "None", "rowid" : 2, "columnid" : 3},\
 				 {"name":"QFT", "num_bits":2, "ctl_enabled" : 0, "ctl_bits" : "None", "tgt_bits" : [1,2], "arg_enabled" : 0, "arg_value" : "None", "rowid" : 2, "columnid" : 3},\
+				 {"name":"IQFT", "num_bits":2, "ctl_enabled" : 0, "ctl_bits" : "None", "tgt_bits" : [1,2], "arg_enabled" : 0, "arg_value" : "None", "rowid" : 2, "columnid" : 3},\
 				 {"name":"CSWAP", "num_bits":3, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1,2], "arg_enabled" : 0, "arg_value" : "None", "rowid" : 2, "columnid" : 3},\
 				 {"name":"CCNOT", "num_bits":3, "ctl_enabled" : 1, "ctl_bits" : [0,1], "tgt_bits" : [2], "arg_enabled" : 0, "arg_value" : "None", "rowid" : 0, "columnid" : 4},\
 				 {"name":"XOR", "num_bits":1, "ctl_enabled" : 0, "ctl_bits" : "None", "tgt_bits" : [0], "arg_enabled" : 0, "arg_value" : "None", "rowid" : 4, "columnid" : 4},\
