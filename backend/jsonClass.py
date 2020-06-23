@@ -7,6 +7,7 @@ import numpy as np
 from IPython.display import Image
 from userDefinedGates import *
 from usergates import *
+from qutip.qip.algorithms.qft import *
 
 userDefinedGatesList=["X","Y","Z"]
 
@@ -110,7 +111,30 @@ class CircuitCreator:
 				self.U_list.append(globalphase(gate.arg_value, self.N))
 			elif gate.name == "CGLOBALPHASE":
 				self.U_list.append(controlled_gate(globalphase(gate.arg_value), N=self.N, control=gate.controls[0], target=gate.targets[0]))
+			elif gate.name == "QFT":
+				self.U_list.append(self.QFTMatrix(gate.targets))
 		return self.U_list
+	
+	def QFTMatrix(self,targets):
+		targetStartIndex = targets[0]
+		targetEndIndex = targets[len(targets)-1]
+		idenListBeg = []
+		idenListEnd = []
+		for idenIndex in range(targetStartIndex):
+			idenListBeg.append(qeye(2))
+		for idenIndex in range(targetEndIndex,self.N):
+			idenListEnd.append(qeye(2))
+		
+		finalMatrix = qft(len(targets))
+		'''
+		if len(idenListBeg) != 0:
+			finalMatrix=tensor(idenListBeg,finalMatrix)
+		if len(idenListEnd) != 0:
+			finalMatrix=tensor(finalMatrix,idenListEnd)
+		'''
+			
+		return finalMatrix
+		
         
 	''' 	
 	def UserDefinedGatesPropagator(self):
@@ -296,7 +320,8 @@ def main():
 				 {"name":"Y", "num_bits":1, "ctl_enabled" : 0, "ctl_bits" : "None", "tgt_bits" : [1], "arg_enabled" : 0, "arg_value" : "None", "rowid" : 2, "columnid" : 4},\
 				 {"name":"BERKELEY", "num_bits":2, "ctl_enabled" : 0, "ctl_bits" : "None", "tgt_bits" : [1,2], "arg_enabled" : 0, "arg_value" : 0},\
 				 {"name":"TOFFOLI", "num_bits":3, "ctl_enabled" : 1, "ctl_bits" : [0,2], "tgt_bits" : [1], "arg_enabled" : 0, "arg_value" : "None"},\
-				 {"name":"ISWAP", "num_bits":2, "ctl_enabled" : 0, "ctl_bits" : "None", "tgt_bits" : [1,2], "arg_enabled" : 0, "arg_value" : 0}\
+				 {"name":"ISWAP", "num_bits":2, "ctl_enabled" : 0, "ctl_bits" : "None", "tgt_bits" : [1,2], "arg_enabled" : 0, "arg_value" : 0},\
+				 {"name":"QFT", "num_bits":2, "ctl_enabled" : 0, "ctl_bits" : "None", "tgt_bits" : [1,2], "arg_enabled" : 0, "arg_value" : 0}\
 				 ]}'
 	
 	'''
