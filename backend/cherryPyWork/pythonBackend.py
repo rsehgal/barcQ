@@ -36,8 +36,9 @@ class StringGenerator(object):
         # #return "Hello Raman.."
         data=simplejson.dumps(dict(title='Hello, Raman'))
         print(data)
-        print("====================================")
+        print("=============== RAMAN =====================")
         self.CreateCircuit(jsonObj)
+        print("======== Going to call APPLY ==============")
         self.output=self.circCreator.Apply()
         print("############ OUTPUT #############")
         print(self.output)
@@ -72,7 +73,7 @@ class StringGenerator(object):
         self.numOfInputLines=self.numOfInputLines+1
         print("====== numOfInputLines : "+str(self.numOfInputLines)+" ============")
         self.circCreator=CircuitCreator(gateJson,self.numOfInputLines,False)
-        print(self.circCreator.OperatorMatrix())
+        #print(self.circCreator.OperatorMatrix())
         # self.circCreator.DumpCircuitImage()
 
     def FindNumOfInputLines(self,gateJson):
@@ -164,5 +165,5 @@ if __name__ == '__main__':
              'tools.staticdir.dir': '../../frontend/jsonschemas'
          }
      }
-     cherrypy.config.update({'server.socket_host': 'doitnow.ddns.net','server.socket_port':8000})
+     cherrypy.config.update({'server.socket_host': 'localhost','server.socket_port':8000})
      cherrypy.quickstart(StringGenerator(), '/', conf)

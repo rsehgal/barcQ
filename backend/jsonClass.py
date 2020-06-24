@@ -6,6 +6,10 @@ import qutip.qip.circuit
 import numpy as np
 from IPython.display import Image
 from userDefinedGates import *
+from usergates import *
+from qutip.qip.algorithms.qft import *
+
+userDefinedGatesList=["X","Y","Z"]
 
 class Manager:
 
@@ -18,6 +22,7 @@ class Manager:
 class CircuitCreator:
 	
 	def __init__(self,json_str,input_lines=2,fromPython=True,basis=2):
+		self.N=input_lines
 		self.basis=basis
 		self.inputQbitsList=[]
 
@@ -37,17 +42,148 @@ class CircuitCreator:
 			#print("------- Individual Gate Matrix of Gate : "+self.gate_list[len(self.gate_list)-1].gate_name+"----------")
 			#print(self.gate_list[len(self.gate_list)-1].OperatorMatrix())
 
-		self.qutip_circuit=QubitCircuit(input_lines,reverse_states=False)
+		#self.qutip_circuit=QubitCircuit(input_lines,reverse_states=True)
+		print("======= ALL THE GATE IMPLEMENTED ============")
 		num_lines=input_lines
-		self.qutip_circuit.user_gates={"X":PauliX, "Y":PauliY, "Z":PauliZ }
+		
+		#self.qutip_circuit.user_gates={"X":PauliX, "Y":PauliY, "Z":PauliZ }
+		
+		'''
 		for gate in self.gate_list:
-			self.qutip_circuit.add_gate(gate.gate)
+			if gate.gate_name in userDefinedGatesList:
+
+			else:
+				self.qutip_circuit.add_gate(gate.gate)
+		'''
+
+	def AddGate(self):
+		return True
+
+	def Propagators(self):
+		self.U_list=[]
+		for gate in self.gate_list:
+			if gate.name == "X":
+				self.U_list.append(x(self.N,target=gate.targets[0]))
+			elif gate.name == "Y":
+				self.U_list.append(y(self.N,target=gate.targets[0]))
+			elif gate.name == "Z":
+				self.U_list.append(z(self.N,target=gate.targets[0]))
+			elif gate.name == "RX":
+				self.U_list.append(rx(gate.arg_value, self.N, gate.targets[0]))
+			elif gate.name == "RY":
+				self.U_list.append(ry(gate.arg_value, self.N, gate.targets[0]))
+			elif gate.name == "RZ":
+				self.U_list.append(rz(gate.arg_value, self.N, gate.targets[0]))
+			elif gate.name == "SQRTNOT":
+				self.U_list.append(sqrtnot(self.N, gate.targets[0]))
+			elif gate.name == "SNOT":
+				self.U_list.append(snot(self.N, gate.targets[0]))
+			elif gate.name == "PHASEGATE":
+				self.U_list.append(phasegate(gate.arg_value, self.N,gate.targets[0]))
+			elif gate.name == "CRX":
+				self.U_list.append(controlled_gate(rx(gate.arg_value), N=self.N, control=gate.controls[0], target=gate.targets[0]))
+			elif gate.name == "CRY":
+				self.U_list.append(controlled_gate(ry(gate.arg_value), N=self.N, control=gate.controls[0],target=gate.targets[0]))
+			elif gate.name == "CRZ":
+				self.U_list.append(controlled_gate(rz(gate.arg_value),N=self.N, control=gate.controls[0],target=gate.targets[0]))
+			elif gate.name == "CPHASE":
+				self.U_list.append(cphase(gate.arg_value, self.N, gate.controls[0], gate.targets[0]))
+			elif gate.name == "CNOT":
+				self.U_list.append(cnot(self.N, gate.controls[0], gate.targets[0]))
+			elif gate.name == "CSIGN":
+				self.U_list.append(csign(self.N, gate.controls[0], gate.targets[0]))
+			elif gate.name == "BERKELEY":
+				self.U_list.append(berkeley(self.N, gate.targets))
+			elif gate.name == "SWAPalpha":
+				self.U_list.append(swapalpha(gate.arg_value, self.N,  gate.targets))
+			elif gate.name == "SWAP":
+				self.U_list.append(swap(self.N, gate.targets))
+			elif gate.name == "ISWAP":
+				self.U_list.append(iswap(self.N, gate.targets))
+			elif gate.name == "SQRTSWAP":
+				self.U_list.append(sqrtswap(self.N, gate.targets))
+			elif gate.name == "SQRTISWAP":
+				self.U_list.append(sqrtiswap(self.N, gate.targets))
+			elif gate.name == "FREDKIN":
+				self.U_list.append(fredkin(self.N, gate.controls[0], gate.targets))
+			elif gate.name == "TOFFOLI":
+				self.U_list.append(toffoli(self.N, gate.controls, gate.targets[0]))
+			elif gate.name == "GLOBALPHASE":
+				self.U_list.append(globalphase(gate.arg_value, self.N))
+			elif gate.name == "CGLOBALPHASE":
+				self.U_list.append(controlled_gate(globalphase(gate.arg_value), N=self.N, control=gate.controls[0], target=gate.targets[0]))
+			elif gate.name == "QFT":
+				self.U_list.append(self.QFTMatrix(gate.targets))
+			elif gate.name == "IQFT":
+				self.U_list.append((self.QFTMatrix(gate.targets)).dag())
+
+		print("========= printing Propagators +===============")
+		print(self.U_list)
+		print("===============================================")
+		return self.U_list
+	
+	def QFTMatrix(self,targets):
+		targetStartIndex = targets[0]
+		targetEndIndex = targets[len(targets)-1]
+		idenListBeg = []
+		idenListEnd = []
+		for idenIndex in range(targetStartIndex):
+			idenListBeg.append(qeye(2))
+		#print("@@@@@@@@@@@@@ IDEN_LIST_BEG @@@@@@@@@@@")
+		#print(idenListBeg)
+		for idenIndex in range(targetEndIndex+1,self.N):
+			idenListEnd.append(qeye(2))
+		#print("@@@@@@@@@@@@@ IDEN_LIST_END @@@@@@@@@@@")
+		#print(idenListEnd)
+		#qftMatrix = qft(len(targets))
+		finalMatrix = qft(len(targets))
+		#print("@@@@@@@@@@@@@ QFTMatrix @@@@@@@@@@@")
+		#print(qftMatrix)
+
+		#print("Length of idenListBeg : "+str(len(idenListBeg)))
+		startingTensor=qeye(2)
+		#finalMatrix=0
+		if len(idenListBeg) != 0:
 			
+			for index in range(1,len(idenListBeg)):
+				startingTensor = tensor(startingTensor,qeye(2))
+			finalMatrix = tensor(startingTensor,finalMatrix)
+		#print("@@@@@@@@@@@@@ startingTensor @@@@@@@@@@@")
+		#print(startingTensor)
+
+		#print("Length of idenListEnd : "+str(len(idenListEnd)))
+		endingTensor=qeye(2)
+		if len(idenListEnd) != 0:
+			
+			for index in range(1,len(idenListEnd)):
+				endingTensor = tensor(endingTensor,qeye(2))
+			finalMatrix = tensor(finalMatrix,endingTensor)
+		#print("@@@@@@@@@@@@@ endingTensor @@@@@@@@@@@")
+		#print(endingTensor)
+
+		#finalMatrix = tensor(startingTensor,qftMatrix,endingTensor)
+		#print("@@@@@@@@@@@@@ finalMatrix @@@@@@@@@@@")
+		#rint(finalMatrix)
+
+		return finalMatrix
+		
+        
+	''' 	
+	def UserDefinedGatesPropagator(self):
+		if gate.name == "X":
+                self.U_list.append(rx(gate.arg_value, self.N, gate.targets[0]))
+            elif gate.name == "RY":
+                self.U_list.append(ry(gate.arg_value, self.N, gate.targets[0]))
+	'''
 
 	'''
 	Function to apply the resultant operator matrix to the prepared input states
 	'''
 	def Apply(self):
+		print("****** Data from Apply *******")
+		print(self.OperatorMatrix())
+		#print(self.inputState)
+		print("******************************")
 		return self.OperatorMatrix()*self.inputState
 		
 	def PrepareInputState(self):
@@ -55,8 +191,20 @@ class CircuitCreator:
 			self.inputQbitsList.append(basis(self.basis,0))
 			self.inputState=tensor(self.inputQbitsList)
 
+	def Gate_Sequence_Product(self,matList):
+		matLength=len(matList)
+		matProd=matList[matLength-1]
+		for index in range(matLength-1):
+			matProd=matProd*matList[matLength-2-index]
+		return matProd
+
+
+
 	def OperatorMatrix(self):
-		return gate_sequence_product(self.qutip_circuit.propagators())
+		#return gate_sequence_product(self.qutip_circuit.propagators())
+		
+		#return gate_sequence_product(self.Propagators(),left_to_right=False)
+		return self.Gate_Sequence_Product(self.Propagators())
 
 	def DumpCircuitImage(self,targetCkt="Self"):
 		if(targetCkt=="Self"):
@@ -147,6 +295,12 @@ class Gate:
 		'''
 		self.gate=circuit.Gate(self.gate_name,controls=self.ctl_bits,targets=self.tgt_bits,arg_value=self.arg_value)
 
+		#Adding for new Propagator function
+		self.name=self.gate_name
+		self.controls=self.ctl_bits
+		self.targets=self.tgt_bits
+		#self.arg_value already correctly defined
+
 	def Decompose(self):
 		qc = QubitCircuit(self.num_bits)
 		qc.add_gate(self.gate)
@@ -213,7 +367,8 @@ def main():
 				 {"name":"Y", "num_bits":1, "ctl_enabled" : 0, "ctl_bits" : "None", "tgt_bits" : [1], "arg_enabled" : 0, "arg_value" : "None", "rowid" : 2, "columnid" : 4},\
 				 {"name":"BERKELEY", "num_bits":2, "ctl_enabled" : 0, "ctl_bits" : "None", "tgt_bits" : [1,2], "arg_enabled" : 0, "arg_value" : 0},\
 				 {"name":"TOFFOLI", "num_bits":3, "ctl_enabled" : 1, "ctl_bits" : [0,2], "tgt_bits" : [1], "arg_enabled" : 0, "arg_value" : "None"},\
-				 {"name":"ISWAP", "num_bits":2, "ctl_enabled" : 0, "ctl_bits" : "None", "tgt_bits" : [1,2], "arg_enabled" : 0, "arg_value" : 0}\
+				 {"name":"ISWAP", "num_bits":2, "ctl_enabled" : 0, "ctl_bits" : "None", "tgt_bits" : [1,2], "arg_enabled" : 0, "arg_value" : 0},\
+				 {"name":"QFT", "num_bits":2, "ctl_enabled" : 0, "ctl_bits" : "None", "tgt_bits" : [1,2], "arg_enabled" : 0, "arg_value" : 0}\
 				 ]}'
 	
 	'''
@@ -246,7 +401,7 @@ def main():
 	#print(circCreator.gate_list[0].OperatorMatrix())
 	#print(circCreator.gate_list[1].OperatorMatrix())
 	
-	print(circCreator.OperatorMatrix())
+	#print(circCreator.OperatorMatrix())
 	circCreator.DumpCircuitImage()
 	#circCreator.DumpDecomposedCircuitImage()
 	
