@@ -21,6 +21,8 @@ for(var rowIndex=0; rowIndex < numOfRowsInInterface ; rowIndex++){
                          //.css("display","block");
         var divId=colId+"div";
         var div=$('<div>').addClass("dropzone")
+                          .attr("width",36)
+                          .attr("height",36)
                           .attr("id",divId)
                           .attr("name","")
                           .attr("rowId",rowIndex)

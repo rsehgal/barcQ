@@ -35,6 +35,7 @@ function InsertConnectorOnGrid(){
 			var circle = svgContainer.append("circle")
 							  .attr("cx",divWidth/2)
 							  .attr("cy",divHeight/2)
+							  .attr("fill","#C8C8C8")
 							  .attr("r", gridConnectorRadius)
 							  .attr("stroke","black")
 							  .attr("stroke-width","1px"); 
@@ -103,6 +104,7 @@ function InsertConnector(divid,rad=gridConnectorRadius){
 							  .attr("cx",cx)
 							  .attr("cy",cy)
 							  .attr("r", rad)
+							  .attr("fill","#C8C8C8")
 							  .attr("stroke","black")
 							  .attr("stroke-width","1px"); 
 
@@ -117,6 +119,7 @@ function InsertOnlyConnector(svgContainer,cx,cy){
 							  .attr("cx",cx)
 							  .attr("cy",cy)
 							  .attr("r", gridConnectorRadius)
+							  .attr("fill","#C8C8C8")
 							  .attr("stroke","black")
 							  .attr("stroke-width","1px"); 
 		

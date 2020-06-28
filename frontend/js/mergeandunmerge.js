@@ -110,7 +110,7 @@ function MergeCellsUserDefinedGate(){
         		var x = 0.5*singleDivWidth;
         		 var y = (2 * (rowInfo - row) + 1) * (0.5 * singleDivHeight);
         		if(index==0){
-        			x1=x; y1=y;
+        			x1=x; y1=y+(0.5 * singleDivHeight);
         		}
         		if(index==(uniqueGateLen-1)){
         			x2=x; y2=y;
