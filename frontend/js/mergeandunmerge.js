@@ -110,10 +110,19 @@ function MergeCellsUserDefinedGate(){
         		var x = 0.5*singleDivWidth;
         		 var y = (2 * (rowInfo - row) + 1) * (0.5 * singleDivHeight);
         		if(index==0){
-        			x1=x; y1=y+(0.5 * singleDivHeight);
+        			x1=x; 
+                    if(gateName=="Y" || gateName=="Z" || gateName=="RX" || gateName=="RY" || gateName=="RZ")
+                        y1=y+(0.5 * singleDivHeight);
+                    else
+                        y1=y;
         		}
         		if(index==(uniqueGateLen-1)){
-        			x2=x; y2=y;
+        			x2=x; 
+                    if(gateName=="Y" || gateName=="Z" || gateName=="RX" || gateName=="RY" || gateName=="RZ")
+                        y2=y-(0.5 * singleDivHeight);
+                    else
+                        y2=y;    
+                    
         		}
 	
 				switch(gateName){
