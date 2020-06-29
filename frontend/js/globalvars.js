@@ -88,3 +88,7 @@ var countData=[{
 		      type: "histogram",
 		      name: "count"
 			}];
+
+
+//Variable introduced for GenericControllUnitaryGates
+var colIdOfGenericControlledUnitaryGate=0;
