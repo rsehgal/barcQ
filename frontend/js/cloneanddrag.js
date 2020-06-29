@@ -338,6 +338,10 @@ $(".dropzone").droppable({
             //alert("me"+itemToBeDropped.attr("id"));
             //alert("$this"+$(this).attr("id"));
             Attach(itemToBeDropped);
+            
+            if(parseInt(itemToBeDropped.attr("num_bits")) > 1)
+				AttachGenericControlPopup(itemToBeDropped);
+				
             $(this).append(itemToBeDropped);
 
             var pos = $(this).position();
