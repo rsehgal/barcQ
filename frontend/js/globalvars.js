@@ -18,8 +18,8 @@ var rowIds=[];
 var uniqueSortedRowIds=[];
 var gridConnectorRadius=3;
 var userControlGateFlag=0;
-var singleDivWidth=35;
-var singleDivHeight=35;
+var singleDivWidth=36;
+var singleDivHeight=36;
 var xorrad=10;
 var controlrad=6;
 
@@ -92,3 +92,7 @@ var countData=[{
 
 //Variable introduced for GenericControllUnitaryGates
 var colIdOfGenericControlledUnitaryGate=0;
+var targetUnitaryGate="";
+var unitaryControlRowIds=[];
+var unitaryTargetRowIds=[];
+var offSetRowId=0;
