@@ -400,6 +400,18 @@ function InsertCell(rownum, colnum){
   	AttachDroppableEvents();
 }
 
+/*
+ * Code for triggering phase popup
+ */
+function AttachPhasePopup(obj){
+	//gateObj=obj;
+	obj.on("contextmenu", function(event) {
+		gateObj=$(this);
+		event.preventDefault();
+		$('#phasePopup').show();
+	});
+}
+
 
 /**
  * Code for Generic controlled Unitary gates
@@ -415,7 +427,8 @@ function AttachGenericControlPopup(obj){
 		//alert("Right clicked from Attach Generic .........");
 		//stop showing browser menu
 		event.preventDefault();
-		$('.hover_bkgr_fricc').show();
+		//$('.hover_bkgr_fricc').show();
+		$('#gatePopup').show();
 		colIdOfGenericControlledUnitaryGate = parseInt(obj.parent().attr("columnid"));
 	    //alert(columnId);
 	});
