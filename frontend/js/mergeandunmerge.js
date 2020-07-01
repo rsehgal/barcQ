@@ -166,6 +166,8 @@ function MergeCellsUserDefinedGate(){
 		//divparent.attr("user_defined", "Y");
 		//divparent.attr("row_merged",cellIdsLength );
         InsertLine(g, x1, y1, x2, y2);
+        AttachSelectAndDelete_v2($("#"+idOfUserDefinedGate));
+        MakeDraggable($("#"+idOfUserDefinedGate));
          
     }
 }

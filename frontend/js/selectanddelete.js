@@ -71,3 +71,40 @@ function AttachSelectAndDelete(){
     }
   });
 }
+
+
+function AttachSelectAndDelete_v2(obj){
+  obj.click(function(){
+
+    //alert("Clicked the image...........");
+    if(idForDelete!=""){
+      $("#"+idForDelete).parent().css("border","0px solid");
+      $("#"+idForDelete).parent().css("border-color","transparent");
+    }
+    idForDelete=$(this).attr("id");
+    $("#"+idForDelete).parent().css("border","1px solid");
+    $("#"+idForDelete).parent().css("border-color","green");
+    console.log(idForDelete);
+  });
+
+  $('html').keyup(function(ev){
+    //alert("Key released..........");
+    if(ev.key==="Delete"){
+      //$(":focus").remove();
+      if(idForDelete!=""){
+        $("#"+idForDelete).parent().css("border-color","blue");
+        ResetDiv(idForDelete);
+        if(parseInt($("#"+idForDelete).attr("num_bits")) > 1){
+          UnMergeCells(idForDelete);
+        }else{
+          InsertConnector($("#"+idForDelete).parent().attr("id"));
+        }
+        $("#"+idForDelete).remove();
+        
+        idForDelete="";
+
+      }
+      GenerateCode();
+    }
+  });
+}
