@@ -407,9 +407,10 @@ function InsertCell(rownum, colnum){
  **/
 
 function AttachGenericControlPopup(obj){
+	gateObj=obj;
 	obj.on("contextmenu", function(event) {
-        if(obj.attr("gate")=="CNOT")
-            targetUnitaryGate="X";
+        //if(obj.attr("gate")=="CNOT")
+        targetUnitaryGate=obj.attr("targetGatename");
 		//handle right click
 		//alert("Right clicked from Attach Generic .........");
 		//stop showing browser menu
@@ -419,7 +420,8 @@ function AttachGenericControlPopup(obj){
 	    //alert(columnId);
 	});
 
-    $('.hover_bkgr_fricc').click(function(){
+			/*
+			$('.hover_bkgr_fricc').click(function(){
                 //  $('.hover_bkgr_fricc').hide();
             });
             $('.popupCloseButton').click(function(){
@@ -435,13 +437,20 @@ function AttachGenericControlPopup(obj){
                 //alert("Length of tgt array : "+tgt_bits_array.length )
                 //alert("Num_bits : "+(ctl_bits_array.length+tgt_bits_array.length))
                 $('.hover_bkgr_fricc').hide();
-                UpdateGenericControlGate(obj);
+                //UpdateGenericControlGate(obj);
+                UpdateGenericControlGate();
             });
+            */
 
 }
 
-function UpdateGenericControlGate(obj){
-    
+function UpdateGenericControlGate(){
+var obj=gateObj;
+alert(obj.attr("ctl_bits").split(",").length+" , "+unitaryControlRowIds.length);
+if(obj.attr("ctl_bits").split(",").length != unitaryControlRowIds.length ){
+            alert("Wrong conf. for "+obj.attr("gate")+" gate..... please correct it to continue...")
+            return;
+}
 
     //Removing the existing gate
     //obj.parent().remove();
@@ -468,7 +477,7 @@ function MergeCellsUnitary(cellIdsString){
     var cellIdsLength=cellIdsArray.length;
     console.log("cellIdsLength : "+cellIdsLength);
     if(cellIdsLength>1){
-        
+
         console.log(cellIdsLength);
         console.log("CellIdArray : "+cellIdsArray);
 
@@ -477,18 +486,8 @@ function MergeCellsUnitary(cellIdsString){
         var height=singleDivHeight;//$('#'+cellIdsArray[0]).children().height();
         console.log("AYUSH : Span : "+cellIdsLength+" : height : "+height+" : Child Id : "+$('#'+cellIdsArray[0]).children().attr("id"));
         $('#'+cellIdsArray[0]).children().css("height",cellIdsLength*height);
-        
-
         var divid=$('#'+cellIdsArray[0]).children().attr("id");
 
-        /*var divid=cellIdsArray[0]+"div";
-        var div=$('<div>').addClass("dropzone")
-                          .attr("width",35)
-                          .attr("height",cellIdsLength*35)
-                          .attr("id",divid);
-        */
-
-        //$('#'+cellIdsArray[0]).append(div);
         for(var index=1 ; index < cellIdsLength ; index++){
                 console.log("REMOVING : "+cellIdsArray[index]);
                 $('#'+cellIdsArray[index]).remove();
@@ -498,6 +497,82 @@ function MergeCellsUnitary(cellIdsString){
     }
 }
 
+
+function CreateControlledUnitaryGate(divid){
+    $("#"+divid).children().remove();
+    console.log("Div Height from CreateControlledUnitaryGate : "+$("#"+divid).attr("height"));
+    svg=d3.select("#"+divid).append('svg')
+                            .attr("width",$("#"+divid).width())
+                            .attr("height",$("#"+divid).height())
+                            .classed("draggableComp",true);
+
+    var divwidth=$("#"+divid).width();//attr("width");
+    x=0.5*divwidth;
+    g = svg.append('g');
+
+    //Inserting line
+    var divheight=$("#"+divid).height();
+    var rspan=$("#"+divid).parent().attr("rowspan");
+    y1=minimumRowId-offSetRowId;
+    y1=(2*y1+1)*divheight/(2*rspan);
+    y2=maximumRowId-offSetRowId;
+    y2=(2*y2+1)*divheight/(2*rspan);
+
+    InsertLine(g, x, y1, x, y2);
+
+    for(var index=0 ; index < unitaryControlRowIds.length ; index++){
+        y=unitaryControlRowIds[index]-offSetRowId;
+        //var divheight=$("#"+divid).attr("height");
+         var divheight=$("#"+divid).height();
+        var rspan=$("#"+divid).parent().attr("rowspan");
+        y=(2*y+1)*divheight/(2*rspan);
+        InsertControlSymbol(g,x,y);
+    }
+
+    y=unitaryTargetRowIds[0]-offSetRowId;
+    y=(2*y+1)*divheight/(2*rspan);
+    if(targetUnitaryGate=="X" || targetUnitaryGate=="NOT")
+        InsertXorSymbol(g,x,y);
+    else{
+        var xs=0;
+        y-=0.5*singleDivHeight;
+        InsertImageSymbol(g,targetUnitaryGate,xs,y);
+    }
+    
+    /*
+     * Setting various gate attributes
+     */ 
+    var newgateId=gateObj.attr("id");
+    svg.attr("id",newgateId); 
+    svg.attr("gate",gateObj.attr("gate"));
+    svg.attr("num_bits",gateObj.attr("num_bits"));
+    svg.attr("ctl_enabled",gateObj.attr("ctl_enabled"));
+    svg.attr("ctl_bits",unitaryControlRowIds);
+    svg.attr("tgt_bits",unitaryTargetRowIds);
+    svg.attr("arg_enabled",gateObj.attr("arg_enabled"));
+    svg.attr("arg_value",gateObj.attr("arg_value"));
+    svg.attr("rowid",gateObj.parent().attr("rowid"));
+    svg.attr("columnid",gateObj.parent().attr("columnid"));
+    svg.attr("targetGatename",gateObj.attr("targetGatename"));
+    svg.attr("user_defined","Y");
+    svg.attr("row_merged",maximumRowId-minimumRowId+1)
+    
+    AttachSelectAndDelete_v2($("#"+newgateId));
+    MakeDraggable($("#"+newgateId));
+    AttachGenericControlPopup($("#"+newgateId));
+
+    /*//Inserting line
+    y1=minimumRowId-offSetRowId;
+    y1=(2*y1+1)*divheight/(2*rspan);
+    y2=maximumRowId-offSetRowId;
+    y2=(2*y2+1)*divheight/(2*rspan);
+
+    InsertLine(g, x, y1, x, y2);*/
+
+
+}
+
+/*
 function CreateControlledUnitaryGate(divid){
     $("#"+divid).children().remove();
     console.log("Div Height from CreateControlledUnitaryGate : "+$("#"+divid).attr("height"));
@@ -509,27 +584,32 @@ function CreateControlledUnitaryGate(divid){
     var divwidth=$("#"+divid).width();//attr("width");
     x=0.5*divwidth;
     g = svg.append('g');
+    
+    //var divheight=$("#"+divid).height();
+    var rspan=$("#"+divid).parent().attr("rowspan");
+    //Inserting line
+    y1=minimumRowId-offSetRowId;
+    y1=(2*y1+1)*singleDivHeight/(2*rspan);
+    y2=maximumRowId-offSetRowId;
+    y2=(2*y2+1)*singleDivHeight/(2*rspan);
+
+    InsertLine(g, x, y1, x, y2);
+    
     for(var index=0 ; index < unitaryControlRowIds.length ; index++){
         y=unitaryControlRowIds[index]-offSetRowId;
         //var divheight=$("#"+divid).attr("height");
-        var divheight=$("#"+divid).height();
-        var rspan=$("#"+divid).parent().attr("rowspan");
-        y=(2*y+1)*divheight/(2*rspan);
+        
+        y=(2*y+1)*singleDivHeight/(2*rspan);
         InsertControlSymbol(g,x,y);
     }
     
     y=unitaryTargetRowIds[0]-offSetRowId;
-    y=(2*y+1)*divheight/(2*rspan);
+    y=(2*y+1)*singleDivHeight/(2*rspan);
     if(targetUnitaryGate=="X")
         InsertXorSymbol(g,x,y);
 
-    //Inserting line
-    y1=minimumRowId-offSetRowId;
-    y1=(2*y1+1)*divheight/(2*rspan);
-    y2=maximumRowId-offSetRowId;
-    y2=(2*y2+1)*divheight/(2*rspan);
-
-    InsertLine(g, x, y1, x, y2);
+    
 
 
 }
+*/
