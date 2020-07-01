@@ -51,7 +51,7 @@ function CloneIt(objId,parent="body"){
 }*/ 
 
 //Basically modify parameters of divs
-function ModifyParentDiv(obj,cellTobeMerged){
+function ModifyParentDiv(obj,cellTobeMerged=1){
   console.log("ModifyParentDiv called.............");
   console.log("SVG ARG_VALUE  "+obj.children().attr("arg_value"));
   obj.attr("name",obj.children().attr("gate"));	
@@ -433,6 +433,8 @@ $(".dropzone").droppable({
 				AttachSelectAndDelete_v2(itemToBeDropped);	
 				if(parseInt(itemToBeDropped.attr("num_bits")) > 1)
 					AttachGenericControlPopup(itemToBeDropped);
+				if(parseInt(itemToBeDropped.attr("arg_enabled")) == 1)
+					AttachPhasePopup(itemToBeDropped);
 			}
 			
             console.log("Previous Parent Div : " + prevParentId);
