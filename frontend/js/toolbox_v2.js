@@ -63,6 +63,9 @@ for(var index=0; index<parseInt(numOfRows); index++){
                       .attr("columnid",mydata[index].columnid)
                       .attr("class","cloneAble");
      QFTAttach(svgGate);
+     if(parseInt(mydata[index].num_bits)>1){
+			svgGate.attr("targetGatename",mydata[index].targetGatename);
+	 }
 }
 
 }
