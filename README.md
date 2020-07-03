@@ -5,7 +5,7 @@ To launch the application to just view the frontend, open the **frontend/GridInt
 
 Here you can create the quantum circuit.
 
-To see the complete thing in action, you need to install **CherryPy** webserver.
+To see the complete thing in action, you need to install **CherryPy** framework.
 
 Once **CherryPy** is installed then run the **backend/cherryPyWork/pythonBackend.py** python file.
 This will start the webserver at port 8000 of localhost, and now it can process the circuit using
