@@ -113,14 +113,25 @@ class CircuitCreator:
 			elif gate.name == "CGLOBALPHASE":
 				self.U_list.append(controlled_gate(globalphase(gate.arg_value), N=self.N, control=gate.controls[0], target=gate.targets[0]))
 			elif gate.name == "QFT":
-				self.U_list.append(self.QFTMatrix(gate.targets))
+				#self.U_list.append(self.QFTMatrix(gate.targets))
+				self.U_list.append(gate_expand_ntoN(qft(len(gate.targets)),gate.targets,self.N))
 			elif gate.name == "IQFT":
-				self.U_list.append((self.QFTMatrix(gate.targets)).dag())
+				#self.U_list.append((self.QFTMatrix(gate.targets)).dag())
+				self.U_list.append(gate_expand_ntoN(qft(len(gate.targets)),gate.targets,self.N).dag())
+			
 
 		print("========= printing Propagators +===============")
 		print(self.U_list)
 		print("===============================================")
 		return self.U_list
+
+	# def PhiAddA(self,N=None):
+	# 	matList=[]
+	# 	matList.append(controlled_gate(rz(np.pi),N=2*N+1, control=[N-1],target=[0]))
+	# 	for indexB in range(1,N+1):
+	# 		for indexA in range(N+1,2*N+1):
+	# 			matList.append(controlled_gate(rz(np.pi/(indexB)),N=2*N+1, control=[indexA],target=[indexB]))
+	# 	return  self.Gate_Sequence_Product(matList)
 	
 	def QFTMatrix(self,targets):
 		targetStartIndex = targets[0]
@@ -136,7 +147,10 @@ class CircuitCreator:
 		#print("@@@@@@@@@@@@@ IDEN_LIST_END @@@@@@@@@@@")
 		#print(idenListEnd)
 		#qftMatrix = qft(len(targets))
+		
 		finalMatrix = qft(len(targets))
+		#finalMatrix = mat
+		
 		#print("@@@@@@@@@@@@@ QFTMatrix @@@@@@@@@@@")
 		#print(qftMatrix)
 
