@@ -79,7 +79,7 @@ function QFTAttach(obj){
 		d3.event.preventDefault();
 		
 		//Logic to set the number of bits  of QFT or IQFT to the value supplied by user
-		if(obj.attr("gate")=="QFT" || obj.attr("gate")=="IQFT"){
+		if(obj.attr("gate")=="QFT" || obj.attr("gate")=="IQFT" || obj.attr("gate")=="ADDA"){
 				var argVal = prompt("Please size of QFT :", 2);
 				console.log("Setting QFT num_bits of "+obj.attr("id")+ " to "+argVal);
 			    obj.attr("num_bits",argVal);

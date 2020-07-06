@@ -21,5 +21,6 @@ gateJson = '{\
 				 {"name":"CCNOT", "num_bits":3, "ctl_enabled" : 1, "ctl_bits" : [0,1], "tgt_bits" : [2], "arg_enabled" : 0, "arg_value" : "None", "rowid" : 0, "columnid" : 4,"targetGatename":"X"},\
 				 {"name":"CRX", "num_bits":2, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1], "arg_enabled" : 1, "arg_value" : 0, "rowid" : 2, "columnid" : 3,"targetGatename":"RX"},\
 				 {"name":"CRY", "num_bits":2, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1], "arg_enabled" : 1, "arg_value" : 0, "rowid" : 2, "columnid" : 3,"targetGatename":"RY"},\
-				 {"name":"CRZ", "num_bits":2, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1], "arg_enabled" : 1, "arg_value" : 0, "rowid" : 2, "columnid" : 3,"targetGatename":"RZ"}\
+				 {"name":"CRZ", "num_bits":2, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1], "arg_enabled" : 1, "arg_value" : 0, "rowid" : 2, "columnid" : 3,"targetGatename":"RZ"},\
+				 {"name":"ADDA", "num_bits":4, "ctl_enabled" : 0, "ctl_bits" : [0], "tgt_bits" : [1,2,3,4], "arg_enabled" : 0, "arg_value" : 0, "rowid" : 2, "columnid" : 3}\
 				 ]}'

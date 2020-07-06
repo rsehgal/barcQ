@@ -8,6 +8,7 @@ from IPython.display import Image
 from userDefinedGates import *
 from usergates import *
 from qutip.qip.algorithms.qft import *
+import math
 
 userDefinedGatesList=["X","Y","Z"]
 
@@ -118,7 +119,8 @@ class CircuitCreator:
 			elif gate.name == "IQFT":
 				#self.U_list.append((self.QFTMatrix(gate.targets)).dag())
 				self.U_list.append(gate_expand_ntoN(qft(len(gate.targets)),gate.targets,self.N).dag())
-			
+			elif gate.name == "ADDA":
+				self.U_list.append(gate_expand_ntoN(PhiAddA(math.floor(len(gate.targets)/2)),gate.targets,self.N))
 
 		print("========= printing Propagators +===============")
 		print(self.U_list)
@@ -208,8 +210,14 @@ class CircuitCreator:
 	def Gate_Sequence_Product(self,matList):
 		matLength=len(matList)
 		matProd=matList[matLength-1]
+		print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+		print(matProd.shape)
+
 		for index in range(matLength-1):
+			print((matList[matLength-2-index]).shape)
 			matProd=matProd*matList[matLength-2-index]
+		
+		print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
 		return matProd
 
 
