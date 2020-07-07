@@ -121,6 +121,9 @@ class CircuitCreator:
 				self.U_list.append(gate_expand_ntoN(qft(len(gate.targets)),gate.targets,self.N).dag())
 			elif gate.name == "ADDA":
 				self.U_list.append(gate_expand_ntoN(PhiAddA(math.floor(len(gate.targets)/2)),gate.targets,self.N))
+			elif gate.name == "IADD":
+				self.U_list.append(gate_expand_ntoN(PhiAddA(math.floor(len(gate.targets)/2)),gate.targets,self.N).dag())
+
 
 		print("========= printing Propagators +===============")
 		print(self.U_list)
