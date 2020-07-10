@@ -22,41 +22,18 @@ def PhiAddA(N=None):
 	matList=[]
 	ctl=int(2*N)
 	#matList.append(controlled_gate(rz(np.pi),N=2*N+1, control=ctl,target=0))
-	#matList.append(controlled_gate(rz(np.pi),N=ctl+1, control=ctl,target=0))
-	matList.append(cphase(np.pi,N=ctl+1, control=ctl,target=0))
+	matList.append(controlled_gate(rz(np.pi),N=ctl+1, control=ctl,target=0))
 	print("@@@@@@@@@@@@ INSIDE PHIADDA @@@@@@@@@@@@")
-	print("phase : "+str(np.pi)+" : ctl : "+str(ctl)+" : tgt : "+str(0))
 	print(matList[0].shape)
 	outerCounter=0
-	contList=list(range(int(N)+1,int(2*N)+1))
-	#print(range(int(N)+1,int(2*N)+1))
-	print(contList)
-
-	for indexB in range(2,int(N)+2):
-
-		if(indexB==(int(N)+1)):
-			phaseDeno=1
-			for indexA in range(int(N)+1,int(2*N)+1):
-				phaseDeno=phaseDeno+1
-				#matList.append(controlled_gate(rz(np.pi/(indexB)),N=int(2*N)+1, control=indexA,target=indexB))
-				#matList.append(cphase(np.pi/indexB,N=int(2*N)+1, control=indexA,target=indexB))
-
-				matList.append(cphase(2*np.pi/(2**phaseDeno),N=int(2*N)+1, control=indexA,target=indexB-1))
-				print("phase : "+str(2*np.pi/(2**phaseDeno))+" : ctl : "+str(indexA)+" : tgt : "+str(indexB-1))
-		
-		else:
-			phaseDeno=0 #outerCounter
-			cont=contList[len(contList)-indexB]
-			#for indexA in range(int(N)+1,int(2*N)+1):
-			for indexA in range(indexB):
-				phaseDeno=phaseDeno+1
-				#matList.append(controlled_gate(rz(np.pi/(indexB)),N=int(2*N)+1, control=indexA,target=indexB))
-				#matList.append(cphase(np.pi/indexB,N=int(2*N)+1, control=indexA,target=indexB))
-				matList.append(cphase(2*np.pi/(2**phaseDeno),N=int(2*N)+1, control=cont,target=indexB-1))
-				print("phase : "+str(2*np.pi/(2**phaseDeno))+" : ctl : "+str(cont)+" : tgt : "+str(indexB-1))
-				cont=cont+1
-			outerCounter=outerCounter+1
-		
+	for indexB in range(1,int(N)+1):
+		phaseDeno=outerCounter
+		for indexA in range(int(N)+1,int(2*N)+1):
+			phaseDeno=phaseDeno+1
+			#matList.append(controlled_gate(rz(np.pi/(indexB)),N=int(2*N)+1, control=indexA,target=indexB))
+			#matList.append(cphase(np.pi/indexB,N=int(2*N)+1, control=indexA,target=indexB))
+			matList.append(cphase(2*np.pi/(2**phaseDeno),N=int(2*N)+1, control=indexA,target=indexB))
+		outerCounter=outerCounter+1
 	#return  self.Gate_Sequence_Product(matList)
 	matLength=len(matList)
 	matProd=matList[matLength-1]
