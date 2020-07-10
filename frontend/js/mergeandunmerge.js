@@ -277,7 +277,6 @@ function Merge(obj,cellTobeMerged){
 }
 
 function GetCellsIdsString(cellTobeMerged){
-	console.log("CellsTobeMerged : "+cellTobeMerged);
     var cellIdsString="";
     /*for(var index=0 ; index < cellTobeMerged.length ; index++){
         if(index==0){
@@ -490,14 +489,7 @@ if(obj.attr("ctl_bits").split(",").length != unitaryControlRowIds.length ){
     //alert(unitaryControlRowIds);
     //alert(unitaryTargetRowIds);
 	//alert(colIdOfGenericControlledUnitaryGate);
-	var cellIdsString = "";
-	console.log("Length of unitaryControlRowIds : "+unitaryControlRowIds);
-	
-	if(targetUnitaryGate=="ONLYSWAP")
-		cellIdsString = unitaryTargetRowIds.UniqueAndSorted();
-	else
-		cellIdsString = (unitaryControlRowIds.concat(unitaryTargetRowIds)).UniqueAndSorted();
-		
+    var cellIdsString = (unitaryControlRowIds.concat(unitaryTargetRowIds)).UniqueAndSorted();
     minimumRowId=cellIdsString[0];
     maximumRowId=cellIdsString[cellIdsString.length-1];
     offSetRowId = cellIdsString[0];
@@ -566,22 +558,16 @@ function CreateControlledUnitaryGate(divid){
         InsertControlSymbol(g,x,y);
     }
 
-	for(var index=0 ; index < unitaryTargetRowIds.length ; index++){
-		y=unitaryTargetRowIds[index]-offSetRowId;
-		y=(2*y+1)*divheight/(2*rspan);
-		if(targetUnitaryGate=="X" || targetUnitaryGate=="NOT")
-			InsertXorSymbol(g,x,y);
-		else{
-			if(targetUnitaryGate=="ONLYSWAP" || targetUnitaryGate=="SWAP"){
-				InsertCrossSymbol(g,x,y);
-			}
-			else{
-				var xs=0;
-				y-=0.5*singleDivHeight;
-				InsertImageSymbol(g,targetUnitaryGate,xs,y);
-			}
-		}
-	}
+    y=unitaryTargetRowIds[0]-offSetRowId;
+    y=(2*y+1)*divheight/(2*rspan);
+    if(targetUnitaryGate=="X" || targetUnitaryGate=="NOT")
+        InsertXorSymbol(g,x,y);
+    else{
+        var xs=0;
+        y-=0.5*singleDivHeight;
+        InsertImageSymbol(g,targetUnitaryGate,xs,y);
+    }
+    
     /*
      * Setting various gate attributes
      */ 
