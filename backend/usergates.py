@@ -1,5 +1,4 @@
 from qutip import *
-import numpy as np
 def x(N=None, target=0):
 	if N is not None:
 		return gate_expand_1toN(sigmax(), N, target)
@@ -17,37 +16,6 @@ def z(N=None, target=0):
 		return gate_expand_1toN(sigmaz(), N, target)
 	else:
 		return sigmaz()
-
-def PhiAddA(N=None):
-	matList=[]
-	ctl=int(2*N)
-	#matList.append(controlled_gate(rz(np.pi),N=2*N+1, control=ctl,target=0))
-	matList.append(controlled_gate(rz(np.pi),N=ctl+1, control=ctl,target=0))
-	print("@@@@@@@@@@@@ INSIDE PHIADDA @@@@@@@@@@@@")
-	print(matList[0].shape)
-	outerCounter=0
-	for indexB in range(1,int(N)+1):
-		phaseDeno=outerCounter
-		for indexA in range(int(N)+1,int(2*N)+1):
-			phaseDeno=phaseDeno+1
-			#matList.append(controlled_gate(rz(np.pi/(indexB)),N=int(2*N)+1, control=indexA,target=indexB))
-			#matList.append(cphase(np.pi/indexB,N=int(2*N)+1, control=indexA,target=indexB))
-			matList.append(cphase(2*np.pi/(2**phaseDeno),N=int(2*N)+1, control=indexA,target=indexB))
-		outerCounter=outerCounter+1
-	#return  self.Gate_Sequence_Product(matList)
-	matLength=len(matList)
-	matProd=matList[matLength-1]
-	for index in range(matLength-1):
-		matProd=matProd*matList[matLength-2-index]
-	'''
-	res=cphase(np.pi/4,5,4,2)*cphase(np.pi/2,5,3,2)*cphase(np.pi/2,5,4,1)*cphase(np.pi,5,3,1)*cphase(np.pi,5,4,0)
-	ones=np.ones(32)
-	print("=========== Debug ++++++++++++")
-	print(ones*(res-matProd))
-	print("++++++++++++ =================")
-	'''
-	return matProd
-	#return res
 
 def gate_expand_ntoN(mat,targets,N):
 	targetStartIndex = targets[0]
