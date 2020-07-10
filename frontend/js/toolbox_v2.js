@@ -70,7 +70,6 @@ for(var index=0; index<parseInt(numOfRows); index++){
 function QFTAttach(obj){
 	obj.on("contextmenu", function(data, index) {
 		//handle right click
-		//alert("Right Clicked.......");
 
 		//stop showing browser menu
 		d3.event.preventDefault();

@@ -372,27 +372,3 @@ function InsertCell(rownum, colnum){
   	console.log("Cell INserted.........");
   	AttachDroppableEvents();
 }
-
-
-/**
- * Code for Generic controlled Unitary gates
- * 
- **/
-
-function AttachGenericControlPopup(obj){
-	obj.on("contextmenu", function(event) {
-		//handle right click
-		//alert("Right clicked from Attach Generic .........");
-		//stop showing browser menu
-		event.preventDefault();
-		$('.hover_bkgr_fricc').show();
-		colIdOfGenericControlledUnitaryGate = parseInt(obj.parent().attr("columnid"));
-	    //alert(columnId);
-	});
-
-}
-
-function UpdateGenericControlGate(){
-//	var columnId = parseInt(obj.parent().attr("columnid"));
-	alert(colIdOfGenericControlledUnitaryGate);
-}

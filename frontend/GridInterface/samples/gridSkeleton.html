@@ -4,7 +4,6 @@
 	</style>
 <link rel="stylesheet" href="../../css/tabstyle.css">
 <link rel="stylesheet" href="../../css/grid.css">
-<link rel="stylesheet" href="../../css/popup.css">
 
 	<script src = "../../jsonschemas/allowedUserDefinedGate.json"></script>
 	<script src = "../../jsonschemas/gatesUIExtended.json"></script>
@@ -50,28 +49,6 @@
  			$("#create").click(function(){
  				StoreDivIds();	
  			});
- 			
- 			//----------------------------------
- 			$(".trigger_popup_fricc").click(function(){
-				$('.hover_bkgr_fricc').show();
-			});
-			$('.hover_bkgr_fricc').click(function(){
-				//  $('.hover_bkgr_fricc').hide();
-			});
-			$('.popupCloseButton').click(function(){
-					$('.hover_bkgr_fricc').hide();
-			});
-			$('.popupSetButton').click(function(){
-				//Set the required variable and hide
-				ctl_bits_array=$("#ctl_bits_field").val().split(",");
-				//alert("Length of ctl array : "+ctl_bits_array.length )
-				tgt_bits_array=$("#tgt_bits_field").val().split(",");
-				//alert("Length of tgt array : "+tgt_bits_array.length )
-				//alert("Num_bits : "+(ctl_bits_array.length+tgt_bits_array.length))
-				$('.hover_bkgr_fricc').hide();
-				UpdateGenericControlGate();
-			});
-			//-----------------------------------------
 
  			//Trying to call server side function written in cherryPy
  			$("#submitButton").click(function(e){
@@ -174,17 +151,6 @@
 	<div id="sumPlot"></div>
 </div>
 	
-<div class="hover_bkgr_fricc">
-    <span class="helper"></span>
-    <div>
-        <div class="popupCloseButton">&times;</div>
-        <!-- <p>Add any HTML content<br />inside the popup box!</p> -->
-        <!-- Num of bits <input type="text" size="5"/><br/> -->
-        Control bits <input type="text" size="5" placeholder="1,2,3" bits id="ctl_bits_field"/><br/>
-        Target bits <input type="text" size="5" placeholder="1,2" bits  id="tgt_bits_field"/><br/>
-        <div class="popupSetButton">&#10004;</div>
-    </div>
-</div>
 
 </body>
 
