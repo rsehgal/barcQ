@@ -412,22 +412,6 @@ function AttachPhasePopup(obj){
 	});
 }
 
-/* 
- * PhasePopup attached on middle button
- */
-function AttachPhasePopupMiddleButton(obj){
-        obj.on('mousedown',function(event){
-                if(event.which == 2){
-
-                        if(obj.attr("arg_enabled")==1){
-				gateObj=$(this);
-                		$('#phasePopup').show();
-                        }
-
-                }
-        });
-}
-
 
 /**
  * Code for Generic controlled Unitary gates
@@ -580,27 +564,15 @@ function CreateControlledUnitaryGate(divid){
     svg.attr("tgt_bits",unitaryTargetRowIds);
     svg.attr("arg_enabled",gateObj.attr("arg_enabled"));
     svg.attr("arg_value",gateObj.attr("arg_value"));
-    //svg.attr("rowid",gateObj.parent().attr("rowid"));
-    svg.attr("rowid",minimumRowId);
+    svg.attr("rowid",gateObj.parent().attr("rowid"));
     svg.attr("columnid",gateObj.parent().attr("columnid"));
     svg.attr("targetGatename",gateObj.attr("targetGatename"));
     svg.attr("user_defined","Y");
     svg.attr("row_merged",maximumRowId-minimumRowId+1)
     
-
-    var colid = parseInt(svg.attr("columnid"))
-    colIds.push(colid);
-    var rowid = parseInt(svg.attr("rowid"));
-    rowIds.push(rowid);
-
     AttachSelectAndDelete_v2($("#"+newgateId));
     MakeDraggable($("#"+newgateId));
     AttachGenericControlPopup($("#"+newgateId));
-    AttachPhasePopupMiddleButton($("#"+newgateId));
-
-    console.log("@@@@@@ Going to call Modify Parent div............");
-    ModifyParentDiv($("#"+newgateId).parent());
-    GenerateCode();
 
     /*//Inserting line
     y1=minimumRowId-offSetRowId;

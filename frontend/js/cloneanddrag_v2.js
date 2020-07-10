@@ -354,7 +354,7 @@ $(".dropzone").droppable({
             rowIds.push(rowid);
             //alert("me"+itemToBeDropped.attr("id"));
             //alert("$this"+$(this).attr("id"));
-            //Attach(itemToBeDropped);
+            Attach(itemToBeDropped);
             $(this).append(itemToBeDropped);
 
 
@@ -434,8 +434,7 @@ $(".dropzone").droppable({
 				if(parseInt(itemToBeDropped.attr("num_bits")) > 1)
 					AttachGenericControlPopup(itemToBeDropped);
 				if(parseInt(itemToBeDropped.attr("arg_enabled")) == 1)
-					AttachPhasePopupMiddleButton(itemToBeDropped);
-					//AttachPhasePopup(itemToBeDropped);
+					AttachPhasePopup(itemToBeDropped);
 			}
 			
             console.log("Previous Parent Div : " + prevParentId);
