@@ -81,8 +81,7 @@
             $('.popupCloseButton').click(function(){
                     $('.hover_bkgr_fricc').hide();
             });
-            //$('.popupSetButton').click(function(){
-            $('#gateSetButton').click(function(){
+            $('.popupSetButton').click(function(){
                 //Set the required variable and hide
                 ctl_bits_array=$("#ctl_bits_field").val().split(",");
                 unitaryControlRowIds=ctl_bits_array;
@@ -95,14 +94,6 @@
                 //UpdateGenericControlGate(obj);
                 UpdateGenericControlGate();
             });
-            
-            $('#phaseSetButton').click(function(){
-					gateObj.attr("arg_value",$("#phase_field").val());
-					$('.hover_bkgr_fricc').hide();
-					ModifyParentDiv(gateObj.parent());
-					GenerateCode();
-			});
-            
 			//-----------------------------------------
 
  			//Trying to call server side function written in cherryPy
@@ -206,7 +197,7 @@
 	<div id="sumPlot"></div>
 </div>
 	
-<div class="hover_bkgr_fricc" id="gatePopup">
+<div class="hover_bkgr_fricc">
     <span class="helper"></span>
     <div>
         <div class="popupCloseButton">&times;</div>
@@ -214,16 +205,7 @@
         <!-- Num of bits <input type="text" size="5"/><br/> -->
         Control bits <input type="text" size="5" placeholder="1,2,3" bits id="ctl_bits_field"/><br/>
         Target bits <input type="text" size="5" placeholder="1,2" bits  id="tgt_bits_field"/><br/>
-        <div class="popupSetButton" id="gateSetButton">&#10004;</div>
-    </div>
-</div>
-
-<div class="hover_bkgr_fricc"  id="phasePopup">
-    <span class="helper"></span>
-    <div>
-        <div class="popupCloseButton">&times;</div>
-        Theta <input type="text" size="5" placeholder="3.14159" bits id="phase_field"/><br/>
-        <div class="popupSetButton" id="phaseSetButton">&#10004;</div>
+        <div class="popupSetButton">&#10004;</div>
     </div>
 </div>
 
