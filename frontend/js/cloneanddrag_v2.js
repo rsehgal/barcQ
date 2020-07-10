@@ -431,8 +431,6 @@ $(".dropzone").droppable({
 				 * and the above "IF" block will execute
 				 */
 				AttachSelectAndDelete_v2(itemToBeDropped);	
-				if(parseInt(itemToBeDropped.attr("num_bits")) > 1)
-					AttachGenericControlPopup(itemToBeDropped);
 			}
 			
             console.log("Previous Parent Div : " + prevParentId);
