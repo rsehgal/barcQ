@@ -75,25 +75,6 @@
 				UpdateGenericControlGate();
 			});*/
 
-			$('.hover_bkgr_fricc').click(function(){
-                //  $('.hover_bkgr_fricc').hide();
-            });
-            $('.popupCloseButton').click(function(){
-                    $('.hover_bkgr_fricc').hide();
-            });
-            $('.popupSetButton').click(function(){
-                //Set the required variable and hide
-                ctl_bits_array=$("#ctl_bits_field").val().split(",");
-                unitaryControlRowIds=ctl_bits_array;
-                //alert("Length of ctl array : "+ctl_bits_array.length )
-                tgt_bits_array=$("#tgt_bits_field").val().split(",");
-                unitaryTargetRowIds=tgt_bits_array;
-                //alert("Length of tgt array : "+tgt_bits_array.length )
-                //alert("Num_bits : "+(ctl_bits_array.length+tgt_bits_array.length))
-                $('.hover_bkgr_fricc').hide();
-                //UpdateGenericControlGate(obj);
-                UpdateGenericControlGate();
-            });
 			//-----------------------------------------
 
  			//Trying to call server side function written in cherryPy

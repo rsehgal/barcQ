@@ -96,4 +96,3 @@ var targetUnitaryGate="";
 var unitaryControlRowIds=[];
 var unitaryTargetRowIds=[];
 var offSetRowId=0;
-var gateObj;
