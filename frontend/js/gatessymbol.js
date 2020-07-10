@@ -17,7 +17,7 @@ function gate(divid){
 	if(divid=="CONTROL"){
 		return control(divid);
 	}
-	if(divid=="X" || divid=="Y" || divid=="Z" || divid=="H"|| divid=="RX" || divid=="RY" || divid=="RZ" || divid=="PHASEGATE" || divid=="GLOBALPHASE" || divid=="QFT" || divid=="IQFT" || divid=="ADDA" || divid=="IADD"){
+	if(divid=="X" || divid=="Y" || divid=="Z" || divid=="H"|| divid=="RX" || divid=="RY" || divid=="RZ" || divid=="PHASEGATE" || divid=="GLOBALPHASE" || divid=="QFT" || divid=="IQFT" || divid=="ADDA"){
 		return x(divid);
 	}
 	if(divid=="CRX" || divid=="CRY" || divid=="CRZ"){
