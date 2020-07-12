@@ -480,7 +480,7 @@ function AttachGenericControlPopup(obj){
 
 function UpdateGenericControlGate(){
 var obj=gateObj;
-alert(obj.attr("ctl_bits").split(",").length+" , "+unitaryControlRowIds.length);
+//alert(obj.attr("ctl_bits").split(",").length+" , "+unitaryControlRowIds.length);
 if(obj.attr("ctl_bits").split(",").length != unitaryControlRowIds.length ){
             alert("Wrong conf. for "+obj.attr("gate")+" gate..... please correct it to continue...")
             return;
@@ -561,31 +561,42 @@ function CreateControlledUnitaryGate(divid){
 
     InsertLine(g, x, y1, x, y2);
 
-    for(var index=0 ; index < unitaryControlRowIds.length ; index++){
-        y=unitaryControlRowIds[index]-offSetRowId;
-        //var divheight=$("#"+divid).attr("height");
-         var divheight=$("#"+divid).height();
-        var rspan=$("#"+divid).parent().attr("rowspan");
-        y=(2*y+1)*divheight/(2*rspan);
-        InsertControlSymbol(g,x,y);
+    if(targetUnitaryGate=="ONLYSWAP"){
+        unitaryControlRowIds=gateObj.attr("ctl_bits");
+        console.log(unitaryControlRowIds);
+        //alert(unitaryControlRowIds);
+    }
+    else{
+
+        for(var index=0 ; index < unitaryControlRowIds.length ; index++){
+            y=unitaryControlRowIds[index]-offSetRowId;
+            //var divheight=$("#"+divid).attr("height");
+             var divheight=$("#"+divid).height();
+            var rspan=$("#"+divid).parent().attr("rowspan");
+            y=(2*y+1)*divheight/(2*rspan);
+            InsertControlSymbol(g,x,y);
+        }
     }
 
-	for(var index=0 ; index < unitaryTargetRowIds.length ; index++){
-		y=unitaryTargetRowIds[index]-offSetRowId;
-		y=(2*y+1)*divheight/(2*rspan);
-		if(targetUnitaryGate=="X" || targetUnitaryGate=="NOT")
-			InsertXorSymbol(g,x,y);
-		else{
-			if(targetUnitaryGate=="ONLYSWAP" || targetUnitaryGate=="SWAP"){
-				InsertCrossSymbol(g,x,y);
-			}
-			else{
-				var xs=0;
-				y-=0.5*singleDivHeight;
-				InsertImageSymbol(g,targetUnitaryGate,xs,y);
-			}
-		}
-	}
+    
+
+    	for(var index=0 ; index < unitaryTargetRowIds.length ; index++){
+    		y=unitaryTargetRowIds[index]-offSetRowId;
+    		y=(2*y+1)*divheight/(2*rspan);
+    		if(targetUnitaryGate=="X" || targetUnitaryGate=="NOT")
+    			InsertXorSymbol(g,x,y);
+    		else{
+    			if(targetUnitaryGate=="ONLYSWAP" || targetUnitaryGate=="SWAP"){
+    				InsertCrossSymbol(g,x,y);
+    			}
+    			else{
+    				var xs=0;
+    				y-=0.5*singleDivHeight;
+    				InsertImageSymbol(g,targetUnitaryGate,xs,y);
+    			}
+    		}
+    	}
+    
     /*
      * Setting various gate attributes
      */ 
@@ -600,13 +611,15 @@ function CreateControlledUnitaryGate(divid){
     svg.attr("arg_value",gateObj.attr("arg_value"));
     //svg.attr("rowid",gateObj.parent().attr("rowid"));
     svg.attr("rowid",minimumRowId);
-    svg.attr("columnid",gateObj.parent().attr("columnid"));
+    svg.attr("columnid",gateObj.attr("columnid"));
     svg.attr("targetGatename",gateObj.attr("targetGatename"));
     svg.attr("user_defined","Y");
     svg.attr("row_merged",maximumRowId-minimumRowId+1)
     
 
-    var colid = parseInt(svg.attr("columnid"))
+    //var colid = parseInt(svg.attr("columnid"))
+    var colid = colIdOfGenericControlledUnitaryGate;
+    //alert(colid);
     colIds.push(colid);
     var rowid = parseInt(svg.attr("rowid"));
     rowIds.push(rowid);
