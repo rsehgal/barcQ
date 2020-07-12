@@ -446,10 +446,14 @@ function AttachGenericControlPopup(obj){
 		event.preventDefault();
 		//$('.hover_bkgr_fricc').show();
 		$('#gatePopup').show();
+        //alert(targetUnitaryGate);
 		if(targetUnitaryGate=="ONLYSWAP"){
 			$('#ctl_label').hide();
 			$('#ctl_bits_field').hide();
-		}
+		}else{
+            $('#ctl_label').show();
+            $('#ctl_bits_field').show();
+        }
 		colIdOfGenericControlledUnitaryGate = parseInt(obj.parent().attr("columnid"));
 	    //alert(columnId);
 	});
