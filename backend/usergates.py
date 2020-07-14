@@ -18,6 +18,40 @@ def z(N=None, target=0):
 	else:
 		return sigmaz()
 
+def ControlledUnitaryMatrix(mat,control=0,target=1):
+	zero=basis(2,0)
+	one=basis(2,1)
+	targetStart=target[0]
+	targetEnd=target[len(target)-1]
+	targetDim=mat.shape[0]
+
+	if control < targetStart:
+		totalSize=2**(targetEnd-control+1)
+	else:
+		totalSize=2**(control-targetStart+1)
+
+	print("Total Size : "+str(totalSize))
+	print("targetDim : "+str(targetDim))
+	iden0=int(totalSize/2)
+	iden1=int(totalSize/(2*targetDim))
+
+
+	print(str(iden0)+","+str(iden1))
+		
+	iden0=qeye(iden0)
+	iden1=qeye(iden1)
+
+	if control < targetStart:
+		first=tensor(zero*zero.dag(),iden0)
+		second=tensor(one*one.dag(),iden1,mat)
+		
+	else:
+		first=tensor(iden0,zero*zero.dag())
+		second=tensor(mat,iden1,one*one.dag())
+
+	return Qobj(first.data.toarray()+second.data.toarray())
+
+
 def PhiAddA(N=None):
 	matList=[]
 	ctl=int(2*N)
@@ -124,6 +158,9 @@ def main():
 	print(x(N=1,target=0))
 	print(y(N=1,target=0))
 	print(z(N=1,target=0))
+	print('=========== Checking ControlledUnitaryMatrix =========')
+	print(ControlledUnitaryMatrix(swap(2,[0,1]),3,[0,1]))
+	#print(ControlledUnitaryMatrix(sigmax(),1,[0]))
 
 
 if __name__ == "__main__":
