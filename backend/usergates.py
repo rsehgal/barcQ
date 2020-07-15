@@ -18,7 +18,7 @@ def z(N=None, target=0):
 	else:
 		return sigmaz()
 
-def ControlledUnitaryMatrix(mat,control=0,target=1):
+def ControlledUnitaryMatrix(mat,control=0,target=[1]):
 	zero=basis(2,0)
 	one=basis(2,1)
 	targetStart=target[0]
@@ -106,7 +106,26 @@ def PhiAddA(N=None):
 	return matProd
 	#return res
 
-def gate_expand_ntoN(mat,targets,N):
+def gate_expand_ntoN(mat,control_list=None,target_list=None,N=1):
+
+	if control_list is None and target_list is None:
+		return 
+
+	if control_list is None:
+		targets=target_list
+	else:
+		for val in target_list:
+			control_list.append(val)
+		#targets=control_list+target_list
+	targets=control_list
+
+	targets.sort()
+	print(control_list)
+	print(target_list)
+	print(N)
+	print("Printing Targets ............")
+	print(targets)
+
 	targetStartIndex = targets[0]
 	targetEndIndex = targets[len(targets)-1]
 	idenListBeg = []
@@ -159,7 +178,11 @@ def main():
 	print(y(N=1,target=0))
 	print(z(N=1,target=0))
 	print('=========== Checking ControlledUnitaryMatrix =========')
-	print(ControlledUnitaryMatrix(swap(2,[0,1]),3,[0,1]))
+	ctlSwap=ControlledUnitaryMatrix(swap(2,[0,1]),2,[4,5])
+	print(ctlSwap)
+
+	print("=========== After applying gate_expand_ntoN ==========")
+	#print(gate_expand_ntoN(ctlSwap,[1],[2,3],N=4))
 	#print(ControlledUnitaryMatrix(sigmax(),1,[0]))
 
 
