@@ -18,7 +18,7 @@ def z(N=None, target=0):
 	else:
 		return sigmaz()
 
-def ControlledUnitaryMatrix(mat,control=0,target=[1]):
+def ControlledUnitaryMatrix(mat,control=[0],target=[1]):
 	zero=basis(2,0)
 	one=basis(2,1)
 	targetStart=target[0]
@@ -108,6 +108,10 @@ def PhiAddA(N=None):
 
 def gate_expand_ntoN(mat,control_list=None,target_list=None,N=1):
 
+	print("=========== control_list ============= ")
+	print(control_list)
+	print("=========== target_list ==============")
+	print(target_list)
 	if control_list is None and target_list is None:
 		return 
 
@@ -117,7 +121,7 @@ def gate_expand_ntoN(mat,control_list=None,target_list=None,N=1):
 		for val in target_list:
 			control_list.append(val)
 		#targets=control_list+target_list
-	targets=control_list
+		targets=control_list
 
 	targets.sort()
 	print(control_list)
