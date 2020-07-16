@@ -115,14 +115,14 @@ class CircuitCreator:
 				self.U_list.append(controlled_gate(globalphase(gate.arg_value), N=self.N, control=gate.controls[0], target=gate.targets[0]))
 			elif gate.name == "QFT":
 				#self.U_list.append(self.QFTMatrix(gate.targets))
-				self.U_list.append(gate_expand_ntoN(qft(len(gate.targets)),gate.targets,self.N))
+				self.U_list.append(gate_expand_ntoN(mat=qft(len(gate.targets)),target_list=gate.targets,N=self.N))
 			elif gate.name == "IQFT":
 				#self.U_list.append((self.QFTMatrix(gate.targets)).dag())
-				self.U_list.append(gate_expand_ntoN(qft(len(gate.targets)),gate.targets,self.N).dag())
+				self.U_list.append(gate_expand_ntoN(mat=qft(len(gate.targets)),target_list=gate.targets,N=self.N).dag())
 			elif gate.name == "ADDA":
-				self.U_list.append(gate_expand_ntoN(PhiAddA(math.floor(len(gate.targets)/2)),gate.targets,self.N))
+				self.U_list.append(gate_expand_ntoN(mat=PhiAddA(math.floor(len(gate.targets)/2)),target_list=gate.targets,N=self.N))
 			elif gate.name == "IADD":
-				self.U_list.append(gate_expand_ntoN(PhiAddA(math.floor(len(gate.targets)/2)),gate.targets,self.N).dag())
+				self.U_list.append(gate_expand_ntoN(mat=PhiAddA(math.floor(len(gate.targets)/2)),target_list=gate.targets,N=self.N).dag())
 
 
 		print("========= printing Propagators +===============")
