@@ -113,7 +113,7 @@ def gate_expand_ntoN(mat,control_list=None,target_list=None,N=1):
 	print("=========== target_list ==============")
 	print(target_list)
 	if control_list is None and target_list is None:
-		return 
+		raise ValueError("Unspecified Control and Target list")
 
 	if control_list is None:
 		targets=target_list
@@ -132,16 +132,20 @@ def gate_expand_ntoN(mat,control_list=None,target_list=None,N=1):
 
 	targetStartIndex = targets[0]
 	targetEndIndex = targets[len(targets)-1]
+	if N  <= targetEndIndex:
+		raise ValueError("integer N must be larger then "+str(targetEndIndex))
 	idenListBeg = []
 	idenListEnd = []
 	for idenIndex in range(targetStartIndex):
 		idenListBeg.append(qeye(2))
-	#print("@@@@@@@@@@@@@ IDEN_LIST_BEG @@@@@@@@@@@")
-	#print(idenListBeg)
+	print("@@@@@@@@@@@@@ IDEN_LIST_BEG @@@@@@@@@@@")
+	print("Length of IdenListBeg : "+str(len(idenListBeg)))
+	print(idenListBeg)
 	for idenIndex in range(targetEndIndex+1,N):
 		idenListEnd.append(qeye(2))
-	#print("@@@@@@@@@@@@@ IDEN_LIST_END @@@@@@@@@@@")
-	#print(idenListEnd)
+	print("@@@@@@@@@@@@@ IDEN_LIST_END @@@@@@@@@@@")
+	print("Length of IdenListEng : "+str(len(idenListEnd)))
+	print(idenListEnd)
 	#qftMatrix = qft(len(targets))
 		
 	#finalMatrix = qft(len(targets))
@@ -151,25 +155,29 @@ def gate_expand_ntoN(mat,control_list=None,target_list=None,N=1):
 	#print(qftMatrix)
 
 	#print("Length of idenListBeg : "+str(len(idenListBeg)))
-	startingTensor=qeye(2)
+	# startingTensor=qeye(2)
 	#finalMatrix=0
 	if len(idenListBeg) != 0:
-			
+		startingTensor=qeye(2)	
 		for index in range(1,len(idenListBeg)):
 			startingTensor = tensor(startingTensor,qeye(2))
 		finalMatrix = tensor(startingTensor,finalMatrix)
 	#print("@@@@@@@@@@@@@ startingTensor @@@@@@@@@@@")
 	#print(startingTensor)
+	print("===== Final Matrix after taking care of idenListBeg =====")
+	print(finalMatrix.shape)
 
 	#print("Length of idenListEnd : "+str(len(idenListEnd)))
-	endingTensor=qeye(2)
+	# endingTensor=qeye(2)
 	if len(idenListEnd) != 0:
-			
+		endingTensor=qeye(2)	
 		for index in range(1,len(idenListEnd)):
 			endingTensor = tensor(endingTensor,qeye(2))
 		finalMatrix = tensor(finalMatrix,endingTensor)
 	#print("@@@@@@@@@@@@@ endingTensor @@@@@@@@@@@")
 	#print(endingTensor)
+	print("===== Final Matrix after taking care of idenListEnd =====")
+	print(finalMatrix.shape)
 
 	#finalMatrix = tensor(startingTensor,qftMatrix,endingTensor)
 	#print("@@@@@@@@@@@@@ finalMatrix @@@@@@@@@@@")
@@ -182,11 +190,21 @@ def main():
 	print(y(N=1,target=0))
 	print(z(N=1,target=0))
 	print('=========== Checking ControlledUnitaryMatrix =========')
+	print('=========== Checking FREDKIN Gate =========')
+	#Demo to create FREDKIN gate using ControlledUnitaryMatrix
 	ctlSwap=ControlledUnitaryMatrix(swap(2,[0,1]),2,[4,5])
-	print(ctlSwap)
-
 	print("=========== After applying gate_expand_ntoN ==========")
-	#print(gate_expand_ntoN(ctlSwap,[1],[2,3],N=4))
+	#Demo to use in jsonClass.py
+	print(gate_expand_ntoN(ctlSwap,[2],[4,5],N=6))
+
+	print('=========== Checking TOFFOLI Gate =========')
+	#Demo to create TOFFOLI gate using ControlledUnitaryMatrix
+	ctlCNOT=ControlledUnitaryMatrix(cnot(),0,[2,3])
+	print(ctlCNOT)
+	#Demo to use in jsonClass.py
+	print(gate_expand_ntoN(ctlCNOT,[0],[2,3],N=4))
+
+	
 	#print(ControlledUnitaryMatrix(sigmax(),1,[0]))
 
 
