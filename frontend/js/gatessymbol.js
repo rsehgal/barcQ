@@ -20,7 +20,7 @@ function gate(divid){
 	if(divid=="U" || divid=="X" || divid=="Y" || divid=="Z" || divid=="H"|| divid=="RX" || divid=="RY" || divid=="RZ" || divid=="PHASEGATE" || divid=="GLOBALPHASE" || divid=="QFT" || divid=="IQFT" || divid=="ADDA" || divid=="IADD"){
 		return x(divid);
 	}
-	if(divid=="CRX" || divid=="CRY" || divid=="CRZ" || divid=="CPHASE" ){
+	if(divid=="CRX" || divid=="CRY" || divid=="CRZ" || divid=="CPHASE" || divid=="CU" ){
 		console.log("DIVID substring : "+divid);
 		return cx(divid);
 	}
@@ -153,6 +153,9 @@ function cx(divid,ctl_enabled=0){
 	}
 	if(divid=="CPHASE"){
 		InsertImageSymbol(g,"PHASEGATE",xval,y1);
+	}
+	if(divid=="CU"){
+		InsertImageSymbol(g,"U",xval,y1);
 	}
 	
 	y2 = 0.25*height;
