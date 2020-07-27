@@ -1,0 +1,16 @@
+Currently CherryPy programs Uses MySQL database to store the circuit.
+The circuits are stores in JSON format in mysql database.
+
+It expect following :
+1) Database name : barcq
+2) Table name : user_circuits
+3) Table structure is as follows:
+
++--------------+-------------+------+-----+-------------------+-----------------------------+
+| Field        | Type        | Null | Key | Default           | Extra                       |
++--------------+-------------+------+-----+-------------------+-----------------------------+
+| user_name    | varchar(35) | YES  |     | NULL              |                             |
+| circuit_name | varchar(35) | YES  |     | NULL              |                             |
+| json_object  | json        | YES  |     | NULL              |                             |
+| time_stamp   | timestamp   | NO   |     | CURRENT_TIMESTAMP | on update CURRENT_TIMESTAMP |
++--------------+-------------+------+-----+-------------------+-----------------------------

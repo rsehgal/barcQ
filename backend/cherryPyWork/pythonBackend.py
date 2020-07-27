@@ -8,14 +8,18 @@ import json
 import sys
 sys.path.append("..")
 from jsonClass import *
+from databaseMysql import *
 
 
 #MEDIA_DIR = os.path.join(os.path.abspath("."), u"media")
+
+import MySQLdb
 
 class StringGenerator(object):
     @cherrypy.expose
     def index(self):
         #return open('public/test.html')
+        #self.ExecuteQuery()
         return open('../../frontend/GridInterface/samples/gridSkeleton.html')
 
     @cherrypy.expose
@@ -44,11 +48,17 @@ class StringGenerator(object):
         print(self.output)
         print("#################################")
         #return data
+        #self.ExecuteQuery()
+        DatabaseFunctions().Insert(user_name="rsehgal",circuit_name="testCircuit",json_object=jsonObj)
         return self.OutputToJson()
+
+    def ExecuteQuery(self):
+        print("executing query.........")
+        cherrypy.thread_data.db.execute("select * from test")
 
     '''
     This function will convert the output of the circuit to the JSON format
-    which will be sent back to the frontend for plotting
+    which will be sent back to the frontend for plDatabaseFunctionsotting
     '''
     def OutputToJson(self):
         yList=self.output[:,0]
@@ -107,7 +117,7 @@ class StringGenerator(object):
             maxCtl=max(ctl_bits_List)
         maxTgt=max(tgt_bits_List)
         if(maxCtl > maxTgt):
-            return maxCtl
+            return maxCtlDatabaseFunctions
         else:
             return maxTgt
 
@@ -165,5 +175,8 @@ if __name__ == '__main__':
              'tools.staticdir.dir': '../../frontend/jsonschemas'
          }
      }
+     cherrypy.engine.subscribe('start_thread', connect)
      cherrypy.config.update({'server.socket_host': 'localhost','server.socket_port':8000})
      cherrypy.quickstart(StringGenerator(), '/', conf)
+     # cherrypy.quickstart(Root())
+
