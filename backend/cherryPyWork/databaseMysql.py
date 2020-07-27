@@ -20,7 +20,7 @@ class DatabaseFunctions:
         print("===============================")
         #cur = cherrypy.thread_data.db.cursor()
         # cur.execute("INSERT INTO user_circuits(user_name, circuit_name, json_object, time_stamp) values('%s', '%s', '%s', NOW())" % (user_name, circuit_name, json.dumps(self.json_dict["instructions"])))
-        query = "INSERT INTO user_circuits(user_name, circuit_name, json_object, time_stamp) values('%s', '%s', '%s', NOW())" % (user_name, circuit_name, json.dumps(self.json_dict["instructions"]))
+        query = "INSERT INTO user_circuits(user_name, circuit_name, json_object, time_stamp) values('%s', '%s', '%s', NOW())" % (user_name, circuit_name, json.dumps(self.json_dict))
         self.ExecuteQuery(query)
         #cherrypy.thread_data.db.commit()    
 
