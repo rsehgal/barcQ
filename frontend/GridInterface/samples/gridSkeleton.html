@@ -2,6 +2,16 @@
 <head>
 	<style type="text/css">
 	</style>
+
+<!--
+	Trying stuff related to Bootstrap
+-->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<!--   -----------------------------------  -->
+
 <link rel="stylesheet" href="../../css/tabstyle.css">
 <link rel="stylesheet" href="../../css/grid.css">
 <link rel="stylesheet" href="../../css/popup.css">
@@ -155,11 +165,42 @@
 	<!-- Trying to create tabbed interface 	-->
 	<h2>Welcome to BarcQ</h2>
 	<!-- <p>Click on the buttons inside the tabbed menu:</p> -->
+	<!--
 	<div class="tab">
   		<button class="tablinks" onclick="openCity(event, 'circuitComposer')">Circuit Editor</button>
   		<button class="tablinks" onclick="openCity(event, 'qutipCode')">QuTiP code</button>
   		<button class="tablinks" onclick="openCity(event, 'results')">Results</button>
+  
   	</div>
+	-->
+
+  	<!------- -->
+
+  	<div class="tab">
+	<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+  	<ul class="nav navbar-nav">
+       	
+      <li class="tablinks" onclick="openCity(event, 'circuitComposer')"><a href="#">Circuit Composer</a></li>
+      <li class="tablinks" onclick="openCity(event, 'qutipCode')"><a href="#">QuTip Code</a></li>
+      <li class="tablinks" onclick="openCity(event, 'results')"><a href="#">Results</a></li>
+
+      <!-- Used to list the user ciruits -->
+      <li  class="tablinks dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li onclick="ShowAlert()"><a href="#">Page 1-1</a></li>
+          <li><a href="#">Page 1-2</a></li>
+          <li><a href="#">Page 1-3</a></li>
+        </ul>
+      </li>
+  	
+  	</ul>
+  </div>
+</nav>
+</div>
+
+
+  	<!-- --------------------------------------- -->
 
 	<div id="circuitComposer" class="tabcontent">
 	<table>
