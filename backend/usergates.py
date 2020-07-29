@@ -43,13 +43,16 @@ def ControlledUnitaryMatrix(mat,control=[0],target=[1]):
 	iden0=qeye(iden0)
 	iden1=qeye(iden1)
 
-	if control < targetStart:
+	if control[len(control)-1] < targetStart:
 		first=tensor(zero*zero.dag(),iden0)
 		second=tensor(one*one.dag(),iden1,mat)
-		
-	else:
+	if targetEnd < control[0]:
 		first=tensor(iden0,zero*zero.dag())
 		second=tensor(mat,iden1,one*one.dag())
+			
+	#else:
+	#	first=tensor(iden0,zero*zero.dag())
+	#	second=tensor(mat,iden1,one*one.dag())
 
 	return Qobj(first.data.toarray()+second.data.toarray())
 
@@ -194,17 +197,25 @@ def main():
 	print('=========== Checking ControlledUnitaryMatrix =========')
 	print('=========== Checking FREDKIN Gate =========')
 	#Demo to create FREDKIN gate using ControlledUnitaryMatrix
-	ctlSwap=ControlledUnitaryMatrix(swap(2,[0,1]),2,[4,5])
+	ctlSwap=ControlledUnitaryMatrix(swap(2,[0,1]),[2],[4,5])
 	print("=========== After applying gate_expand_ntoN ==========")
 	#Demo to use in jsonClass.py
 	print(gate_expand_ntoN(ctlSwap,[2],[4,5],N=6))
 
 	print('=========== Checking TOFFOLI Gate =========')
 	#Demo to create TOFFOLI gate using ControlledUnitaryMatrix
-	ctlCNOT=ControlledUnitaryMatrix(cnot(),0,[2,3])
+	ctlCNOT=ControlledUnitaryMatrix(cnot(),[0],[2,3])
 	print(ctlCNOT)
 	#Demo to use in jsonClass.py
 	print(gate_expand_ntoN(ctlCNOT,[0],[2,3],N=4))
+	
+	print('========= Trying Controlled Hadamard Gate =========')
+	ctlH=ControlledUnitaryMatrix(snot(),[0],[1])
+	print(ctlH)
+	
+	print('========= Trying Controlled NOT Gate =========')
+	ctlX=ControlledUnitaryMatrix(sigmax(),[0],[1])
+	print(ctlX)
 
 	
 	#print(ControlledUnitaryMatrix(sigmax(),1,[0]))
