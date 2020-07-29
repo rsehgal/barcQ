@@ -25,10 +25,12 @@ def ControlledUnitaryMatrix(mat,control=[0],target=[1]):
 	targetEnd=target[len(target)-1]
 	targetDim=mat.shape[0]
 
-	if control < targetStart:
-		totalSize=2**(targetEnd-control+1)
-	else:
-		totalSize=2**(control-targetStart+1)
+	if control[len(control)-1] < targetStart:
+		totalSize=2**(targetEnd-control[0]+1)
+	if targetEnd < control[0]:
+		totalSize=2**(control[len(control)-1]-targetStart+1)
+	#else:
+	#	totalSize=2**(control-targetStart+1)
 
 	print("Total Size : "+str(totalSize))
 	print("targetDim : "+str(targetDim))
