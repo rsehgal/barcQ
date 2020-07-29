@@ -401,6 +401,8 @@ def main():
 				 {"name":"QFT", "num_bits":2, "ctl_enabled" : 0, "ctl_bits" : "None", "tgt_bits" : [1,2], "arg_enabled" : 0, "arg_value" : 0},\
 				 {"name":"CQFT", "num_bits":2, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1,2], "arg_enabled" : 0, "arg_value" : 0}\
 				 ]}'
+	
+	
 	'''
 	gateJson = '{\
 				 "header":{},\
@@ -450,12 +452,12 @@ def main():
 				 "header":{},\
 				 "config":{},\
 				 "instructions":[\
-				 {"name":"CQFT", "num_bits":2, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1,2], "arg_enabled" : 0, "arg_value" : 0}\
+				 {"name":"CQFT", "num_bits":2, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [2], "arg_enabled" : 0, "arg_value" : 0}\
 				 ]}'
 	circCreator=CircuitCreator(gateJson,3)
 	print(circCreator.OperatorMatrix())
-	
 	'''
+	
 	
 	
 	
