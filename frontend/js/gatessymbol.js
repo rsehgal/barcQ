@@ -17,13 +17,26 @@ function gate(divid){
 	if(divid=="CONTROL"){
 		return control(divid);
 	}
-	if(divid=="U" || divid=="X" || divid=="Y" || divid=="Z" || divid=="H"|| divid=="RX" || divid=="RY" || divid=="RZ" || divid=="PHASEGATE" || divid=="GLOBALPHASE" || divid=="QFT" || divid=="IQFT" || divid=="ADDA" || divid=="IADD"){
+	//if(divid=="U" || divid=="X" || divid=="Y" || divid=="Z" || divid=="H"|| divid=="RX" || divid=="RY" || divid=="RZ" || divid=="PHASEGATE" || divid=="GLOBALPHASE" || divid=="QFT" || divid=="IQFT" || divid=="ADDA" || divid=="IADD"){
+	if(allowedSingleQubitGates.includes(divid)){
 		return x(divid);
 	}
-	if(divid=="CRX" || divid=="CRY" || divid=="CRZ" || divid=="CPHASE" || divid=="CU"  || divid=="CQFT" ){
+	
+	//if(divid=="CRX" || divid=="CRY" || divid=="CRZ" || divid=="CPHASE" || divid=="CU"  || divid=="CQFT" ){
+	//This will now takes care of all the controlled gates defined in **gatesUIExtended.json**
+	if(allowedControlledGates.includes(divid)){
 		console.log("DIVID substring : "+divid);
 		return cx(divid);
 	}
+	
+	/*
+	for (var index=0; index < parseInt(allowedControlledGates.length) ; index++){
+		if(divid==allowedControlledGates[index]){
+			console.log("DIVID substring : "+divid);
+			//return cx(divid);
+		}
+	}
+	*/ 
 
 }
 
@@ -140,7 +153,19 @@ function cx(divid,ctl_enabled=0){
 	xval=0.0;
     var y1=0,y2=0;
 	y1=0.5*height;
+	var numOfRows=completeJson.instructions.length;
+	g = svg.append('g');
 	
+	for(var index=0; index<parseInt(numOfRows); index++){
+	
+		if(completeJson.instructions[index].name==divid){
+			console.log("SEHGALRAMAN : "+completeJson.instructions[index].name+" : "+completeJson.instructions[index].targetGatename );
+			InsertImageSymbol(g,completeJson.instructions[index].targetGatename,xval,y1);
+			break;
+		}
+	} 
+	 
+	/*
 	g = svg.append('g');
 	if(divid=="CRX"){
 		InsertImageSymbol(g,"RX",xval,y1);
@@ -160,6 +185,7 @@ function cx(divid,ctl_enabled=0){
 	if(divid=="CQFT"){
 		InsertImageSymbol(g,"QFT",xval,y1);
 	}
+	*/
 	
 	y2 = 0.25*height;
 	xval=0.5*width;
