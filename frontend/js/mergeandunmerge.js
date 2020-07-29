@@ -582,8 +582,30 @@ function CreateControlledUnitaryGate(divid){
         }
     }
 
-    
+        if(targetUnitaryGate=="QFT"){
+                var sortedTargetRowIds=unitaryTargetRowIds.UniqueAndSorted();
+        
+                var qftNumOfBits=sortedTargetRowIds[sortedTargetRowIds.length-1]-sortedTargetRowIds[0]+1;
+                var rectwidth=singleDivWidth;
+                var rectheight=singleDivHeight*qftNumOfBits
+                var recty=(sortedTargetRowIds[0]-unitaryControlRowIds[0])*singleDivHeight;
+                var imgY=(rectheight/2)-(singleDivHeight/2);
+                //var recty=(rectheight/2)-(singleDivHeight/2);
+                /*if(recty > 0)
+                    InsertRectangle(g,rectwidth,rectheight,0,recty);
+                else
+                    InsertRectangle(g,rectwidth,rectheight,0,0);*/
+                if(recty < 0)
+                    recty=0;
 
+                InsertRectangle(g,rectwidth,rectheight,0,recty);
+                //InsertImageSymbol(g,targetUnitaryGate,0,recty+singleDivHeight/2);
+                InsertImageSymbol(g,targetUnitaryGate,0,recty+imgY);
+                //var xs=0;
+                //y-=0.5*singleDivHeight;
+                //InsertImageSymbol(g,targetUnitaryGate,xs,y);
+        }
+        else{
     	for(var index=0 ; index < unitaryTargetRowIds.length ; index++){
     		y=unitaryTargetRowIds[index]-offSetRowId;
     		y=(2*y+1)*divheight/(2*rspan);
@@ -594,12 +616,23 @@ function CreateControlledUnitaryGate(divid){
     				InsertCrossSymbol(g,x,y);
     			}
     			else{
-    				var xs=0;
-    				y-=0.5*singleDivHeight;
-    				InsertImageSymbol(g,targetUnitaryGate,xs,y);
+                        var xs=0;
+                        y-=0.5*singleDivHeight;
+                        InsertImageSymbol(g,targetUnitaryGate,xs,y);
+                        /*if(targetUnitaryGate=="QFT"){
+                            var xs=0;
+                            y-=0.5*singleDivHeight;
+                            InsertImageSymbol(g,targetUnitaryGate,xs,y);
+                        }
+                        else{
+    				        var xs=0;
+    				        y-=0.5*singleDivHeight;
+    				        InsertImageSymbol(g,targetUnitaryGate,xs,y);
+                            }*/
     			}
     		}
     	}
+    }
     
     /*
      * Setting various gate attributes

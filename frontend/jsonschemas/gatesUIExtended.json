@@ -17,6 +17,7 @@ gateJson = '{\
 				 {"name":"RZ", "num_bits":1, "ctl_enabled" : 0, "ctl_bits" : "None", "tgt_bits" : [0], "arg_enabled" : 1, "arg_value" : 0, "rowid" : 2, "columnid" : 4},\
 				 {"name":"U", "num_bits":1, "ctl_enabled" : 0, "ctl_bits" : "None", "tgt_bits" : [0], "arg_enabled" : 0, "arg_value" : 0, "rowid" : 2, "columnid" : 4},\
 				 {"name":"CU", "num_bits":2, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1], "arg_enabled" : 0, "arg_value" : 0, "rowid" : 2, "columnid" : 3,"targetGatename":"U"},\
+				 {"name":"CQFT", "num_bits":2, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1], "arg_enabled" : 0, "arg_value" : 0, "rowid" : 2, "columnid" : 3,"targetGatename":"QFT"},\
 				 {"name":"SWAP", "num_bits":2, "ctl_enabled" : 0, "ctl_bits" : "None", "tgt_bits" : [1,2], "arg_enabled" : 0, "arg_value" : "None", "rowid" : 2, "columnid" : 3,"targetGatename":"ONLYSWAP"},\
 				 {"name":"CSWAP", "num_bits":3, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1,2], "arg_enabled" : 0, "arg_value" : "None", "rowid" : 2, "columnid" : 3,"targetGatename":"SWAP"},\
 				 {"name":"CNOT", "num_bits":2, "ctl_enabled" : 1, "ctl_bits" : [2], "tgt_bits" : [3], "arg_enabled" : 0, "arg_value" : "None", "rowid" : 2, "columnid" : 3,"targetGatename":"X"},\

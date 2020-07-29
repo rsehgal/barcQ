@@ -20,7 +20,7 @@ function gate(divid){
 	if(divid=="U" || divid=="X" || divid=="Y" || divid=="Z" || divid=="H"|| divid=="RX" || divid=="RY" || divid=="RZ" || divid=="PHASEGATE" || divid=="GLOBALPHASE" || divid=="QFT" || divid=="IQFT" || divid=="ADDA" || divid=="IADD"){
 		return x(divid);
 	}
-	if(divid=="CRX" || divid=="CRY" || divid=="CRZ" || divid=="CPHASE" || divid=="CU" ){
+	if(divid=="CRX" || divid=="CRY" || divid=="CRZ" || divid=="CPHASE" || divid=="CU"  || divid=="CQFT" ){
 		console.log("DIVID substring : "+divid);
 		return cx(divid);
 	}
@@ -157,6 +157,9 @@ function cx(divid,ctl_enabled=0){
 	if(divid=="CU"){
 		InsertImageSymbol(g,"U",xval,y1);
 	}
+	if(divid=="CQFT"){
+		InsertImageSymbol(g,"QFT",xval,y1);
+	}
 	
 	y2 = 0.25*height;
 	xval=0.5*width;
@@ -251,6 +254,16 @@ function control(divid,ctl_bits=[0,1]){
 
 function InsertControlSymbol(g,x,y){
 	g.append('circle').attr("r",controlrad).attr("cx",x).attr("cy",y).attr("fill","green")
+	    .attr("stroke-width","2px")
+	    .attr("stroke","red");
+}
+
+function InsertRectangle(g,rectwidth,rectheight,x,y){
+	g.append('rect').attr("width",rectwidth)
+					.attr("height",rectheight)
+					.attr("fill","green")
+					.attr("x",x)
+					.attr("y",y)
 	    .attr("stroke-width","2px")
 	    .attr("stroke","red");
 }
