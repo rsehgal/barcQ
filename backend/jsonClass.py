@@ -123,6 +123,10 @@ class CircuitCreator:
 				self.U_list.append(gate_expand_ntoN(mat=PhiAddA(math.floor(len(gate.targets)/2)),target_list=gate.targets,N=self.N))
 			elif gate.name == "IADD":
 				self.U_list.append(gate_expand_ntoN(mat=PhiAddA(math.floor(len(gate.targets)/2)),target_list=gate.targets,N=self.N).dag())
+			elif gate.name == "CQFT":
+				self.U_list.append(gate_expand_ntoN(mat=ControlledUnitaryMatrix(qft(len(gate.targets)),gate.controls,gate.targets),control_list=gate.controls,target_list=gate.targets,N=self.N))
+				
+			#gate_expand_ntoN(ctlCNOT,[0],[2,3],N=4)
 
 
 		print("========= printing Propagators +===============")
@@ -233,7 +237,8 @@ class CircuitCreator:
 
 	def DumpCircuitImage(self,targetCkt="Self"):
 		if(targetCkt=="Self"):
-			self.qutip_circuit.png
+			#self.qutip_circuit.png
+			return True
 		else:
 			targetCkt.png
 		return True
@@ -393,9 +398,17 @@ def main():
 				 {"name":"BERKELEY", "num_bits":2, "ctl_enabled" : 0, "ctl_bits" : "None", "tgt_bits" : [1,2], "arg_enabled" : 0, "arg_value" : 0},\
 				 {"name":"TOFFOLI", "num_bits":3, "ctl_enabled" : 1, "ctl_bits" : [0,2], "tgt_bits" : [1], "arg_enabled" : 0, "arg_value" : "None"},\
 				 {"name":"ISWAP", "num_bits":2, "ctl_enabled" : 0, "ctl_bits" : "None", "tgt_bits" : [1,2], "arg_enabled" : 0, "arg_value" : 0},\
-				 {"name":"QFT", "num_bits":2, "ctl_enabled" : 0, "ctl_bits" : "None", "tgt_bits" : [1,2], "arg_enabled" : 0, "arg_value" : 0}\
+				 {"name":"QFT", "num_bits":2, "ctl_enabled" : 0, "ctl_bits" : "None", "tgt_bits" : [1,2], "arg_enabled" : 0, "arg_value" : 0},\
+				 {"name":"CQFT", "num_bits":2, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1,2], "arg_enabled" : 0, "arg_value" : 0}\
 				 ]}'
-	
+	'''
+	gateJson = '{\
+				 "header":{},\
+				 "config":{},\
+				 "instructions":[\
+				 {"name":"CQFT", "num_bits":2, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1,2], "arg_enabled" : 0, "arg_value" : 0}\
+				 ]}'
+	'''
 	'''
 	#Tested
 	gateJson = '{\
@@ -426,8 +439,27 @@ def main():
 	#print(circCreator.gate_list[0].OperatorMatrix())
 	#print(circCreator.gate_list[1].OperatorMatrix())
 	
-	#print(circCreator.OperatorMatrix())
-	circCreator.DumpCircuitImage()
+	
+	'''
+	# DEMONSTRATION OF CONTROLLED QFT
+	#
+	# Below block can be used to see the operator matrix of controlled QFT gate.
+	# Its working nicely
+	
+	gateJson = '{\
+				 "header":{},\
+				 "config":{},\
+				 "instructions":[\
+				 {"name":"CQFT", "num_bits":2, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1,2], "arg_enabled" : 0, "arg_value" : 0}\
+				 ]}'
+	circCreator=CircuitCreator(gateJson,3)
+	print(circCreator.OperatorMatrix())
+	
+	'''
+	
+	
+	
+	#circCreator.DumpCircuitImage()
 	#circCreator.DumpDecomposedCircuitImage()
 	
 
