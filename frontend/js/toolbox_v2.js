@@ -1,7 +1,13 @@
 function CreateToolBox(){
 
 var mydataExtended = JSON.parse(gateJson);
+completeJson = mydataExtended;
 var mydata = mydataExtended.instructions;
+allowedControlledGates = mydataExtended.controlledgates;
+allowedSingleQubitGates = mydataExtended.singequbitgates;
+console.log("@@@@@@@@@@@@@@@ Available controlled gates @@@@@@@@@@@@@@@@@@@@");
+console.log(typeof allowedControlledGates)
+console.log(allowedControlledGates)
 var numOfRows=mydata.length;
 var $tableSingle = $('<table border=1 cellpading=0 cellspacing=0/>');
 var $tableMultiple = $('<table border=1 cellpading=0 cellspacing=0/>');
