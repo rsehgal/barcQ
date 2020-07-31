@@ -24,6 +24,11 @@ def ControlledUnitaryMatrix(mat,control=[0],target=[1]):
 	targetStart=target[0]
 	targetEnd=target[len(target)-1]
 	targetDim=mat.shape[0]
+	
+	print("Length of Control : "+format(len(control)))
+	print("Control : "+format(control))
+	print("Length of Target : "+format(len(target)))
+	print("Control : "+format(target))
 
 	if control[len(control)-1] < targetStart:
 		totalSize=2**(targetEnd-control[0]+1)
@@ -112,7 +117,7 @@ def PhiAddA(N=None):
 	#return res
 
 def gate_expand_ntoN(mat,control_list=None,target_list=None,N=1):
-
+	print("======== From gate_expand_ntoN =======") 
 	print("=========== control_list ============= ")
 	print(control_list)
 	print("=========== target_list ==============")
@@ -120,17 +125,36 @@ def gate_expand_ntoN(mat,control_list=None,target_list=None,N=1):
 	if control_list is None and target_list is None:
 		raise ValueError("Unspecified Control and Target list")
 
+	#ctl_list=control_list
+	#print( hex(id(ctl_list)))
+	#print(hex(id(control_list)))
+	
+	ctl_list=[]
+	for val in control_list:
+		ctl_list.append(val)
+	print( hex(id(ctl_list)))
+	print(hex(id(control_list)))
+	
 	if control_list is None:
+		print("Control list is None......")
 		targets=target_list
 	else:
+		print("==== Printing again Control and Target List : Attempt -1 ========")
+		print("Control : "+format(control_list))
 		for val in target_list:
-			control_list.append(val)
+			#control_list.append(val)
+			ctl_list.append(val)
 		#targets=control_list+target_list
-		targets=control_list
+		#targets=control_list
+	print("==== Printing again Control and Target List : Attempt 1 ========")
+	print("Control : "+format(control_list))
+	print("Target : "+format(target_list))
+	targets=ctl_list
 
 	targets.sort()
-	print(control_list)
-	print(target_list)
+	print("==== Printing again Control and Target List : Attempt 2 ========")
+	print("Control : "+format(control_list))
+	print("Target : "+format(target_list))
 	print(N)
 	print("Printing Targets ............")
 	print(targets)
@@ -188,7 +212,7 @@ def gate_expand_ntoN(mat,control_list=None,target_list=None,N=1):
 	#print("@@@@@@@@@@@@@ finalMatrix @@@@@@@@@@@")
 	#rint(finalMatrix)
 
-	return finalMatrix
+	return Qobj(finalMatrix)
 
 def main():
 	print(x(N=1,target=0))

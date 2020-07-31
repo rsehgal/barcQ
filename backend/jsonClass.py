@@ -124,6 +124,7 @@ class CircuitCreator:
 			elif gate.name == "IADD":
 				self.U_list.append(gate_expand_ntoN(mat=PhiAddA(math.floor(len(gate.targets)/2)),target_list=gate.targets,N=self.N).dag())
 			elif gate.name == "CQFT":
+				print("Controls of QFT : "+format(gate.controls))
 				self.U_list.append(gate_expand_ntoN(mat=ControlledUnitaryMatrix(qft(len(gate.targets)),gate.controls,gate.targets),control_list=gate.controls,target_list=gate.targets,N=self.N))
 				
 			#gate_expand_ntoN(ctlCNOT,[0],[2,3],N=4)
@@ -206,8 +207,20 @@ class CircuitCreator:
 		print("****** Data from Apply *******")
 		print(self.OperatorMatrix())
 		#print(self.inputState)
-		print("******************************")
-		return self.OperatorMatrix()*self.inputState
+		print("*********** Calculating Multipliation with input state *******************")
+		operatorMatrix=self.OperatorMatrix()
+		print("Type of operator matrix : "+format(type(operatorMatrix))+" : shape : "+format(operatorMatrix.shape))
+		print("Type of input state : "+format(type(self.inputState))+" : shape : "+format(self.inputState.shape))
+		print("========== Printing Operator matrix =============")
+		print(operatorMatrix)
+		print("======== Printing input state ============")
+		print(self.inputState.data.toarray())
+		#print(operatorMatrix.data.toarray().shape)
+		#print(self.inputState.data.toarray().shape)
+		#return np.dot(operatorMatrix.data.toarray(),self.inputState.data.toarray())
+		retMat =  np.dot(operatorMatrix,self.inputState.data.toarray())
+		return retMat
+		
 		
 	def PrepareInputState(self):
 		for qbitIndex in range(self.input_lines):
@@ -217,14 +230,21 @@ class CircuitCreator:
 	def Gate_Sequence_Product(self,matList):
 		matLength=len(matList)
 		matProd=matList[matLength-1]
+		matProd=matProd.data.toarray()
 		print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+		print("matProd type : "+format(type(matProd)))
 		print(matProd.shape)
 
 		for index in range(matLength-1):
 			print((matList[matLength-2-index]).shape)
-			matProd=matProd*matList[matLength-2-index]
+			#matProd=matProd*matList[matLength-2-index]
+			nextMat=matList[matLength-2-index]
+			nextMat=nextMat.data.toarray()
+			matProd=np.dot(matProd,nextMat) 
 		
-		print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+		print("@@@@@@@@@@@@ END OF Gate_Sequence_Product @@@@@@@@@@@@@@@@@@@@@@@@@@")
+		print("===== Printing MatProd ==========")
+		print(matProd)
 		return matProd
 
 

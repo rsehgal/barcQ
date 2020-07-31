@@ -52,7 +52,10 @@ class StringGenerator(object):
     '''
     def OutputToJson(self):
         yList=self.output[:,0]
-        yStringList=[abs(item)[0]**2 for item in yList]
+        print("====== Printing Y List ==========")
+        print(yList)
+        #yStringList=[abs(item)[0]**2 for item in yList]
+        yStringList=[abs(item)**2 for item in yList]
         xList=[bin(val) for val in range(2**self.numOfInputLines)]
         jsonData={"xdata":xList,"ydata":yStringList}
         # print("++++++++++++++++++++++++++++++")
