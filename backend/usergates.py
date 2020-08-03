@@ -26,12 +26,18 @@ def ControlledUnitaryMatrix(mat,control=[0],target=[1]):
 	targetDim=mat.shape[0]
 
 	if control[len(control)-1] < targetStart:
-		totalSize=2**(targetEnd-control[0]+1)
+		nbits=(targetEnd-control[0]+1)
+		#totalSize=2**(targetEnd-control[0]+1)
 	if targetEnd < control[0]:
-		totalSize=2**(control[len(control)-1]-targetStart+1)
+		nbits=(control[len(control)-1]-targetStart+1)
+		#totalSize=2**(control[len(control)-1]-targetStart+1)
 	#else:
 	#	totalSize=2**(control-targetStart+1)
 
+	dims=[]
+	for ind in range(nbits):
+		dims.append(2)
+	totalSize=2**nbits
 	print("Total Size : "+str(totalSize))
 	print("targetDim : "+str(targetDim))
 	iden0=int(totalSize/2)
@@ -50,11 +56,20 @@ def ControlledUnitaryMatrix(mat,control=[0],target=[1]):
 		first=tensor(iden0,zero*zero.dag())
 		second=tensor(mat,iden1,one*one.dag())
 			
+	first.dims=[dims,dims]
+	second.dims=[dims,dims]
 	#else:
 	#	first=tensor(iden0,zero*zero.dag())
 	#	second=tensor(mat,iden1,one*one.dag())
 
-	return Qobj(first.data.toarray()+second.data.toarray())
+	'''
+	print("======= First Shape =======")
+	print(first)
+	print("====== Second Shape =======")
+	print(second)
+	'''
+	return (first+second)
+	#return Qobj(first.data.toarray()+second.data.toarray())
 
 
 def PhiAddA(N=None):
@@ -111,6 +126,7 @@ def PhiAddA(N=None):
 	return matProd
 	#return res
 
+'''
 def gate_expand_ntoN(mat,control_list=None,target_list=None,N=1):
 
 	print("=========== control_list ============= ")
@@ -189,6 +205,106 @@ def gate_expand_ntoN(mat,control_list=None,target_list=None,N=1):
 	#rint(finalMatrix)
 
 	return finalMatrix
+'''
+def gate_expand_ntoN(mat,control_list=None,target_list=None,N=1):
+	print("======== From gate_expand_ntoN =======") 
+	print("=========== control_list ============= ")
+	print(control_list)
+	print("=========== target_list ==============")
+	print(target_list)
+	if control_list is None and target_list is None:
+		raise ValueError("Unspecified Control and Target list")
+
+	#ctl_list=control_list
+	#print( hex(id(ctl_list)))
+	#print(hex(id(control_list)))
+	
+	ctl_list=[]
+	for val in control_list:
+		ctl_list.append(val)
+	print( hex(id(ctl_list)))
+	print(hex(id(control_list)))
+	
+	if control_list is None:
+		print("Control list is None......")
+		targets=target_list
+	else:
+		print("==== Printing again Control and Target List : Attempt -1 ========")
+		print("Control : "+format(control_list))
+		for val in target_list:
+			#control_list.append(val)
+			ctl_list.append(val)
+		#targets=control_list+target_list
+		#targets=control_list
+	print("==== Printing again Control and Target List : Attempt 1 ========")
+	print("Control : "+format(control_list))
+	print("Target : "+format(target_list))
+	targets=ctl_list
+
+	targets.sort()
+	print("==== Printing again Control and Target List : Attempt 2 ========")
+	print("Control : "+format(control_list))
+	print("Target : "+format(target_list))
+	print(N)
+	print("Printing Targets ............")
+	print(targets)
+
+	targetStartIndex = targets[0]
+	targetEndIndex = targets[len(targets)-1]
+	if N  <= targetEndIndex:
+		raise ValueError("integer N must be larger then "+str(targetEndIndex))
+	idenListBeg = []
+	idenListEnd = []
+	for idenIndex in range(targetStartIndex):
+		idenListBeg.append(qeye(2))
+	print("@@@@@@@@@@@@@ IDEN_LIST_BEG @@@@@@@@@@@")
+	print("Length of IdenListBeg : "+str(len(idenListBeg)))
+	print(idenListBeg)
+	for idenIndex in range(targetEndIndex+1,N):
+		idenListEnd.append(qeye(2))
+	print("@@@@@@@@@@@@@ IDEN_LIST_END @@@@@@@@@@@")
+	print("Length of IdenListEng : "+str(len(idenListEnd)))
+	print(idenListEnd)
+	#qftMatrix = qft(len(targets))
+		
+	#finalMatrix = qft(len(targets))
+	finalMatrix = mat
+		
+	#print("@@@@@@@@@@@@@ QFTMatrix @@@@@@@@@@@")
+	#print(qftMatrix)
+
+	#print("Length of idenListBeg : "+str(len(idenListBeg)))
+	# startingTensor=qeye(2)
+	#finalMatrix=0
+	if len(idenListBeg) != 0:
+		startingTensor=qeye(2)	
+		for index in range(1,len(idenListBeg)):
+			startingTensor = tensor(startingTensor,qeye(2))
+		finalMatrix = tensor(startingTensor,finalMatrix)
+	#print("@@@@@@@@@@@@@ startingTensor @@@@@@@@@@@")
+	#print(startingTensor)
+	print("===== Final Matrix after taking care of idenListBeg =====")
+	print(finalMatrix.shape)
+
+	#print("Length of idenListEnd : "+str(len(idenListEnd)))
+	# endingTensor=qeye(2)
+	if len(idenListEnd) != 0:
+		endingTensor=qeye(2)	
+		for index in range(1,len(idenListEnd)):
+			endingTensor = tensor(endingTensor,qeye(2))
+		finalMatrix = tensor(finalMatrix,endingTensor)
+	#print("@@@@@@@@@@@@@ endingTensor @@@@@@@@@@@")
+	#print(endingTensor)
+	print("===== Final Matrix after taking care of idenListEnd =====")
+	print(finalMatrix.shape)
+
+	#finalMatrix = tensor(startingTensor,qftMatrix,endingTensor)
+	#print("@@@@@@@@@@@@@ finalMatrix @@@@@@@@@@@")
+	#rint(finalMatrix)
+
+	return finalMatrix
+	#return Qobj(finalMatrix)
+
 
 def main():
 	print(x(N=1,target=0))
