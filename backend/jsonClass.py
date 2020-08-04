@@ -224,7 +224,9 @@ class CircuitCreator:
 		#print(operatorMatrix.data.toarray().shape)
 		#print(self.inputState.data.toarray().shape)
 		#return np.dot(operatorMatrix.data.toarray(),self.inputState.data.toarray())
-		retMat =  np.dot(operatorMatrix,self.inputState.data.toarray())
+		
+		#retMat =  np.dot(operatorMatrix,self.inputState.data.toarray())
+		retMat = operatorMatrix*self.inputState
 		return retMat
 		
 		
@@ -236,7 +238,7 @@ class CircuitCreator:
 	def Gate_Sequence_Product(self,matList):
 		matLength=len(matList)
 		matProd=matList[matLength-1]
-		matProd=matProd.data.toarray()
+		#matProd=matProd.data.toarray()
 		print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
 		print("matProd type : "+format(type(matProd)))
 		print(matProd.shape)
@@ -245,8 +247,9 @@ class CircuitCreator:
 			print((matList[matLength-2-index]).shape)
 			#matProd=matProd*matList[matLength-2-index]
 			nextMat=matList[matLength-2-index]
-			nextMat=nextMat.data.toarray()
-			matProd=np.dot(matProd,nextMat) 
+			#nextMat=nextMat.data.toarray()
+			#matProd=np.dot(matProd,nextMat) 
+			matProd=matProd*nextMat
 		
 		print("@@@@@@@@@@@@ END OF Gate_Sequence_Product @@@@@@@@@@@@@@@@@@@@@@@@@@")
 		print("===== Printing MatProd ==========")
