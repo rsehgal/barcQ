@@ -71,6 +71,7 @@ for(var index=0; index<parseInt(numOfRows); index++){
      QFTAttach(svgGate);
      if(parseInt(mydata[index].num_bits)>1){
 			svgGate.attr("targetGatename",mydata[index].targetGatename);
+      svgGate.attr("targetGateType",mydata[index].targetGateType);
 	 }
 }
 
