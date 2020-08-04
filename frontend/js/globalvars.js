@@ -32,8 +32,8 @@ var userDefinedControlGatesRowIds=[];
 var userDefinedControlGateColumnId=0;
 
 //Global variables to define the number of rows and columns in the dropzone
-var numOfRowsInInterface=14;
-var numOfColsInInterface=14;
+var numOfRowsInInterface=30;
+var numOfColsInInterface=30;
 
 
 
@@ -93,6 +93,7 @@ var countData=[{
 //Variable introduced for GenericControllUnitaryGates
 var colIdOfGenericControlledUnitaryGate=0;
 var targetUnitaryGate="";
+var targetUnitaryGateType=""
 var unitaryControlRowIds=[];
 var unitaryTargetRowIds=[];
 var offSetRowId=0;

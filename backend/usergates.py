@@ -128,12 +128,13 @@ def gate_expand_ntoN(mat,control_list=None,target_list=None,N=1):
 	#ctl_list=control_list
 	#print( hex(id(ctl_list)))
 	#print(hex(id(control_list)))
-	
 	ctl_list=[]
-	for val in control_list:
-		ctl_list.append(val)
-	print( hex(id(ctl_list)))
-	print(hex(id(control_list)))
+	if control_list is not None:
+		ctl_list=[]
+		for val in control_list:
+			ctl_list.append(val)
+	#print( hex(id(ctl_list)))
+	#print(hex(id(control_list)))
 	
 	if control_list is None:
 		print("Control list is None......")
@@ -144,12 +145,13 @@ def gate_expand_ntoN(mat,control_list=None,target_list=None,N=1):
 		for val in target_list:
 			#control_list.append(val)
 			ctl_list.append(val)
+		targets=ctl_list	
 		#targets=control_list+target_list
 		#targets=control_list
 	print("==== Printing again Control and Target List : Attempt 1 ========")
 	print("Control : "+format(control_list))
 	print("Target : "+format(target_list))
-	targets=ctl_list
+	# targets=ctl_list
 
 	targets.sort()
 	print("==== Printing again Control and Target List : Attempt 2 ========")

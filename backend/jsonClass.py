@@ -126,7 +126,13 @@ class CircuitCreator:
 			elif gate.name == "CQFT":
 				print("Controls of QFT : "+format(gate.controls))
 				self.U_list.append(gate_expand_ntoN(mat=ControlledUnitaryMatrix(qft(len(gate.targets)),gate.controls,gate.targets),control_list=gate.controls,target_list=gate.targets,N=self.N))
-				
+			elif gate.name == "CADD":
+				print("Controls of QFT : "+format(gate.controls))
+				self.U_list.append(gate_expand_ntoN(mat=ControlledUnitaryMatrix(PhiAddA(math.floor(len(gate.targets)/2)),gate.controls,gate.targets),control_list=gate.controls,target_list=gate.targets,N=self.N))					
+			elif gate.name == "CSUB":
+				#print("Controls of QFT : "+format(gate.controls))
+				self.U_list.append(gate_expand_ntoN(mat=ControlledUnitaryMatrix(PhiAddA(math.floor(len(gate.targets)/2)).dag(),gate.controls,gate.targets),control_list=gate.controls,target_list=gate.targets,N=self.N))					
+			
 			#gate_expand_ntoN(ctlCNOT,[0],[2,3],N=4)
 
 
