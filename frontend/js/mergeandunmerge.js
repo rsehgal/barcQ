@@ -87,6 +87,7 @@ function MergeCellsUserDefinedGate(){
                 $('#'+sortedCellIdsArray[index]).parent().remove();
         }
         
+        var overallDivHeight=$("#"+sortedCellIdsArray[0]).height();
         svg=d3.select("#"+sortedCellIdsArray[0]).append('svg')
         					.attr("width",$("#"+sortedCellIdsArray[0]).width())
         					.attr("height",$("#"+sortedCellIdsArray[0]).height())
@@ -135,6 +136,17 @@ function MergeCellsUserDefinedGate(){
 					default: x = 0;
 					y -= 0.5*singleDivHeight;
 					InsertImageSymbol(g,gateName,x,y);break;
+
+
+
+                    /*
+                    var rectwidth=singleDivWidth;
+                    var rectheight=overallDivHeight;
+                    //var recty=(rectheight/2)-(singleDivHeight/2);
+                    var imgY=(rectheight/2)-(singleDivHeight/2);
+                    InsertRectangle(g,rectwidth,rectheight,0,0);
+                    InsertImageSymbol(g,gateName,0,imgY);
+                    */
 					
 				}	
         
@@ -440,6 +452,7 @@ function AttachGenericControlPopup(obj){
 	obj.on("contextmenu", function(event) {
         //if(obj.attr("gate")=="CNOT")
         targetUnitaryGate=obj.attr("targetGatename");
+        targetUnitaryGateType=obj.attr("targetGateType");
 		//handle right click
 		//alert("Right clicked from Attach Generic .........");
 		//stop showing browser menu
@@ -582,7 +595,8 @@ function CreateControlledUnitaryGate(divid){
         }
     }
 
-        if(targetUnitaryGate=="QFT"){
+        //if(targetUnitaryGate=="QFT"){
+            if(targetUnitaryGateType=="Algo"){
                 var sortedTargetRowIds=unitaryTargetRowIds.UniqueAndSorted();
         
                 var qftNumOfBits=sortedTargetRowIds[sortedTargetRowIds.length-1]-sortedTargetRowIds[0]+1;
