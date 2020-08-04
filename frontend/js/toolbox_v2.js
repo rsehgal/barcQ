@@ -1,7 +1,13 @@
 function CreateToolBox(){
 
 var mydataExtended = JSON.parse(gateJson);
+completeJson = mydataExtended;
 var mydata = mydataExtended.instructions;
+allowedControlledGates = mydataExtended.controlledgates;
+allowedSingleQubitGates = mydataExtended.singequbitgates;
+console.log("@@@@@@@@@@@@@@@ Available controlled gates @@@@@@@@@@@@@@@@@@@@");
+console.log(typeof allowedControlledGates)
+console.log(allowedControlledGates)
 var numOfRows=mydata.length;
 var $tableSingle = $('<table border=1 cellpading=0 cellspacing=0/>');
 var $tableMultiple = $('<table border=1 cellpading=0 cellspacing=0/>');
@@ -65,6 +71,7 @@ for(var index=0; index<parseInt(numOfRows); index++){
      QFTAttach(svgGate);
      if(parseInt(mydata[index].num_bits)>1){
 			svgGate.attr("targetGatename",mydata[index].targetGatename);
+      svgGate.attr("targetGateType",mydata[index].targetGateType);
 	 }
 }
 

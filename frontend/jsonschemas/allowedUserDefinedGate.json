@@ -11,6 +11,8 @@ userGateJson = '{\
 				{"name":"CSIGN",   "num_bits":2,"ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1], "arg_enabled" : 1, "arg_value" : 0,"gate_formedby":["CONTROL","Z"]},\
 				{"name":"FREDKIN","num_bits":3, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1,2], "arg_enabled" : 0, "arg_value" : "None", "gate_formedby":["CONTROL","SWAP"]},\
 				{"name":"CPHASE","num_bits":2, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1], "arg_enabled" : 1, "arg_value" : 0, "gate_formedby":["CONTROL","PHASEGATE"]},\
-				{"name":"CGLOBALPHASE","num_bits":2, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1], "arg_enabled" : 1, "arg_value" : 0, "gate_formedby":["CONTROL","GLOBALPHASE"]}\
+				{"name":"CGLOBALPHASE","num_bits":2, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1], "arg_enabled" : 1, "arg_value" : 0, "gate_formedby":["CONTROL","GLOBALPHASE"]},\
+				{"name":"CU","num_bits":2, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1], "arg_enabled" : 0, "arg_value" : 0, "gate_formedby":["CONTROL","U"]},\
+				{"name":"CQFT","num_bits":2, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1], "arg_enabled" : 0, "arg_value" : 0, "gate_formedby":["CONTROL","QFT"]}\
 				 ]}'
 				 
