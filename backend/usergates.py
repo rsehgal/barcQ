@@ -305,6 +305,25 @@ def gate_expand_ntoN(mat,control_list=None,target_list=None,N=1):
 	return finalMatrix
 	#return Qobj(finalMatrix)
 
+def Shift(target_list,shift_list):
+	'''
+	Index 0 contains the MSB, and index len-1 contains the LSB
+	Ancilliary register should be after the target register
+	'''
+	n=len(shift_list)
+	numOfSwapOperations=len(target_list)-1+n
+	N=shift_list[len(shift_list)-1]-target_list[0]+1
+	for val in shift_list:
+		target_list.append(val)
+	shiftMat=swap(N,target_list[0:2])
+	for index in range(1,numOfSwapOperations):
+		tgt_list=[target_list[index],target_list[index+1]]
+		#shiftMat=shiftMat*swap(N,target_list[index:index+2])
+		shiftMat=shiftMat*swap(N,tgt_list)
+	return shiftMat
+
+
+
 
 def main():
 	print(x(N=1,target=0))
@@ -332,6 +351,20 @@ def main():
 	print('========= Trying Controlled NOT Gate =========')
 	ctlX=ControlledUnitaryMatrix(sigmax(),[0],[1])
 	print(ctlX)
+
+	print('========= Trying Shift Gate =========')
+	zero=basis(2,0)
+	one=basis(2,1)
+	fiveBit_4=tensor(zero,one,zero,zero)
+	ancilla=zero
+	inp=tensor(fiveBit_4,ancilla)
+	shiftMat=Shift([0,1,2,3],[4])
+	print(shiftMat)
+	print("============ input  ===========")
+	print(inp.dag())
+	print("============ output ===========")
+	output=shiftMat*inp
+	print(output.dag())
 
 	
 	#print(ControlledUnitaryMatrix(sigmax(),1,[0]))
