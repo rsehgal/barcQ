@@ -63,8 +63,8 @@ table{
 		#parentForOverlappingDiv{
     		left: 50;
     		right: 50;
-    		width: 530;
-    		height: 530;
+    		width: 1000;
+    		height: 1000;
     		position: relative;
     	}
 

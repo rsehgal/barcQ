@@ -115,14 +115,25 @@ class CircuitCreator:
 				self.U_list.append(controlled_gate(globalphase(gate.arg_value), N=self.N, control=gate.controls[0], target=gate.targets[0]))
 			elif gate.name == "QFT":
 				#self.U_list.append(self.QFTMatrix(gate.targets))
-				self.U_list.append(gate_expand_ntoN(qft(len(gate.targets)),gate.targets,self.N))
+				self.U_list.append(gate_expand_ntoN(mat=qft(len(gate.targets)),target_list=gate.targets,N=self.N))
 			elif gate.name == "IQFT":
 				#self.U_list.append((self.QFTMatrix(gate.targets)).dag())
-				self.U_list.append(gate_expand_ntoN(qft(len(gate.targets)),gate.targets,self.N).dag())
+				self.U_list.append(gate_expand_ntoN(mat=qft(len(gate.targets)),target_list=gate.targets,N=self.N).dag())
 			elif gate.name == "ADDA":
-				self.U_list.append(gate_expand_ntoN(PhiAddA(math.floor(len(gate.targets)/2)),gate.targets,self.N))
+				self.U_list.append(gate_expand_ntoN(mat=PhiAddA(math.floor(len(gate.targets)/2)),target_list=gate.targets,N=self.N))
 			elif gate.name == "IADD":
-				self.U_list.append(gate_expand_ntoN(PhiAddA(math.floor(len(gate.targets)/2)),gate.targets,self.N).dag())
+				self.U_list.append(gate_expand_ntoN(mat=PhiAddA(math.floor(len(gate.targets)/2)),target_list=gate.targets,N=self.N).dag())
+			elif gate.name == "CQFT":
+				print("Controls of QFT : "+format(gate.controls))
+				self.U_list.append(gate_expand_ntoN(mat=ControlledUnitaryMatrix(qft(len(gate.targets)),gate.controls,gate.targets),control_list=gate.controls,target_list=gate.targets,N=self.N))
+			elif gate.name == "CADD":
+				print("Controls of QFT : "+format(gate.controls))
+				self.U_list.append(gate_expand_ntoN(mat=ControlledUnitaryMatrix(PhiAddA(math.floor(len(gate.targets)/2)),gate.controls,gate.targets),control_list=gate.controls,target_list=gate.targets,N=self.N))					
+			elif gate.name == "CSUB":
+				#print("Controls of QFT : "+format(gate.controls))
+				self.U_list.append(gate_expand_ntoN(mat=ControlledUnitaryMatrix(PhiAddA(math.floor(len(gate.targets)/2)).dag(),gate.controls,gate.targets),control_list=gate.controls,target_list=gate.targets,N=self.N))					
+			
+			#gate_expand_ntoN(ctlCNOT,[0],[2,3],N=4)
 
 
 		print("========= printing Propagators +===============")
@@ -202,8 +213,22 @@ class CircuitCreator:
 		print("****** Data from Apply *******")
 		print(self.OperatorMatrix())
 		#print(self.inputState)
-		print("******************************")
-		return self.OperatorMatrix()*self.inputState
+		print("*********** Calculating Multipliation with input state *******************")
+		operatorMatrix=self.OperatorMatrix()
+		print("Type of operator matrix : "+format(type(operatorMatrix))+" : shape : "+format(operatorMatrix.shape))
+		print("Type of input state : "+format(type(self.inputState))+" : shape : "+format(self.inputState.shape))
+		print("========== Printing Operator matrix =============")
+		print(operatorMatrix)
+		print("======== Printing input state ============")
+		print(self.inputState.data.toarray())
+		#print(operatorMatrix.data.toarray().shape)
+		#print(self.inputState.data.toarray().shape)
+		#return np.dot(operatorMatrix.data.toarray(),self.inputState.data.toarray())
+		
+		#retMat =  np.dot(operatorMatrix,self.inputState.data.toarray())
+		retMat = operatorMatrix*self.inputState
+		return retMat
+		
 		
 	def PrepareInputState(self):
 		for qbitIndex in range(self.input_lines):
@@ -213,14 +238,22 @@ class CircuitCreator:
 	def Gate_Sequence_Product(self,matList):
 		matLength=len(matList)
 		matProd=matList[matLength-1]
+		#matProd=matProd.data.toarray()
 		print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+		print("matProd type : "+format(type(matProd)))
 		print(matProd.shape)
 
 		for index in range(matLength-1):
 			print((matList[matLength-2-index]).shape)
-			matProd=matProd*matList[matLength-2-index]
+			#matProd=matProd*matList[matLength-2-index]
+			nextMat=matList[matLength-2-index]
+			#nextMat=nextMat.data.toarray()
+			#matProd=np.dot(matProd,nextMat) 
+			matProd=matProd*nextMat
 		
-		print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+		print("@@@@@@@@@@@@ END OF Gate_Sequence_Product @@@@@@@@@@@@@@@@@@@@@@@@@@")
+		print("===== Printing MatProd ==========")
+		print(matProd)
 		return matProd
 
 
@@ -233,7 +266,8 @@ class CircuitCreator:
 
 	def DumpCircuitImage(self,targetCkt="Self"):
 		if(targetCkt=="Self"):
-			self.qutip_circuit.png
+			#self.qutip_circuit.png
+			return True
 		else:
 			targetCkt.png
 		return True
@@ -393,9 +427,19 @@ def main():
 				 {"name":"BERKELEY", "num_bits":2, "ctl_enabled" : 0, "ctl_bits" : "None", "tgt_bits" : [1,2], "arg_enabled" : 0, "arg_value" : 0},\
 				 {"name":"TOFFOLI", "num_bits":3, "ctl_enabled" : 1, "ctl_bits" : [0,2], "tgt_bits" : [1], "arg_enabled" : 0, "arg_value" : "None"},\
 				 {"name":"ISWAP", "num_bits":2, "ctl_enabled" : 0, "ctl_bits" : "None", "tgt_bits" : [1,2], "arg_enabled" : 0, "arg_value" : 0},\
-				 {"name":"QFT", "num_bits":2, "ctl_enabled" : 0, "ctl_bits" : "None", "tgt_bits" : [1,2], "arg_enabled" : 0, "arg_value" : 0}\
+				 {"name":"QFT", "num_bits":2, "ctl_enabled" : 0, "ctl_bits" : "None", "tgt_bits" : [1,2], "arg_enabled" : 0, "arg_value" : 0},\
+				 {"name":"CQFT", "num_bits":2, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1,2], "arg_enabled" : 0, "arg_value" : 0}\
 				 ]}'
 	
+	
+	'''
+	gateJson = '{\
+				 "header":{},\
+				 "config":{},\
+				 "instructions":[\
+				 {"name":"CQFT", "num_bits":2, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1,2], "arg_enabled" : 0, "arg_value" : 0}\
+				 ]}'
+	'''
 	'''
 	#Tested
 	gateJson = '{\
@@ -426,8 +470,27 @@ def main():
 	#print(circCreator.gate_list[0].OperatorMatrix())
 	#print(circCreator.gate_list[1].OperatorMatrix())
 	
-	#print(circCreator.OperatorMatrix())
-	circCreator.DumpCircuitImage()
+	
+	'''
+	# DEMONSTRATION OF CONTROLLED QFT
+	#
+	# Below block can be used to see the operator matrix of controlled QFT gate.
+	# Its working nicely
+	
+	gateJson = '{\
+				 "header":{},\
+				 "config":{},\
+				 "instructions":[\
+				 {"name":"CQFT", "num_bits":2, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [2], "arg_enabled" : 0, "arg_value" : 0}\
+				 ]}'
+	circCreator=CircuitCreator(gateJson,3)
+	print(circCreator.OperatorMatrix())
+	'''
+	
+	
+	
+	
+	#circCreator.DumpCircuitImage()
 	#circCreator.DumpDecomposedCircuitImage()
 	
 
