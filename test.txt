@@ -1,0 +1,2 @@
+Adding a sample file to check collaborators access from this dummy account.
+These commits may be ignored.
