@@ -87,7 +87,7 @@ function QFTAttach(obj){
 		
 		//Logic to set the number of bits  of QFT or IQFT to the value supplied by user
 		if(obj.attr("gate")=="QFT" || obj.attr("gate")=="IQFT" || obj.attr("gate")=="ADDA" || obj.attr("gate")=="IADD"){
-				var argVal = prompt("Please enter the number of input bits :", 2);
+				var argVal = prompt("Please size of QFT :", 2);
 				console.log("Setting QFT num_bits of "+obj.attr("id")+ " to "+argVal);
 			    obj.attr("num_bits",argVal);
 			    

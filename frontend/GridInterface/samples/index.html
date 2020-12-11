@@ -19,9 +19,11 @@
     <script src = "../../js/cloneanddrag_v2.js"></script>
     <script src = "../../js/selectanddelete.js"></script>
     <script src = "../../js/mergeandunmerge.js"></script>
-    <script src = "../../js/gridtojson.js"></script>
+	<script src = "../../js/gridtojson.js"></script>
+	<script src = "../../js/savefile.js"></script>
     <script src = "../../js/core.js"></script>
-    <script src = "../../js/loadjson.js"></script>
+	<script src = "../../js/loadjson.js"></script>
+	<script src = "../../js/loadfile.js"></script>
     <script src = "../../js/d3.v3.min.js"></script>
     <script src = "../../js/gridinputlines.js"></script>
     <script src = "../../js/redesigngrid.js"></script>
@@ -44,9 +46,9 @@
 	    	$("#mergebutton").click(function(){
         	    GridToJson();
  			});
- 			$("#loadbutton").click(function(){
-        	    LoadJson();
- 			});
+ 			/*$("#loadbutton").click(function(){
+        	    loadFile();
+ 			});*/
  			AddInputLinesToGrid();
  			InsertConnectorOnGrid();
  			ControlGateInitialization();
@@ -162,8 +164,13 @@
   		<button class="tablinks" onclick="openCity(event, 'circuitComposer')">Circuit Editor</button>
   		<button class="tablinks" onclick="openCity(event, 'qutipCode')">QuTiP code</button>
   		<button class="tablinks" onclick="openCity(event, 'results')">Results</button>
-  	</div>
-
+  		<button class="tablinks" onclick="openCity(event, 'help')">Help</button>
+	  </div>
+	<!--<footer>
+		<div>
+			<p> Please send your feedback to <a href="mailto:supratim@barc.gov.in"> Team BARCQ</a>. </p>
+		</div>
+	</footer>-->
 	<div id="circuitComposer" class="tabcontent">
 	<table>
 		<tr> 
@@ -191,14 +198,21 @@
 		</tr>
 	</table>
 	
-	<button type="button" id="mergebutton">Export JSON</button>
-	<button type="button" id="loadbutton">Load Circuit</button>
-    <button type="button" id="savebutton">Save Circuit</button>
-	<button type="button" id="create">New Controlled Gate</button>
-	<button type="button" id="display">Create Gate</button>
-	<button type="button" id="submitButton">Submit</button>
-    <button onclick="window.print()">PrintThisPage</button>
-	<h1 id = "title">What's your name?</h1>
+<!--	<button type="button" id="mergebutton">Export JSON</button>-->
+<!--    <input type="file" id="fileLoader" style="display: none" />-->
+	<button type="button" id="savefile">Save Circuit</button>
+	<button type="button" id="loadbutton" onclick="loadFile()">Load Circuit</button>
+	<button onclick="window.print()">PrintThisPage</button>
+	<button type="button" disabled id="create">New Controlled Gate</button>
+	<button type="button" disabled id="display">Create Gate</button>
+	<button type="button" id="submitButton" class="button"><b>Submit</b></button>
+	<h3 id = "title"></h3>
+	<footer>
+		<div>
+			<p> Please send your feedback to <a href="mailto:supratim@barc.gov.in"> Team BARCQ</a>. </p>
+		</div>
+	</footer>
+
 
 </div>
 
@@ -210,7 +224,42 @@
 	<div id="countPlot"></div>
 	<div id="sumPlot"></div>
 </div>
+<div id="help"  class="tabcontent">
+	<h2> Getting Started</h2>
+	<p><h4>Everything starts from Circuit Editor!</h4></p>
+	<p>Open Circuit Editor. The left pane is the component panel. It shows the collection of components/gates at your disposal for designing the circuit.</p>
+	<p>The grid on the right is the editor panel where you will create your circuit. Each horizontal line in this panel represents a qubit. Use left mouse button to drag
+		and drop any gate from the component panel to the editor panel. Remember to drop the components on the small circles in the editor panel. Components will snap to the grid only on those circles.
+	</p>
+	<p>Once your circuit is ready, press the Submit button (at the bottom of the page). Output will be available under the Results tab</p>
+	<p>There is a Save Circuit button at the bottom of the page for saving the circuit in your local computer. Depending on your browser settings, either it will ask for a location to save the file or it will save in some default location (already set in your browser; most likely the Download folder if your OS is Windows)</p>
+	<p>The Load Circuit button loads a previously saved circuit. But it has some bug! So it is not very useful at present.</p>
+	<p>You can print the whole page using PrintThisPage button</p>
+	<p>Under the Results tab, you have access to the following features: </p>
+	<p>Download the plot as a png file</p>
+	<p>Zoom in and Zoom out</p>
+	<p>Auto Scale</p>
+	<p>Reset Axes</p>
+	<p>Show closest data on hover</p>
+	<p>Compare data on hover</p>
+	<p>****************************************************************************************************************************</p>
+	<p><h5>A few easy tricks</h5></p>
+	<p>Refresh the page if something is not working as expected.</p>
+	<p>Clear cache if you get some error message and refreshing the page is not helping.</p>
+	<p>****************************************************************************************************************************</p>
+	<p><h5>Coming Soon</h5></p>
+	<p>Examples</p>
+	<p>****************************************************************************************************************************</p>
+	<footer>
+		<div>
+			<p><h4>Experiment and Explore</h4></p>
+			<p> Please send your feedback to <a href="mailto:supratim@barc.gov.in">supratim@barc.gov.in</a>. </p>
+		</div>
+	</footer>
 	
+
+	
+</div>	
 <div class="hover_bkgr_fricc" id="gatePopup">
     <span class="helper"></span>
     <div>

@@ -16,7 +16,7 @@ class StringGenerator(object):
     @cherrypy.expose
     def index(self):
         #return open('public/test.html')
-        return open('../../frontend/GridInterface/samples/gridSkeleton.html')
+        return open('../../frontend/GridInterface/samples/index.html')
 
     @cherrypy.expose
     def generate(self, length=8):
@@ -28,7 +28,7 @@ class StringGenerator(object):
     def CodeGenerator(self, jsonObj):
         
         #cherrypy.response.headers['Content-Type'] = 'application/json'
-        cherrypy.response.headers["Access-Control-Allow-Origin"] = "http://localhost"
+        cherrypy.response.headers["Access-Control-Allow-Origin"] = "http://10.35.30.162"
         print("====================================")
         print("Code Generator called...........")
         print("JSONObj : "+jsonObj)
@@ -137,33 +137,33 @@ if __name__ == '__main__':
          '/static': {
              'tools.staticdir.on': True,
              #'tools.staticdir.dir': './public'
-             #'tools.staticdir.dir': '/home/rsehgal/barcQ/frontend'
+             #'tools.staticdir.dir': '/home/supratim/barcQ_Supratim/frontend'
              'tools.staticdir.dir': '../../frontend'
          },
          '/images': {
              'tools.staticdir.on': True,
              #'tools.staticdir.dir': './public'
-             #'tools.staticdir.dir': '/home/rsehgal/barcQ/frontend/images'
+             #'tools.staticdir.dir': '/home/supratim/barcQ_Supratim/frontend/images'
              'tools.staticdir.dir': '../../frontend/images'
          },
          '/css': {
              'tools.staticdir.on': True,
              #'tools.staticdir.dir': './public'
-             #'tools.staticdir.dir': '/home/rsehgal/barcQ/frontend/css'
+             #'tools.staticdir.dir': '/home/supratim/barcQ_Supratim/frontend/css'
              'tools.staticdir.dir': '../../frontend/css'
          },
          '/js': {
              'tools.staticdir.on': True,
              #'tools.staticdir.dir': './public'
-             #'tools.staticdir.dir': '/home/rsehgal/barcQ/frontend/js'
+             #'tools.staticdir.dir': '/home/supratim/barcQ_Supratim/frontend/js'
              'tools.staticdir.dir': '../../frontend/js'
          },
          '/jsonschemas': {
              'tools.staticdir.on': True,
              #'tools.staticdir.dir': './public'
-             #'tools.staticdir.dir': '/home/rsehgal/barcQ/frontend/jsonschemas'
+             #'tools.staticdir.dir': '/home/supratim/barcQ_Supratim/frontend/jsonschemas'
              'tools.staticdir.dir': '../../frontend/jsonschemas'
          }
      }
-     cherrypy.config.update({'server.socket_host': 'localhost','server.socket_port':8000})
+     cherrypy.config.update({'server.socket_host': '10.35.30.162','server.socket_port':8000})
      cherrypy.quickstart(StringGenerator(), '/', conf)
