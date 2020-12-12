@@ -3,6 +3,7 @@ gateJson = '{\
 				 "config":{},\
 				 "instructions":[\
 				 {"name":"PHASEGATE", "num_bits":1, "ctl_enabled" : 0, "ctl_bits" : "None", "tgt_bits" : [0], "arg_enabled" : 1, "arg_value" : 0, "rowid" : 2, "columnid" : 4},\
+				 {"name":"T", "num_bits":1, "ctl_enabled" : 0, "ctl_bits" : "None", "tgt_bits" : [0], "arg_enabled" : 0, "arg_value" : 0.78539816339, "rowid" : 2, "columnid" : 4},\
 				 {"name":"GLOBALPHASE", "num_bits":1, "ctl_enabled" : 0, "ctl_bits" : "None", "tgt_bits" : [0], "arg_enabled" : 1, "arg_value" : 0, "rowid" : 2, "columnid" : 4},\
 				 {"name":"QFT", "num_bits":1, "ctl_enabled" : 0, "ctl_bits" : "None", "tgt_bits" : [1,2], "arg_enabled" : 0, "arg_value" : "None", "rowid" : 2, "columnid" : 3},\
 				 {"name":"IQFT", "num_bits":1, "ctl_enabled" : 0, "ctl_bits" : "None", "tgt_bits" : [1,2], "arg_enabled" : 0, "arg_value" : "None", "rowid" : 2, "columnid" : 3},\
@@ -31,5 +32,5 @@ gateJson = '{\
 				 {"name":"CADD", "num_bits":2, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1], "arg_enabled" : 0, "arg_value" : 0, "rowid" : 2, "columnid" : 3,"targetGatename":"ADDA","targetGateType":"Algo"},\
 				 {"name":"CSUB", "num_bits":2, "ctl_enabled" : 1, "ctl_bits" : [0], "tgt_bits" : [1], "arg_enabled" : 0, "arg_value" : 0, "rowid" : 2, "columnid" : 3,"targetGatename":"IADD","targetGateType":"Algo"}\
 				 ],\
-				 "singequbitgates":["X","Y","Z","H","RX","RY","RZ","U","PHASEGATE","GLOBALPHASE","QFT","IQFT","ADDA","IADD"],\
+				 "singequbitgates":["X","Y","Z","H","RX","RY","RZ","U","PHASEGATE","GLOBALPHASE","QFT","IQFT","ADDA","IADD","T"],\
 				 "controlledgates":["CU","CQFT","CSWAP","CNOT","CRX","CRY","CRZ","CPHASE","CADD","CSUB"]}'

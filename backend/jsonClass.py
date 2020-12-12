@@ -79,7 +79,7 @@ class CircuitCreator:
 				self.U_list.append(sqrtnot(self.N, gate.targets[0]))
 			elif gate.name == "SNOT":
 				self.U_list.append(snot(self.N, gate.targets[0]))
-			elif gate.name == "PHASEGATE":
+			elif gate.name == "PHASEGATE" or gate.name == "T" :
 				self.U_list.append(phasegate(gate.arg_value, self.N,gate.targets[0]))
 			elif gate.name == "CRX":
 				self.U_list.append(controlled_gate(rx(gate.arg_value), N=self.N, control=gate.controls[0], target=gate.targets[0]))
