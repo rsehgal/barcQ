@@ -2,7 +2,7 @@ gateJson = '{\
 				 "header":{},\
 				 "config":{},\
 				 "instructions":[\
-				 {"name":"PHASEGATE", "num_bits":1, "ctl_enabled" : 0, "ctl_bits" : "None", "tgt_bits" : [0], "arg_enabled" : 1, "arg_value" : 0, "rowid" : 2, "columnid" : 4},\
+				 {"name":"PHASEGATE", "num_bits":1, "ctl_enabled" : 0, "ctl_bits" : "None", "tgt_bits" : [0], "arg_enabled" : 1, "arg_value" : 0, "rowid" : 2, "columnid" : 4, "dag" : 0},\
 				 {"name":"GLOBALPHASE", "num_bits":1, "ctl_enabled" : 0, "ctl_bits" : "None", "tgt_bits" : [0], "arg_enabled" : 1, "arg_value" : 0, "rowid" : 2, "columnid" : 4},\
 				 {"name":"QFT", "num_bits":1, "ctl_enabled" : 0, "ctl_bits" : "None", "tgt_bits" : [1,2], "arg_enabled" : 0, "arg_value" : "None", "rowid" : 2, "columnid" : 3},\
 				 {"name":"IQFT", "num_bits":1, "ctl_enabled" : 0, "ctl_bits" : "None", "tgt_bits" : [1,2], "arg_enabled" : 0, "arg_value" : "None", "rowid" : 2, "columnid" : 3},\

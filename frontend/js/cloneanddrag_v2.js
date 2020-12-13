@@ -378,6 +378,7 @@ $(".dropzone").droppable({
             $(this).css("background", "yellow");
             var idOfDroppable = $(this).attr("id");
             $("#" + itemToBeDropped.attr("id")).attr("style", "position:relative;");
+            $("#" + itemToBeDropped.attr("dag")).attr(0);
 
 
 			/*
@@ -430,6 +431,9 @@ $(".dropzone").droppable({
 				 * But if the item is already in the dropzone and its not required
 				 * and the above "IF" block will execute
 				 */
+
+         AttachDblClickAlert(itemToBeDropped);
+
 				AttachSelectAndDelete_v2(itemToBeDropped);	
 				if(parseInt(itemToBeDropped.attr("num_bits")) > 1)
 					AttachGenericControlPopup(itemToBeDropped);

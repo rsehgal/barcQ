@@ -414,6 +414,30 @@ function InsertCell(rownum, colnum){
 }
 
 /*
+ * Code for triggering Double click
+ */
+function AttachDblClickAlert(obj){
+    //gateObj=obj;
+    obj.on("dblclick", function(event) {
+        /*gateObj=$(this);
+        event.preventDefault();
+        $('#phasePopup').show();*/
+        alert(obj.attr("id") + "  :Double Clicked...");
+        alert($(this).find("image").attr("href"));
+        var imgPath = $(this).find("image").attr("href");
+        imgPath = imgPath.slice(0,-4);
+        imgPath += "Dag.png";
+        
+        alert(imgPath);
+        $(this).find("image").attr("href",imgPath);
+        $(this).parent().attr("dag",1);
+
+    });
+}
+
+
+
+/*
  * Code for triggering phase popup
  */
 function AttachPhasePopup(obj){
