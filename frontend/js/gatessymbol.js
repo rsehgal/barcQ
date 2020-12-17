@@ -214,7 +214,9 @@ function InsertImageSymbol(g,gatename,x=0,y=0){
 	var path="../../images/"+gatename+".png";
 	g.append("image").attr("href",path)
 					 .attr("x",x)
-					 .attr("y",y);
+					 .attr("y",y)
+					 .attr("data-toggle","tooltip")
+		                         .attr("title",gatename);
 }
 
 function xor(divid,ctl_bits=[0,1]){

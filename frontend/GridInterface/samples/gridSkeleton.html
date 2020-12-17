@@ -5,7 +5,8 @@
 <link rel="stylesheet" href="../../css/tabstyle.css">
 <link rel="stylesheet" href="../../css/grid.css">
 <link rel="stylesheet" href="../../css/popup.css">
-
+<link rel="stylesheet" href="../../css/bootstrap.min.css">
+	
 	<script src = "../../jsonschemas/allowedUserDefinedGate.json"></script>
 	<script src = "../../jsonschemas/gatesUIExtended.json"></script>
 	<script src = '../../js/jquery.js'> </script>
@@ -27,9 +28,13 @@
 	<script src = "../../js/checkdiv.js"></script>
 	<script src="../../js/tabbedInterface.js"></script>
 	<script src="../../js/plotly-latest.min.js"></script>
+ <script src="../../js/bootstrap.min.js"></script>
+
 	    <script>
 	    $(document).ready(function(){
 	    	CreateToolBox();
+		   //$('[data-toggle="popover"]').popover();
+		   $('[data-toggle="tooltip"]').tooltip(); 
 	    	CreateDropzone();
 	    	//MakeCloneAble();
 	    	//AttachSelectAndDelete();

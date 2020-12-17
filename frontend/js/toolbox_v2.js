@@ -67,7 +67,9 @@ for(var index=0; index<parseInt(numOfRows); index++){
                       .attr("arg_value",mydata[index].arg_value)
                       .attr("rowid",mydata[index].rowid)
                       .attr("columnid",mydata[index].columnid)
-                      .attr("class","cloneAble");
+                      .attr("class","cloneAble")
+                      .attr("data-toggle","tooltip")
+                      .attr("title",mydata[index].name);
      QFTAttach(svgGate);
      if(parseInt(mydata[index].num_bits)>1){
 			svgGate.attr("targetGatename",mydata[index].targetGatename);
