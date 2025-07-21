@@ -3,6 +3,7 @@ from qutip import  sigmax,sigmay,sigmaz
 from qutip import Qobj
 import numpy as numpy
 import qutip.qip.circuit
+from qutip.qip.circuit import *
 from qutip import *
 
 user_defined_gates=["X","Y","Z"]

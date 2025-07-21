@@ -7,8 +7,10 @@ import json
 
 import sys
 sys.path.append("..")
-from jsonClass import *
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
+from jsonClass import *
+#import ../jsonClass
 
 #MEDIA_DIR = os.path.join(os.path.abspath("."), u"media")
 
@@ -51,8 +53,24 @@ class StringGenerator(object):
     which will be sent back to the frontend for plotting
     '''
     def OutputToJson(self):
+        print("========= FROM OutputToJSon ========")
+        print(self.output)
+        print("==== Output printed successfully====")
+        #return
         yList=self.output[:,0]
-        yStringList=[abs(item)[0]**2 for item in yList]
+        print(yList)
+        print(type(yList))
+        print(yList.flatten())
+        print("========= Printed Y list above ========")
+        #return
+        for item in yList:
+            print(item)
+            print(abs(item))
+        print("=========================")
+        #yStringList=[abs(item)[0]**2 for item in yList]
+        yStringList=[abs(item)**2 for item in yList]
+        print("====== Printing ystringLits ==========")
+        print(yStringList)
         xList=[bin(val) for val in range(2**self.numOfInputLines)]
         jsonData={"xdata":xList,"ydata":yStringList}
         # print("++++++++++++++++++++++++++++++")
