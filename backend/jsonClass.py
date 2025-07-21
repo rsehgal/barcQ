@@ -8,6 +8,7 @@ from IPython.display import Image
 from userDefinedGates import *
 from usergates import *
 from qutip.qip.algorithms.qft import *
+from qutip.qip.operations import *
 import math
 
 userDefinedGatesList=["X","Y","Z"]
@@ -82,11 +83,12 @@ class CircuitCreator:
 			elif gate.name == "PHASEGATE" or gate.name == "T" :
 				self.U_list.append(phasegate(gate.arg_value, self.N,gate.targets[0]))
 			elif gate.name == "CRX":
-				self.U_list.append(controlled_gate(rx(gate.arg_value), N=self.N, control=gate.controls[0], target=gate.targets[0]))
+				self.U_list.append(controlled_gate(rx(gate.arg_value), self.N, gate.controls[0], gate.targets[0]))
 			elif gate.name == "CRY":
-				self.U_list.append(controlled_gate(ry(gate.arg_value), N=self.N, control=gate.controls[0],target=gate.targets[0]))
+				self.U_list.append(controlled_gate(ry(gate.arg_value), self.N, gate.controls[0],gate.targets[0]))
 			elif gate.name == "CRZ":
-				self.U_list.append(controlled_gate(rz(gate.arg_value),N=self.N, control=gate.controls[0],target=gate.targets[0]))
+				print(gate.arg_value,gate.controls,gate.targets)
+				self.U_list.append(controlled_gate(rz(gate.arg_value),self.N, gate.targets[0],gate.controls[0]))
 			elif gate.name == "CPHASE":
 				self.U_list.append(cphase(gate.arg_value, self.N, gate.controls[0], gate.targets[0]))
 			elif gate.name == "CNOT":

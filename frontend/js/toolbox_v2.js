@@ -78,12 +78,13 @@ for(var index=0; index<parseInt(numOfRows); index++){
 }
 
 function QFTAttach(obj){
-	obj.on("contextmenu", function(data, index) {
+	//obj.on("contextmenu", function(data, index) {
+	obj.on("contextmenu", function(event) {
 		//handle right click
 		//alert("Right Clicked.......");
 
 		//stop showing browser menu
-		d3.event.preventDefault();
+		event.preventDefault();
 		
 		//Logic to set the number of bits  of QFT or IQFT to the value supplied by user
 		if(obj.attr("gate")=="QFT" || obj.attr("gate")=="IQFT" || obj.attr("gate")=="ADDA" || obj.attr("gate")=="IADD"){

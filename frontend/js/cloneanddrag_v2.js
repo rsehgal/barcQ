@@ -436,6 +436,8 @@ $(".dropzone").droppable({
 				if(parseInt(itemToBeDropped.attr("arg_enabled")) == 1)
 					AttachPhasePopupMiddleButton(itemToBeDropped);
 					//AttachPhasePopup(itemToBeDropped);
+				/*if(itemToBeDropped.attr("gate")=="QFT")
+					AttachQFT(itemToBeDropped);*/
 			}
 			
             console.log("Previous Parent Div : " + prevParentId);
