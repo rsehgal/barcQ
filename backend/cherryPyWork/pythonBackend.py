@@ -30,7 +30,7 @@ class StringGenerator(object):
     def CodeGenerator(self, jsonObj):
         
         #cherrypy.response.headers['Content-Type'] = 'application/json'
-        cherrypy.response.headers["Access-Control-Allow-Origin"] = "http://192.168.0.2"
+        cherrypy.response.headers["Access-Control-Allow-Origin"] = "http://localhost"
         print("====================================")
         print("Code Generator called...........")
         print("JSONObj : "+jsonObj)
@@ -183,5 +183,5 @@ if __name__ == '__main__':
              'tools.staticdir.dir': '../../frontend/jsonschemas'
          }
      }
-     cherrypy.config.update({'server.socket_host': '192.168.0.2','server.socket_port':8000})
+     cherrypy.config.update({'server.socket_host': 'localhost','server.socket_port':8000})
      cherrypy.quickstart(StringGenerator(), '/', conf)
